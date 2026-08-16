@@ -596,6 +596,33 @@ function buildFindings(
     });
   }
 
+  // The semiquincentennial. Fires only for trips inside the peak window, and
+  // only says something a teacher can act on: request earlier. The weekly
+  // office cap is the constraint that does not flex with demand, so the advice
+  // is sharper for a group that needs an office slot than for one already
+  // headed to the Visitor Center.
+  const peak = RULES.semiquincentennial.value;
+  const inPeak = input.preferredDate >= peak.peakStart && input.preferredDate <= peak.peakEnd;
+  if (inPeak) {
+    // Keyed off the strategy we actually recommend, not off whatever is merely
+    // viable. The split is always technically viable, so testing viability here
+    // would make this branch constant and the advice generic — and the whole
+    // point is that a group heading for the Visitor Center faces a different
+    // constraint from one competing for an office's single weekly slot.
+    const recommended = strategies.find((s) => s.recommended);
+    const needsOfficeSlot =
+      recommended?.id === 'office_staff_led' || recommended?.id === 'split_staff_led_and_cvc';
+    findings.push({
+      code: 'SEMIQUINCENTENNIAL_DEMAND',
+      severity: needsOfficeSlot ? 'medium' : 'info',
+      title: 'You are planning into the 250th anniversary year',
+      detail: needsOfficeSlot
+        ? `July 4, 2026 is the 250th anniversary of the Declaration of Independence, and your trip falls in the busiest stretch of that year. Your office can host ${RULES.officeSchoolToursPerWeek.value} school tour per week — that number does not change because more schools are asking. Send the request at the early end of the window below, not the late end, and treat your alternate dates as real rather than as a formality.`
+        : `July 4, 2026 is the 250th anniversary of the Declaration of Independence, and your trip falls in the busiest stretch of that year. Your group is going through the Visitor Center, which is not capped the way a congressional office is — but reservations still fill, so book at the early end of the window below. This is our judgment, not a published policy.`,
+      ruleId: 'R15',
+    });
+  }
+
   const order: Record<Finding['severity'], number> = { blocker: 0, high: 1, medium: 2, info: 3 };
   return findings.sort((a, b) => order[a.severity] - order[b.severity]);
 }

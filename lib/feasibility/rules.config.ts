@@ -323,6 +323,45 @@ export const RULES = {
       confidence: 'heuristic',
     },
   ),
+  /**
+   * RULE R15 — the semiquincentennial.
+   *
+   * July 4, 2026 is the 250th anniversary of the Declaration of Independence.
+   * That is a fact. What follows from it, for a teacher planning a trip, is a
+   * judgment, and it is labelled as one.
+   *
+   * The judgment: 2026 is the worst year in living memory to leave a Capitol
+   * tour request late. Every constraint this app already encodes gets tighter
+   * when demand rises, and one of them —
+   * {@link RULES.officeSchoolToursPerWeek} — does not flex at all. An office
+   * that may host one school tour a week can host one school tour a week
+   * whether ten schools ask or a hundred. Lead time is the only variable a
+   * teacher actually controls, so the app says so early and plainly rather than
+   * letting them discover it in June.
+   *
+   * We do not publish a visitor forecast, because we do not have one worth
+   * quoting. The advice stands on the arithmetic of a fixed weekly cap meeting
+   * an anniversary, which needs no forecast to be true.
+   *
+   * The window covers the two seasons school groups actually travel in —
+   * spring, and again in the autumn — with the anniversary itself in the
+   * middle. Dates outside it get no advisory at all.
+   */
+  semiquincentennial: rule(
+    'R15',
+    {
+      anniversary: '2026-07-04',
+      peakStart: '2026-03-01',
+      peakEnd: '2026-11-30',
+    },
+    'July 4, 2026 is the 250th anniversary of the Declaration of Independence. Trips in 2026 are competing for the same fixed number of weekly office tour slots as everyone else marking it, so request earlier than you otherwise would.',
+    {
+      cite: 'CapitolPass planning judgment. The anniversary date is a matter of record; the peak window and the advice to request early are ours, not anyone’s published policy.',
+      url: 'https://www.congress.gov/bill/114th-congress/senate-bill/2287',
+      lastVerified: '2026-08-08',
+      confidence: 'heuristic',
+    },
+  ),
 } as const;
 
 export type RuleSet = typeof RULES;

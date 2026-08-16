@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { buildPlan, classifyLeadTime, totalGuests } from '../engine';
 import { RULES } from '../rules.config';
 import type { TripInput } from '../types';
+import type { IsoDate } from '../../dates';
 
 /**
  * A baseline trip that is deliberately boring: comfortably far out, on a
@@ -413,5 +414,68 @@ describe('traceability', () => {
 
   it('stamps the ruleset version onto the plan', () => {
     expect(buildPlan(trip()).rulesetVersion).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// R15 — the semiquincentennial advisory
+// ---------------------------------------------------------------------------
+
+describe('the 250th anniversary advisory (R15)', () => {
+  const peak = RULES.semiquincentennial.value;
+
+  function planFor(preferredDate: string, groupSize = { students: 10, teachers: 2, chaperones: 2 }) {
+    return buildPlan({
+      preferredDate: preferredDate as IsoDate,
+      alternateDates: [],
+      requestedOn: '2026-01-10' as IsoDate,
+      groupSize,
+      gradeBand: 'middle',
+      arrivalMethod: 'charter_bus',
+      accessibilityNeeds: [],
+      wants: { tour: true, repMeeting: false },
+    });
+  }
+
+  function advisory(preferredDate: string, groupSize?: { students: number; teachers: number; chaperones: number }) {
+    return planFor(preferredDate, groupSize).findings.find(
+      (f) => f.code === 'SEMIQUINCENTENNIAL_DEMAND',
+    );
+  }
+
+  it('fires inside the peak window and stays quiet outside it', () => {
+    expect(advisory(peak.peakStart)).toBeDefined();
+    expect(advisory(peak.peakEnd)).toBeDefined();
+    expect(advisory(peak.anniversary)).toBeDefined();
+
+    // A day either side of the window, and a year that is not the anniversary.
+    expect(advisory('2026-02-28')).toBeUndefined();
+    expect(advisory('2026-12-01')).toBeUndefined();
+    expect(advisory('2027-05-12')).toBeUndefined();
+  });
+
+  it('is sharper for a group that needs the capped office slot', () => {
+    // A group of 14 fits a staff-led tour, so the one-per-week cap is the thing
+    // standing between them and a slot.
+    const small = advisory('2026-05-12', { students: 10, teachers: 2, chaperones: 2 });
+    expect(small?.severity).toBe('medium');
+    expect(small?.detail).toContain('per week');
+
+    // A group of 34 is pushed to the Visitor Center, which is not capped the
+    // same way, so the same advice would be overstated.
+    const large = advisory('2026-05-12', { students: 28, teachers: 2, chaperones: 4 });
+    expect(large?.severity).toBe('info');
+  });
+
+  it('always traces back to R15, and R15 is labelled as our own judgment', () => {
+    expect(advisory('2026-05-12')?.ruleId).toBe('R15');
+    // This one matters: the anniversary date is a matter of record but the
+    // advice is not policy, and the UI renders that distinction.
+    expect(RULES.semiquincentennial.source.confidence).toBe('heuristic');
+  });
+
+  it('has a window that contains the anniversary it is about', () => {
+    expect(peak.peakStart < peak.anniversary).toBe(true);
+    expect(peak.anniversary < peak.peakEnd).toBe(true);
   });
 });

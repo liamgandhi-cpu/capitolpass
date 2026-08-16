@@ -41,6 +41,27 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ------------------------------------------------------------------ */}
+      <section className="border-l-[6px] border-l-accent-600 bg-accent-100 py-5 pl-6 pr-5">
+        <p className="text-sm font-bold uppercase tracking-wider text-accent-700">
+          Why this year <RuleTag id="R15" />
+        </p>
+        <h2 className="mt-1 text-2xl font-bold">
+          July 4, 2026 is the 250th anniversary. The weekly tour cap is the same as it was
+          in 2025.
+        </h2>
+        <p className="mt-3 max-w-3xl text-slate-700">
+          An office may host {RULES.officeSchoolToursPerWeek.value} school tour a week. That number
+          does not go up because more schools are asking. Every constraint in this app gets tighter
+          in an anniversary year, and lead time is the only one a teacher actually controls — which
+          is why the plan puts your deadlines first and why it says so in{' '}
+          <Link href="/rules#R15" className="font-bold">
+            a rule we have labelled as our own judgment
+          </Link>
+          , not as federal policy.
+        </p>
+      </section>
+
       {/* Renders nothing unless CAPITOLPASS_DEMO=1. */}
       <DemoEntry />
 
