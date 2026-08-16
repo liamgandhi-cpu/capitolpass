@@ -13,6 +13,8 @@ npm run dev       # http://localhost:3000
 
 No API keys, no database server, no credentials. `npm run setup` pulls the real NCES school directory and the real congress-legislators dataset, and the app runs on them.
 
+**To look around without signing up**, set `CAPITOLPASS_DEMO=1` and open the landing page: three seeded personas — a teacher with a class of 34, a teacher with a group of 14, and a congressional staffer — are one click from a fully populated view. See [Deploying](#deploying).
+
 ---
 
 ## Contents
@@ -21,6 +23,9 @@ No API keys, no database server, no credentials. `npm run setup` pulls the real 
 - [What the app does](#what-the-app-does)
 - [Architecture](#architecture)
 - [The feasibility engine](#the-feasibility-engine)
+- [The 535 front doors](#the-535-front-doors)
+- [Published availability](#published-availability)
+- [Spanish for families](#spanish-for-families)
 - [Three things the original plan got wrong](#three-things-the-original-plan-got-wrong)
 - [Running it](#running-it)
 - [Testing](#testing)
@@ -100,7 +105,7 @@ They describe the trip once. The feasibility engine returns a **plan, not a form
 
 `lib/feasibility/` is the intellectual core, and it is deliberately easy to audit.
 
-**Every rule lives in one annotated config file.** [`lib/feasibility/rules.config.ts`](lib/feasibility/rules.config.ts) holds all fourteen, each with:
+**Every rule lives in one annotated config file.** [`lib/feasibility/rules.config.ts`](lib/feasibility/rules.config.ts) holds all fifteen, each with:
 
 - the value the engine uses,
 - a one-sentence explanation a teacher would understand,
@@ -108,7 +113,7 @@ They describe the trip once. The feasibility engine returns a **plan, not a form
 - the date that source was last checked,
 - and a **confidence level**: `published` (stated in official guidance), `documented` (consistent across many offices but not centrally published), or `heuristic` (our own planning judgment, not policy).
 
-That last distinction is load-bearing. The app renders it, so a teacher can always tell whether we are quoting a rule or offering an opinion. Of the fourteen rules, **five are published guidance, five are documented practice, and four are explicitly our own judgment** — and the four judgment calls (CVC slot sizing, screening buffer, chaperone ratios, paperwork lead times) are labelled as advice everywhere they appear. `/rules` shows all of them with sources and last-verified dates.
+That last distinction is load-bearing. The app renders it, so a teacher can always tell whether we are quoting a rule or offering an opinion. Of the fifteen rules, **five are published guidance, five are documented practice, and five are explicitly our own judgment** — and the judgment calls (CVC slot sizing, screening buffer, chaperone ratios, paperwork lead times, and the 250th-anniversary advisory) are labelled as advice everywhere they appear. `/rules` shows all of them with sources and last-verified dates.
 
 **The engine is pure.** `buildPlan(input) → plan`, with no database, no network, and no clock — `requestedOn` is an input. Same input, same plan, forever. That is what makes the test suite meaningful rather than decorative.
 
@@ -125,6 +130,77 @@ What it decides:
 | Chaperones | Ratio by grade band, labelled as a recommendation and not a Capitol rule |
 
 ---
+
+## The 535 front doors
+
+`/front-doors` publishes the whole routing picture, because it is the most
+important finding in the project and it was invisible everywhere else: a teacher
+plans one trip, sees one office and one link, and never learns there is no
+standard at all.
+
+| | |
+|---|---|
+| Offices checked | **537** — every current member |
+| With a confirmed tour page | **498 (92.7%)**, each an HTTP 200 on a recorded date |
+| Distinct URL paths across those | **92** |
+| Used by exactly one office | **66** |
+
+One cell per office, grouped by state, coloured by confidence and linking to the
+real page where we have one. Underneath: the path distribution, and each
+office's own wording for the link — 273 say "Tours and Tickets", 65 "Tour
+Requests", 16 "Visiting DC" — which the app shows a teacher so they are hunting
+for the phrase actually printed on the page.
+
+[`lib/congress/coverage.ts`](lib/congress/coverage.ts) is pure, like the
+feasibility engine, so the numbers on that page are tested. The tests assert
+relationships rather than literals, so rebuilding the snapshot does not fail the
+suite for being newer.
+
+## Published availability
+
+Everything else in the app routes a request to the right place. That is useful
+and it does not touch the actual scarcity: **an office may host one school tour
+a week, and nobody outside that office can see which weeks are already gone.**
+So two schools in the same district pick the same week, both send a request two
+months out, and one of them finds out in October that the answer was always
+going to be no.
+
+A claimed office now marks each week `open`, `full` or `closed`, and a teacher
+sees that next to their candidate dates before they commit to one. It is the one
+mechanism here that changes the allocation rather than the paperwork.
+
+**Silence is not availability.** A week with no row is `unpublished`. It renders
+to the office as "not published", and to a teacher as nothing at all — never as
+open. Reading absence as availability would be the same mistake as guessing a
+tour URL: a confident answer manufactured out of no information. Most offices
+will never publish anything, and the app stays completely usable for their
+constituents.
+
+Clearing a week deletes the row rather than storing a third state, which is what
+the database-backed tests in
+[`lib/offices/__tests__/availability.test.ts`](lib/offices/__tests__/availability.test.ts)
+exist to pin down.
+
+## Spanish for families
+
+The student and family pages are translated. The teacher and congressional-office
+pages are not, and that is a deliberate line rather than an unfinished job: a
+teacher planning a trip and a scheduler working a queue are doing their jobs in
+the language their employer runs on. A family is not.
+
+This is the same argument the rest of the app makes, applied one layer further.
+A what-you-cannot-bring list and a permission slip that exist only in English are
+exactly where exclusion stops being structural and lands on a specific child —
+the one whose parent cannot read the form and therefore does not sign it.
+
+No i18n library. `StudentCopy` is derived from the English object, so a missing
+Spanish string is a compile error rather than a sentence that silently renders in
+English halfway down a translated page; a test covers the case types cannot,
+which is a key that is present and still English. The transit guidance and the
+date formatting are localised too — half-translated reads as broken, and a
+reader who hits an English paragraph stops trusting the ones they could read.
+
+Teachers get the link to hand to families directly from the trip page.
 
 ## Three things the original plan got wrong
 
@@ -259,8 +335,8 @@ Everything is optional except as noted. See [`.env.example`](.env.example).
 ## Testing
 
 ```bash
-npm test                    # 62 tests, no network, ~200ms
-NETWORK_TESTS=1 npm test    # 67 tests, adds live Census Geocoder checks
+npm test                    # 108 tests, no network, ~200ms
+NETWORK_TESTS=1 npm test    # 113 tests, adds live Census Geocoder checks
 npm run typecheck
 ```
 
@@ -283,6 +359,9 @@ Stated plainly, because the alternative is worse.
 **Live and working:**
 
 - District resolution against the real US Census Geocoder
+- **Published weekly availability** — a claimed office marks weeks open, full or closed, and teachers see it before they pick dates. Unpublished weeks never render as open
+- **Spanish** on every student- and family-facing page, including transit guidance and dates
+- **`/front-doors`** — all 537 offices measured, with the 92 distinct URL paths
 - **100,155 real schools** from the NCES CCD — every open public school in all 50 states, DC, and the five territories, each with the coordinates that district resolution runs on
 - 537 real members, offices, committees and district offices
 - **498 verified congressional tour request URLs** (92.7% of all 537 offices), each confirmed by an actual HTTP request on a recorded date, across 92 distinct URL patterns
@@ -301,14 +380,42 @@ Stated plainly, because the alternative is worse.
 
 ## Deploying
 
-The local build uses SQLite, which does not survive a serverless filesystem. For a hosted deployment:
+Full instructions in [`DEPLOY.md`](DEPLOY.md). The short version and the
+reasoning:
 
-1. Create a Supabase project and apply [`supabase/schema.sql`](supabase/schema.sql) — same model, real enums, `date` for calendar dates, and Row Level Security policies that enforce in the database what the local build enforces in application code.
-2. Point `lib/db/index.ts` at Postgres. It is the only file that touches the driver; the query helpers (`all` / `get` / `run` / `transaction`) are the whole surface.
-3. Set `RESEND_API_KEY`, `MAIL_FROM` and `NEXT_PUBLIC_SITE_URL`.
-4. Run the data scripts once against the hosted database.
+**Not serverless.** This app stores its data in a SQLite file through Node's
+built-in `node:sqlite`, and that driver is *synchronous* — the query helpers in
+[`lib/db/index.ts`](lib/db/index.ts) return values directly, and about forty call
+sites depend on that. Moving to a serverless platform means moving to Postgres,
+which means the helpers become async, which means every caller does too. That is
+the right change the day more than one school uses this at once. It is the wrong
+change to get a working link, and it would risk a working app for something a
+visitor cannot see.
 
----
+So it deploys to a host with a disk. [`fly.toml`](fly.toml) mounts a volume at
+`/data`, the file lives there, and no application code changes at all. The
+Postgres path stays ready in [`supabase/schema.sql`](supabase/schema.sql) —
+same model, real enums, and Row Level Security policies that enforce in the
+database what the local build enforces in application code.
+
+```bash
+fly volumes create capitolpass_data --region iad --size 1 && fly deploy
+```
+
+The [`Dockerfile`](Dockerfile) builds the SQLite database at **image build
+time**, not at boot: loading the school directory and resolving the demo
+school's district through the live Census Geocoder takes minutes, and doing it
+on first request means the first person to open the link watches a spinner. The
+entrypoint installs that database only when the volume is empty, and never
+overwrites one that already has trips in it.
+
+One trap worth knowing about, because it fails silently: **`NEXT_PUBLIC_*`
+variables are inlined at build time**, so a container cannot configure one at
+runtime. Set `CAPITOLPASS_SITE_URL` instead. It is read at runtime and it decides
+the session cookie's `Secure` flag, the links in outgoing mail, and every
+redirect — see [`lib/site-url.ts`](lib/site-url.ts). Get it wrong and sign-in
+appears to work, sets its cookie, and lands the user on a dead address with
+nothing in the logs.
 
 ## Accessibility
 
