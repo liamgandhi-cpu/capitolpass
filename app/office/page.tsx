@@ -241,30 +241,84 @@ export default async function OfficeQueuePage({
                         ) : null}
                       </div>
 
-                      <form action={publishWeekAvailability} className="flex flex-wrap gap-2">
+                      <form action={publishWeekAvailability}>
                         <input type="hidden" name="office_id" value={office.id} />
                         <input type="hidden" name="iso_week" value={week.isoWeek} />
-                        {(['open', 'full', 'closed', 'unpublished'] as const).map((status) => (
-                          <button
-                            key={status}
-                            type="submit"
-                            name="status"
-                            value={status}
-                            disabled={week.status === status}
-                            className="border-2 border-slate-400 bg-white px-3 py-1 text-sm font-bold text-ink-900 hover:border-ink-900 hover:bg-ink-900 hover:text-paper-50 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
-                          >
-                            {status === 'unpublished' ? 'Clear' : WEEK_STATUS_LABEL[status]}
-                            <span className="sr-only">
-                              {' '}
-                              — set week of {formatShort(week.weekStart)}
-                            </span>
-                          </button>
-                        ))}
-                      </form>
 
-                      {week.note ? (
-                        <p className="text-sm text-slate-600 sm:col-start-3">{week.note}</p>
-                      ) : null}
+                        {/*
+                          The button for the current status stays enabled.
+                          Disabling it looks tidier and creates a dead end: the
+                          note below is only written when a status is submitted,
+                          so an office wanting to reword the note on an already-
+                          open week would have had no button left to press.
+                          Pressing the current status re-saves it.
+                        */}
+                        <div className="flex flex-wrap gap-2">
+                          {(['open', 'full', 'closed', 'unpublished'] as const).map((status) => {
+                            const current = week.status === status;
+                            return (
+                              <button
+                                key={status}
+                                type="submit"
+                                name="status"
+                                value={status}
+                                aria-current={current ? 'true' : undefined}
+                                className={`border-2 px-3 py-1 text-sm font-bold ${
+                                  current
+                                    ? 'border-ink-900 bg-ink-900 text-paper-50'
+                                    : 'border-slate-400 bg-white text-ink-900 hover:border-ink-900 hover:bg-ink-900 hover:text-paper-50'
+                                }`}
+                              >
+                                {status === 'unpublished' ? 'Clear' : WEEK_STATUS_LABEL[status]}
+                                <span className="sr-only">
+                                  {current ? ' (current)' : ''} — set week of{' '}
+                                  {formatShort(week.weekStart)}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        {/*
+                          A native disclosure rather than a permanently visible
+                          input: sixteen text boxes down the page would bury the
+                          buttons that are the actual job. The field lives inside
+                          the same form, so whichever status button is pressed
+                          carries the note with it whether or not this is open —
+                          and it needs no client JavaScript to do that.
+                        */}
+                        <details className="mt-2" open={Boolean(week.note)}>
+                          <summary className="cursor-pointer text-sm text-slate-500 hover:text-ink-900">
+                            {week.note ? 'Edit the note' : 'Add a note'}
+                          </summary>
+                          <div className="mt-2">
+                            <label
+                              htmlFor={`note-${week.isoWeek}`}
+                              className="block text-sm font-bold text-ink-950"
+                            >
+                              What teachers will see for{' '}
+                              {formatShort(week.weekStart).replace(/, \d{4}$/, '')}
+                            </label>
+                            <p
+                              id={`note-hint-${week.isoWeek}`}
+                              className="mt-1 text-sm text-slate-500"
+                            >
+                              Shown to teachers word for word. A reason helps them plan — “already
+                              hosting a school from Loudoun”, “district work period”. Saved when you
+                              press a status button above.
+                            </p>
+                            <input
+                              id={`note-${week.isoWeek}`}
+                              name="note"
+                              type="text"
+                              maxLength={200}
+                              defaultValue={week.note ?? ''}
+                              aria-describedby={`note-hint-${week.isoWeek}`}
+                              className="mt-2 w-full border-2 border-slate-600 bg-white px-3 py-2 text-base text-slate-800 placeholder:text-slate-400 focus:border-ink-900"
+                            />
+                          </div>
+                        </details>
+                      </form>
                     </li>
                   );
                 })}

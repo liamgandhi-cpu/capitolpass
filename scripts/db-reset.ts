@@ -11,23 +11,41 @@
 
 import { existsSync, unlinkSync } from 'node:fs';
 import path from 'node:path';
-import { db, migrate, run } from '../lib/db';
+import { all, db, migrate, run } from '../lib/db';
 
-const TABLES_TO_CLEAR = [
-  'request_events',
-  'requests',
-  'student_questions',
-  'trip_members',
-  'trips',
-  'office_staff',
-  'offices',
-  'sessions',
-  'magic_links',
-  'users',
-  'partner_leads',
-  'venues',
-  'school_domains',
-];
+/**
+ * Tables the default reset deliberately preserves.
+ *
+ * Everything else is derived from the database itself rather than listed here.
+ *
+ * This used to be the other way round — an explicit list of tables to clear —
+ * and it was a quiet trap. Adding a table to the schema without remembering to
+ * add it here left its rows in place across every reset, still pointing at ids
+ * from a database generation that no longer existed. Nothing failed; the rows
+ * simply accumulated as orphans, and the first symptom was stale data appearing
+ * under a fresh seed.
+ *
+ * ON DELETE CASCADE does not save you here, because clearing runs with foreign
+ * keys switched off so the order of the deletes does not matter.
+ *
+ * Inverting it makes the safe behaviour the default: a new table is cleared
+ * automatically, and keeping one is a deliberate decision recorded right here.
+ */
+const TABLES_TO_KEEP = new Set([
+  // Reloading the CCD directory means going back out to the network, and it is
+  // slow. `--hard` drops it.
+  'schools',
+  // Bookkeeping written by migrate(), not application data.
+  'schema_meta',
+  'sqlite_sequence',
+]);
+
+function tablesToClear(): string[] {
+  const rows = all<{ name: string }>(
+    "SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'",
+  );
+  return rows.map((r) => r.name).filter((name) => !TABLES_TO_KEEP.has(name));
+}
 
 function main() {
   const hard = process.argv.includes('--hard');
@@ -50,16 +68,19 @@ function main() {
 
   migrate();
 
-  // Order matters even with ON DELETE CASCADE, since we clear rather than drop.
+  // Foreign keys off so the delete order does not matter — this clears rather
+  // than drops, and the tables reference each other in both directions.
+  const tables = tablesToClear();
   db().exec('PRAGMA foreign_keys = OFF');
-  for (const table of TABLES_TO_CLEAR) {
+  for (const table of tables) {
     run(`DELETE FROM ${table}`);
   }
   db().exec('PRAGMA foreign_keys = ON');
 
   console.log(
-    `Cleared ${TABLES_TO_CLEAR.length} tables. The school directory was kept — ` +
-      'pass --hard to drop that too.',
+    `Cleared ${tables.length} tables: ${tables.join(', ')}.\n` +
+      `Kept: ${[...TABLES_TO_KEEP].filter((t) => t !== 'sqlite_sequence').join(', ')} — ` +
+      'pass --hard to drop the school directory too.',
   );
 }
 

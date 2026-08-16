@@ -1,11 +1,17 @@
 import Link from 'next/link';
-import { ButtonLink, Card, InsetText, RuleTag, StatusPill } from '@/components/ui';
+import { ButtonLink, Card, InsetText, Panel, RuleTag, StatusPill } from '@/components/ui';
 import { DemoEntry } from '@/components/demo';
 import { RULES } from '@/lib/feasibility';
 import { schoolCount } from '@/lib/schools';
 import { allMembers } from '@/lib/congress/legislators';
 
-export default function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ demo?: string }>;
+}) {
+  const query = await searchParams;
+
   // Real numbers from the loaded data, not marketing copy.
   let schools = 0;
   let members = 0;
@@ -18,6 +24,31 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16">
+      {/*
+        The demo route bounces here when it cannot honour a link. Saying
+        nothing would leave someone who followed a stale demo URL looking at a
+        marketing page, concluding the app is broken and never finding out that
+        the door simply moved.
+      */}
+      {query.demo === 'unknown' ? (
+        <Panel title="That demo link does not point at anything" tone="warn">
+          <p>
+            The persona in that URL is not one we have. The three that exist are below — any of
+            them opens a populated trip with no sign-up.
+          </p>
+        </Panel>
+      ) : null}
+
+      {query.demo === 'unseeded' ? (
+        <Panel title="Demo mode is on, but there is no demo data" tone="stop">
+          <p>
+            The accounts the demo doors sign in as are created by the seed, and this database does
+            not have them. Run <code className="font-mono">npm run db:seed</code>, or redeploy so
+            the container installs the database built into its image.
+          </p>
+        </Panel>
+      ) : null}
+
       {/* ------------------------------------------------------------------ */}
       <section className="max-w-3xl">
         <p className="mb-3 text-sm font-bold uppercase tracking-wider text-accent-600">
