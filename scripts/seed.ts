@@ -31,7 +31,30 @@ import { ensureOfficesExist, approveOfficeClaim, officeByBioguide, requestOffice
 import { createTrip, addQuestion, updateRequestStatus, requestsForTrip } from '../lib/trips';
 import { representativeFor } from '../lib/congress/legislators';
 import { seedDomain, searchSchools, resolveSchoolDistrict } from '../lib/schools';
-import { addDays, toIsoDate } from '../lib/dates';
+import { addDays, dayOfWeek, isoWeekKey, startOfIsoWeek, toIsoDate } from '../lib/dates';
+import { isFederalHoliday } from '../lib/feasibility/holidays';
+import { setWeekStatus } from '../lib/offices/availability';
+
+/**
+ * Snap a seeded trip date onto a day a school would actually go.
+ *
+ * The demo dates are offsets from today, so their weekday drifts with the
+ * calendar. Left alone, the flagship demo trip eventually lands on a Saturday
+ * and the plan opens with "congressional offices are generally not staffed" —
+ * true, correctly derived, and a terrible first impression of a working app.
+ *
+ * Tuesday to Thursday, never a federal holiday. Searching forward rather than
+ * picking a fixed weekday keeps it correct in any year without a lookup table.
+ */
+function schoolDay(date: string): string {
+  let cursor = date;
+  for (let i = 0; i < 14; i += 1) {
+    const day = dayOfWeek(cursor);
+    if (day >= 2 && day <= 4 && !isFederalHoliday(cursor)) return cursor;
+    cursor = addDays(cursor, 1);
+  }
+  return cursor;
+}
 
 // ---------------------------------------------------------------------------
 // Venues — researched public information, no partnerships
@@ -224,8 +247,8 @@ async function main() {
     teacherId,
     schoolNcesId: school.nces_id,
     title: '8th Grade Civics — Capitol Trip',
-    preferredDate: addDays(today, 104),
-    alternateDates: [addDays(today, 111), addDays(today, 118)],
+    preferredDate: schoolDay(addDays(today, 104)),
+    alternateDates: [schoolDay(addDays(today, 111)), schoolDay(addDays(today, 118))],
     students: 28,
     teachers: 2,
     chaperones: 4,
@@ -244,8 +267,8 @@ async function main() {
     teacherId: teacher2Id,
     schoolNcesId: school.nces_id,
     title: 'AP Government Seminar — Capitol Visit',
-    preferredDate: addDays(today, 61),
-    alternateDates: [addDays(today, 68)],
+    preferredDate: schoolDay(addDays(today, 61)),
+    alternateDates: [schoolDay(addDays(today, 68))],
     students: 11,
     teachers: 1,
     chaperones: 2,
@@ -285,6 +308,37 @@ async function main() {
           });
         }
       }
+      // Publish a few weeks of availability, so the demo shows the mechanism
+      // that turns this from a router into an allocator — and shows the three
+      // outcomes that matter, including the week the office has already given
+      // away. Most weeks are deliberately left unpublished: that is the honest
+      // default, and the teacher-side copy depends on it reading as silence
+      // rather than as a no.
+      console.log('Publishing a sample of weekly availability…');
+      // Anchored to the demo trips' own dates rather than to an arbitrary
+      // offset, so a teacher opening either trip actually sees the office's
+      // answer next to the dates they picked. That is the whole point of the
+      // feature and it is invisible if the published weeks sit elsewhere.
+      const published: Array<[number, 'open' | 'full' | 'closed', string | null]> = [
+        [61, 'open', 'Best week for us this month.'],
+        [68, 'full', 'Already hosting a school from Loudoun this week.'],
+        [104, 'full', 'A district school asked first and we said yes.'],
+        [111, 'closed', 'District work period — the office is not in Washington.'],
+        [118, 'open', null],
+        // Offsets match the trip dates above and are snapped the same way, so
+        // the published week is the week the teacher is actually looking at.
+      ];
+      for (const [dayOffset, status, note] of published) {
+        setWeekStatus({
+          officeId: office.id,
+          isoWeek: isoWeekKey(startOfIsoWeek(schoolDay(addDays(today, dayOffset)))),
+          status,
+          note,
+          userId: staffId,
+        });
+      }
+      console.log(`  ${published.length} weeks published, the rest left unpublished on purpose`);
+
       console.log(`  Claimed by demo.staffer@mail.house.gov, one request in the queue\n`);
     }
   }

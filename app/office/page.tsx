@@ -6,6 +6,7 @@ import {
   DescriptionList,
   EmptyState,
   Field,
+  InsetText,
   PageHeader,
   Panel,
   Select,
@@ -24,9 +25,14 @@ import {
   weeklyCapacity,
   capacityWindowWeeks,
 } from '@/lib/offices';
+import {
+  publishedWeeks,
+  WEEK_STATUS_LABEL,
+  type WeekStatus,
+} from '@/lib/offices/availability';
 import { formatLong, formatShort, isoWeekKey, toIsoDate } from '@/lib/dates';
 import { RULES } from '@/lib/feasibility';
-import { respondToRequest } from './actions';
+import { publishWeekAvailability, respondToRequest } from './actions';
 
 export const metadata = { title: 'Request queue' };
 
@@ -37,6 +43,18 @@ const ACCESSIBILITY_LABELS: Record<string, string> = {
   blind_low_vision: 'Blind or low vision',
   sensory_sensitive: 'Sensory sensitivities',
   other: 'Other (details on request)',
+};
+
+/**
+ * Tone for a published week. `unpublished` is deliberately neutral rather than
+ * warning-coloured: an office that has said nothing has not said no, and
+ * colouring it as a problem would push schedulers into publishing guesses.
+ */
+const WEEK_TONE: Record<WeekStatus, StatusTone> = {
+  open: 'ok',
+  full: 'warn',
+  closed: 'stop',
+  unpublished: 'neutral',
 };
 
 const STATUS_TONE: Record<string, StatusTone> = {
@@ -50,7 +68,7 @@ const STATUS_TONE: Record<string, StatusTone> = {
 export default async function OfficeQueuePage({
   searchParams,
 }: {
-  searchParams: Promise<{ responded?: string; error?: string; all?: string }>;
+  searchParams: Promise<{ responded?: string; error?: string; all?: string; published?: string }>;
 }) {
   const user = await currentUser();
   if (!user) redirect('/signin');
@@ -117,6 +135,10 @@ export default async function OfficeQueuePage({
         // Window sized to reach the furthest request, not a fixed near-term
         // span — school trips are requested months out.
         const capacity = weeklyCapacity(office.id, today, capacityWindowWeeks(office.id, today));
+        // Publishing has to reach at least as far as the queue does, or a
+        // scheduler cannot answer the request they are looking at. Floored at a
+        // term's worth of weeks so the list is useful before anything is booked.
+        const availabilityWeeks = Math.max(16, capacityWindowWeeks(office.id, today));
         const booked = capacity.filter((w) => w.confirmed > 0 || w.pending > 0);
 
         return (
@@ -170,6 +192,83 @@ export default async function OfficeQueuePage({
                   </li>
                 ))}
               </ol>
+            </div>
+
+            {/* ------------------------------------------------------------ */}
+            {/* Published availability                                       */}
+            {/* ------------------------------------------------------------ */}
+            <div id="availability" className="scroll-mt-4">
+              <h2 className="text-2xl font-bold">What teachers can see</h2>
+              <p className="mt-1 max-w-3xl text-slate-600">
+                The strip above is yours. This is the part schools can see before they pick their
+                dates. Marking a week <strong>full</strong> stops a teacher spending two months on a
+                request you already know you cannot take — which is the single most useful thing
+                this app can do for both of you.
+              </p>
+              <InsetText>
+                <p className="text-slate-600">
+                  Weeks you say nothing about show as <strong>not published</strong>, never as open.
+                  You are not committing to anything by leaving them alone, and a teacher is told
+                  plainly that silence is not a no.
+                </p>
+              </InsetText>
+
+              <ul className="mt-5 divide-y divide-slate-200 border-y border-slate-200">
+                {publishedWeeks(office.id, today, availabilityWeeks).map((week) => {
+                  const load = capacity.find((w) => w.isoWeek === week.isoWeek);
+                  return (
+                    <li
+                      key={week.isoWeek}
+                      className="grid items-center gap-3 py-3 sm:grid-cols-[10rem_7rem_1fr]"
+                    >
+                      <div>
+                        <p className="font-bold">
+                          {formatShort(week.weekStart).replace(/, \d{4}$/, '')} –{' '}
+                          {formatShort(week.weekEnd).replace(/, \d{4}$/, '')}
+                        </p>
+                        <p className="font-mono text-xs text-slate-500">{week.isoWeek}</p>
+                      </div>
+
+                      <div>
+                        <StatusPill tone={WEEK_TONE[week.status]}>
+                          {WEEK_STATUS_LABEL[week.status]}
+                        </StatusPill>
+                        {load && (load.confirmed > 0 || load.pending > 0) ? (
+                          <p className="mt-1 text-xs text-slate-500">
+                            {load.confirmed} confirmed
+                            {load.pending > 0 ? `, ${load.pending} pending` : ''}
+                          </p>
+                        ) : null}
+                      </div>
+
+                      <form action={publishWeekAvailability} className="flex flex-wrap gap-2">
+                        <input type="hidden" name="office_id" value={office.id} />
+                        <input type="hidden" name="iso_week" value={week.isoWeek} />
+                        {(['open', 'full', 'closed', 'unpublished'] as const).map((status) => (
+                          <button
+                            key={status}
+                            type="submit"
+                            name="status"
+                            value={status}
+                            disabled={week.status === status}
+                            className="border-2 border-slate-400 bg-white px-3 py-1 text-sm font-bold text-ink-900 hover:border-ink-900 hover:bg-ink-900 hover:text-paper-50 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400"
+                          >
+                            {status === 'unpublished' ? 'Clear' : WEEK_STATUS_LABEL[status]}
+                            <span className="sr-only">
+                              {' '}
+                              — set week of {formatShort(week.weekStart)}
+                            </span>
+                          </button>
+                        ))}
+                      </form>
+
+                      {week.note ? (
+                        <p className="text-sm text-slate-600 sm:col-start-3">{week.note}</p>
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
 
             {/* ------------------------------------------------------------ */}

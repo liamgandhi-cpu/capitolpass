@@ -23,6 +23,7 @@ import {
 import { memberByBioguide } from '@/lib/congress/legislators';
 import { getRequest, updateRequestStatus, type RequestStatus } from '@/lib/trips';
 import { isIsoDate } from '@/lib/dates';
+import { setWeekStatus, type WeekStatus } from '@/lib/offices/availability';
 
 /**
  * Start an office claim.
@@ -124,4 +125,40 @@ export async function completeOfficeClaim(token: string) {
   await startSession(payload.userId);
 
   return { ok: true as const, office };
+}
+
+/**
+ * Publish (or retract) what this office can take in a given week.
+ *
+ * The scarce resource in this whole system is a weekly tour slot, and until an
+ * office says something about it, nobody outside that office can see it. This
+ * is the write side of that.
+ *
+ * Clearing a week is a first-class outcome, not an oversight: an office that
+ * marked a week full and then had it free up must be able to take the statement
+ * back, and "we never said" has to be storable as the absence of a row rather
+ * than as a third kind of yes.
+ */
+export async function publishWeekAvailability(formData: FormData) {
+  const user = await requireUser('staff');
+
+  const officeId = String(formData.get('office_id') ?? '');
+  const isoWeek = String(formData.get('iso_week') ?? '').trim();
+  const status = String(formData.get('status') ?? '') as WeekStatus;
+  const note = String(formData.get('note') ?? '').trim() || null;
+
+  // Same authorisation rule as responding to a request: staff may only speak
+  // for an office they belong to.
+  const permitted = officesForUser(user.id).some((o) => o.id === officeId);
+  if (!permitted) redirect('/office');
+
+  if (!/^\d{4}-W\d{2}$/.test(isoWeek)) redirect('/office?error=bad_week');
+  if (!['open', 'full', 'closed', 'unpublished'].includes(status)) {
+    redirect('/office?error=bad_status');
+  }
+
+  setWeekStatus({ officeId, isoWeek, status, note, userId: user.id });
+
+  revalidatePath('/office');
+  redirect('/office?published=1#availability');
 }

@@ -159,6 +159,39 @@ CREATE TABLE IF NOT EXISTS office_staff (
 );
 
 -- ---------------------------------------------------------------------------
+-- Published availability
+-- ---------------------------------------------------------------------------
+--
+-- The one-tour-per-week limit is the scarce resource in this whole system, and
+-- until now it was only visible after the fact: a teacher picked three dates,
+-- sent a request, and found out weeks later that another school in the district
+-- had already taken that week.
+--
+-- This table lets an office say so in advance. A row is a deliberate statement
+-- about one ISO week; the absence of a row means the office has not said
+-- anything, which is different from saying the week is open. Teachers see
+-- "not published" for those, never a guess.
+CREATE TABLE IF NOT EXISTS office_week_availability (
+  id                TEXT PRIMARY KEY,
+  office_id         TEXT NOT NULL REFERENCES offices (id) ON DELETE CASCADE,
+  -- ISO week key, e.g. 2026-W47. Weeks rather than days on purpose: the limit
+  -- an office is actually managing is weekly, and asking a scheduler to mark
+  -- individual days would be asking them to publish more than they know.
+  iso_week          TEXT NOT NULL,
+  status            TEXT NOT NULL
+                    CHECK (status IN ('open','full','closed')),
+  -- Optional, and shown to teachers verbatim: "district work period",
+  -- "already hosting two schools", "August recess".
+  note              TEXT,
+  updated_by        TEXT REFERENCES users (id) ON DELETE SET NULL,
+  updated_at        TEXT NOT NULL,
+  UNIQUE (office_id, iso_week)
+);
+
+CREATE INDEX IF NOT EXISTS idx_availability_office_week
+  ON office_week_availability (office_id, iso_week);
+
+-- ---------------------------------------------------------------------------
 -- Trips
 -- ---------------------------------------------------------------------------
 

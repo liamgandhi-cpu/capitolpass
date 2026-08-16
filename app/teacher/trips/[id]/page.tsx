@@ -19,7 +19,15 @@ import { buildPlan } from '@/lib/feasibility';
 import type { Finding, Severity } from '@/lib/feasibility/types';
 import { getTrip, requestsForTrip, storedPlan, toTripInput, questionsForTrip } from '@/lib/trips';
 import { getSchool, domainTrust, lookupDomain } from '@/lib/schools';
-import { delegationFor } from '@/lib/congress/legislators';
+import { delegationFor, representativeFor } from '@/lib/congress/legislators';
+import { officeByBioguide } from '@/lib/offices';
+import {
+  hasPublishedAvailability,
+  weekStatusFor,
+  WEEK_STATUS_LABEL,
+  WEEK_STATUS_MEANING,
+  type WeekStatus,
+} from '@/lib/offices/availability';
 import { daysBetween, formatLong, formatShort, relativeDays, toIsoDate } from '@/lib/dates';
 import { CriticalPathTimeline } from '@/components/timeline';
 import { recomputePlanAction, requestCosignAction } from '../../actions';
@@ -36,6 +44,14 @@ const SEVERITY_PANEL: Record<Severity, 'ok' | 'warn' | 'stop' | 'info'> = {
   high: 'warn',
   medium: 'warn',
   info: 'info',
+};
+
+/** Mirrors the office-side map; see the note there on why silence is neutral. */
+const OFFICE_WEEK_TONE: Record<WeekStatus, StatusTone> = {
+  open: 'ok',
+  full: 'warn',
+  closed: 'stop',
+  unpublished: 'neutral',
 };
 
 const REQUEST_TONE: Record<string, StatusTone> = {
@@ -92,6 +108,22 @@ export default async function TripPlanPage({
   const domain = emailDomain(user.email);
   const trust = domainTrust(domain ? lookupDomain(domain) : null);
   const verified = trust.canEarnVerifiedBadge && trip.cosign_status === 'confirmed';
+
+  // The office this trip's staff-led request would go to, and whether it has
+  // published anything at all. Resolved once rather than per date card.
+  const representative =
+    trip.district_state && trip.district_number !== null
+      ? representativeFor(trip.district_state, trip.district_number)
+      : null;
+  const officeForTrip = representative ? officeByBioguide(representative.bioguideId) : null;
+  const officePublishes = officeForTrip ? hasPublishedAvailability(officeForTrip.id) : false;
+
+  /** What the office said about the week containing `date`, or null if nothing. */
+  const officeWeek = (date: string) => {
+    if (!officeForTrip || !officePublishes) return null;
+    const week = weekStatusFor(officeForTrip.id, date);
+    return week.status === 'unpublished' ? null : week;
+  };
 
   const blockers = plan.findings.filter((f) => f.severity === 'blocker');
   const warnings = plan.findings.filter((f) => f.severity === 'high');
@@ -167,6 +199,21 @@ export default async function TripPlanPage({
       {/* ================================================================== */}
       <section>
         <h2 className="text-2xl font-bold">Your dates</h2>
+
+        {officeForTrip ? (
+          officePublishes ? (
+            <p className="mt-1 max-w-3xl text-slate-600">
+              {officeForTrip.member_name}&rsquo;s office publishes its weekly availability through
+              CapitolPass, so some of this is their answer rather than our estimate.
+            </p>
+          ) : (
+            <p className="mt-1 max-w-3xl text-slate-600">
+              {officeForTrip.member_name}&rsquo;s office has not published its weekly availability.
+              That is normal — most have not — and it changes nothing about how you request.
+            </p>
+          )
+        ) : null}
+
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {plan.dates.map((d) => (
             <Card key={d.date} className={d.date === plan.recommendedDate ? 'border-2 border-ink-900' : ''}>
@@ -194,6 +241,28 @@ export default async function TripPlanPage({
                   {note}
                 </p>
               ))}
+
+              {/* What the office itself said about this week, when it has said
+                  anything. Never rendered for an unpublished week: silence is
+                  not availability, and a neutral "not published" pill on every
+                  card would drown the cards where a real answer exists. */}
+              {officeWeek(d.date) ? (
+                <div className="mt-3 border-t border-slate-200 pt-3">
+                  <div className="flex items-center gap-2">
+                    <StatusPill tone={OFFICE_WEEK_TONE[officeWeek(d.date)!.status]}>
+                      Office: {WEEK_STATUS_LABEL[officeWeek(d.date)!.status]}
+                    </StatusPill>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-600">
+                    {WEEK_STATUS_MEANING[officeWeek(d.date)!.status]}
+                  </p>
+                  {officeWeek(d.date)!.note ? (
+                    <p className="mt-1 text-sm italic text-slate-600">
+                      &ldquo;{officeWeek(d.date)!.note}&rdquo;
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
 
               {d.date === plan.recommendedDate ? (
                 <p className="mt-3 text-sm font-bold text-ink-900">Planning against this date</p>
