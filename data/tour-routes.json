@@ -1,0 +1,3522 @@
+{
+  "generatedAt": "2026-08-08T05:25:03.854Z",
+  "note": "Each route is a URL that returned HTTP 200 when checked on the date shown. Nothing here is guessed. `blocked` means a firewall refused us — that is not the same as having no tour page, and those offices fall back to the contact form or website rather than being recorded as absent.",
+  "scope": "retry",
+  "routes": {
+    "W000805": {
+      "url": "https://www.warner.senate.gov/services/visit-dc/schedule-a-tour/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Schedule a Tour"
+    },
+    "S000185": {
+      "url": "https://bobbyscott.house.gov/services/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours Tickets"
+    },
+    "W000804": {
+      "url": "https://wittman.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000384": {
+      "url": "https://www.kaine.senate.gov/services/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours"
+    },
+    "M001227": {
+      "url": "https://mcclellan.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001239": {
+      "url": "https://mcguire.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "V000138": {
+      "url": "https://vindman.house.gov/tours-and-tickets-address-validation",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001230": {
+      "url": "https://subramanyam.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C000127": {
+      "url": "https://www.cantwell.senate.gov/services/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "K000367": {
+      "url": "https://www.klobuchar.senate.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "W000802": {
+      "url": "https://www.whitehouse.senate.gov/services/visiting-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "B001261": {
+      "url": "https://www.barrasso.senate.gov/services/visiting-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "C001035": {
+      "url": "https://www.collins.senate.gov/services/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours & Visits"
+    },
+    "C001056": {
+      "url": "https://www.cornyn.senate.gov/services/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "M000355": {
+      "url": "https://www.mcconnell.senate.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "M001176": {
+      "url": "https://www.merkley.senate.gov/services/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "R000122": {
+      "url": "https://www.reed.senate.gov/services/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour D.C."
+    },
+    "A000055": {
+      "url": "https://aderholt.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001257": {
+      "url": "https://bilirakis.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B000490": {
+      "url": "https://bishop.house.gov/resources-services/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001243": {
+      "url": "https://www.blackburn.senate.gov/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "B001277": {
+      "url": "https://www.blumenthal.senate.gov/services/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "C000059": {
+      "url": "https://calvert.house.gov/services/visit-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tours and Tickets"
+    },
+    "C001047": {
+      "url": "https://www.capito.senate.gov/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "C001072": {
+      "url": "https://carson.house.gov/help-from-andre/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001075": {
+      "url": "https://www.cassidy.senate.gov/helping-you/visiting-dc/tour/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request Form"
+    },
+    "C001080": {
+      "url": "https://chu.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001067": {
+      "url": "https://clarke.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001061": {
+      "url": "https://cleaver.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C000537": {
+      "url": "https://clyburn.house.gov/serving-you/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "C001068": {
+      "url": "https://cohen.house.gov/services/tour-request",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "C001053": {
+      "url": "https://cole.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours Tickets"
+    },
+    "C001059": {
+      "url": "https://costa.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001069": {
+      "url": "https://courtney.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C000880": {
+      "url": "https://www.crapo.senate.gov/services/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "C001087": {
+      "url": "https://crawford.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000197": {
+      "url": "https://degette.house.gov/services/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "D000216": {
+      "url": "https://delauro.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000600": {
+      "url": "https://mariodiazbalart.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "D000399": {
+      "url": "https://doggett.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000459": {
+      "url": "https://fleischmann.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000559": {
+      "url": "https://garamendi.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000386": {
+      "url": "https://www.grassley.senate.gov/services/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "G000546": {
+      "url": "https://graves.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours Tickets"
+    },
+    "G000553": {
+      "url": "https://algreen.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001052": {
+      "url": "https://harris.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001042": {
+      "url": "https://www.hirono.senate.gov/services/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "H001061": {
+      "url": "https://www.hoeven.senate.gov/serving-you/dc-tours/tour-request-form",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request Form"
+    },
+    "H000874": {
+      "url": "https://hoyer.house.gov/help/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests Tourist Info"
+    },
+    "L000575": {
+      "url": "https://www.lankford.senate.gov/services/visiting-dc/form/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request Form"
+    },
+    "M000934": {
+      "url": "https://www.moran.senate.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "P000595": {
+      "url": "https://www.peters.senate.gov/services/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "S001150": {
+      "url": "https://www.schiff.senate.gov/services/tour-requests/tour-request-form/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request Form"
+    },
+    "S001184": {
+      "url": "https://www.scott.senate.gov/constituent-services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "Y000064": {
+      "url": "https://www.young.senate.gov/help/visiting-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "S001194": {
+      "url": "https://www.schatz.senate.gov/services/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "W000817": {
+      "url": "https://www.warren.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "K000383": {
+      "url": "https://www.king.senate.gov/services/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "D000618": {
+      "url": "https://www.daines.senate.gov/services/visiting-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "C001096": {
+      "url": "https://www.cramer.senate.gov/services/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "F000463": {
+      "url": "https://www.fischer.senate.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "C001098": {
+      "url": "https://www.cruz.senate.gov/services/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "B001288": {
+      "url": "https://www.booker.senate.gov/services/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "G000574": {
+      "url": "https://www.gallego.senate.gov/helping-you/visiting-washington-d-c/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "T000476": {
+      "url": "https://www.tillis.senate.gov/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "R000605": {
+      "url": "https://www.rounds.senate.gov/services/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "K000393": {
+      "url": "https://www.kennedy.senate.gov/public/tour-request-form",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour requests"
+    },
+    "H001076": {
+      "url": "https://www.hassan.senate.gov/services/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "C001113": {
+      "url": "https://www.cortezmasto.senate.gov/help/constituent-services/visiting-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "B001303": {
+      "url": "https://www.bluntrochester.senate.gov/get-help/for-delawareans/visiting-dc/tour-request-form/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request Form"
+    },
+    "B001299": {
+      "url": "https://www.banks.senate.gov/services/visiting-washington-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "M001198": {
+      "url": "https://www.marshall.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "R000608": {
+      "url": "https://www.rosen.senate.gov/services/tours/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "C001114": {
+      "url": "https://www.curtis.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "S001203": {
+      "url": "https://www.smith.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "K000394": {
+      "url": "https://www.kim.senate.gov/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Request a Tour"
+    },
+    "S001217": {
+      "url": "https://www.rickscott.senate.gov/services/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "L000571": {
+      "url": "https://www.lummis.senate.gov/tours/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "H000601": {
+      "url": "https://www.hagerty.senate.gov/services/visiting-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "B001319": {
+      "url": "https://www.britt.senate.gov/services/tours/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "S001227": {
+      "url": "https://www.schmitt.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "R000618": {
+      "url": "https://www.ricketts.senate.gov/services/visiting-dc/form/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request Form"
+    },
+    "A000382": {
+      "url": "https://www.alsobrooks.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "S001232": {
+      "url": "https://www.sheehy.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "M001242": {
+      "url": "https://www.moreno.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "M001243": {
+      "url": "https://www.mccormick.senate.gov/helping-pennsylvania/visiting-washington/form/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request Form"
+    },
+    "J000312": {
+      "url": "https://www.justice.senate.gov/services/visiting-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "H001104": {
+      "url": "https://www.husted.senate.gov/services/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "M001244": {
+      "url": "https://www.moody.senate.gov/services/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "G000568": {
+      "url": "https://morgangriffith.house.gov/constituentservices/tourrequest.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "B001292": {
+      "url": "https://beyer.house.gov/constituent-services/tour-request.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "C001118": {
+      "url": "https://cline.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours And Tickets"
+    },
+    "K000399": {
+      "url": "https://kiggans.house.gov/services/schedule-a-dc-tour/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Schedule a DC Tour"
+    },
+    "W000831": {
+      "url": "https://walkinshaw.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S000033": {
+      "url": "https://www.sanders.senate.gov/vermont/services/visiting/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "W000437": {
+      "url": "https://www.wicker.senate.gov/services/dc-tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tour Requests"
+    },
+    "R000584": {
+      "url": "https://www.risch.senate.gov/for-idahoans/visiting-d-c/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "S001181": {
+      "url": "https://www.shaheen.senate.gov/services/tour-request",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "G000555": {
+      "url": "https://www.gillibrand.senate.gov/help/tour-requests/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "C001088": {
+      "url": "https://www.coons.senate.gov/services/constituent-services/visiting-washington/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington"
+    },
+    "B001230": {
+      "url": "https://www.baldwin.senate.gov/help/visiting-washington",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington"
+    },
+    "B001267": {
+      "url": "https://www.bennet.senate.gov/services/visiting-d-c/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "B001236": {
+      "url": "https://www.boozman.senate.gov/public/index.cfm/visiting-washington-d-c",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tour Request"
+    },
+    "B001260": {
+      "url": "https://buchanan.house.gov/services/constituent-validation-tours/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001051": {
+      "url": "https://carter.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "C001066": {
+      "url": "https://castor.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "C001063": {
+      "url": "https://cuellar.house.gov/constituentservices/tour-request-form.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tour Requests"
+    },
+    "F000450": {
+      "url": "https://foxx.house.gov/constituent-services/visit-your-capitol.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Your Capitol Visiting Your Capitol Get information "
+    },
+    "G000565": {
+      "url": "https://gosar.house.gov/constituent-services/tour-request-form.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "G000558": {
+      "url": "https://guthrie.house.gov/services/washingtondc.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "H001046": {
+      "url": "https://www.heinrich.senate.gov/helping-you/visiting",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "H001047": {
+      "url": "https://himes.house.gov/services/tours-in-washington-d-c/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "H001058": {
+      "url": "https://huizenga.house.gov/constituentservices/tourrequest.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Request a Tour Plan your visit to the nation's capital with "
+    },
+    "J000288": {
+      "url": "https://hankjohnson.house.gov/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tours and Tickets"
+    },
+    "J000293": {
+      "url": "https://www.ronjohnson.senate.gov/services/visiting-d-c/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tour Requests"
+    },
+    "J000289": {
+      "url": "https://jordan.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000009": {
+      "url": "https://kaptur.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000375": {
+      "url": "http://keating.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000376": {
+      "url": "https://kelly.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000557": {
+      "url": "https://larson.house.gov/services/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, DC"
+    },
+    "L000566": {
+      "url": "https://latta.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Request a Tour"
+    },
+    "L000577": {
+      "url": "https://www.lee.senate.gov/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington D.C."
+    },
+    "L000397": {
+      "url": "https://lofgren.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000570": {
+      "url": "https://www.lujan.senate.gov/services/visiting/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "M000133": {
+      "url": "https://www.markey.senate.gov/services/visiting",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "M001163": {
+      "url": "https://matsui.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001157": {
+      "url": "https://mccaul.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001177": {
+      "url": "https://mcclintock.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "M001143": {
+      "url": "https://mccollum.house.gov/helping-you/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, DC"
+    },
+    "M000312": {
+      "url": "https://mcgovern.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, DC"
+    },
+    "M001137": {
+      "url": "https://meeks.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001160": {
+      "url": "https://gwenmoore.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "M001153": {
+      "url": "https://www.murkowski.senate.gov/assistance/dc-tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tour Requests"
+    },
+    "M001169": {
+      "url": "https://www.murphy.senate.gov/services/visiting",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "M001111": {
+      "url": "https://www.murray.senate.gov/tour-our-nations-capital/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Washington, D.C. Tours"
+    },
+    "N000002": {
+      "url": "https://nadler.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "N000015": {
+      "url": "https://neal.house.gov/services/tour-request/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "N000147": {
+      "url": "https://norton.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour D.C."
+    },
+    "P000197": {
+      "url": "https://pelosi.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours"
+    },
+    "P000597": {
+      "url": "https://pingree.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request For those constituents visiting the Washington "
+    },
+    "Q000023": {
+      "url": "https://quigley.house.gov/services/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "R000395": {
+      "url": "https://halrogers.house.gov/tour-requests-redirect",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "R000575": {
+      "url": "https://mikerogers.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "S001145": {
+      "url": "https://schakowsky.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S000148": {
+      "url": "https://www.schumer.senate.gov/services/visiting",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "S001183": {
+      "url": "https://schweikert.house.gov/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001189": {
+      "url": "https://austinscott.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001185": {
+      "url": "https://sewell.house.gov/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington D.C."
+    },
+    "S000344": {
+      "url": "http://sherman.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001148": {
+      "url": "https://simpson.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "S000510": {
+      "url": "https://adamsmith.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001172": {
+      "url": "https://adriansmith.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001156": {
+      "url": "https://lindasanchez.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000193": {
+      "url": "https://benniethompson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000467": {
+      "url": "https://thompson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000250": {
+      "url": "https://www.thune.senate.gov/services/capitol-white-house-tours/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": ".cls-1 { fill: none; } .cls-2 { fill: #fff; } .cls-3 { clip-"
+    },
+    "T000469": {
+      "url": "https://tonko.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington D.C."
+    },
+    "T000463": {
+      "url": "https://turner.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "V000081": {
+      "url": "https://velazquez.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000798": {
+      "url": "https://walberg.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000797": {
+      "url": "https://wassermanschultz.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request Form"
+    },
+    "W000187": {
+      "url": "https://waters.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000806": {
+      "url": "https://webster.house.gov/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Capitol and White House Tour Requests"
+    },
+    "W000800": {
+      "url": "https://www.welch.senate.gov/services/visitingdc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "W000795": {
+      "url": "https://joewilson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000808": {
+      "url": "https://wilson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000809": {
+      "url": "https://womack.house.gov/constituentservices/washingtondc.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "A000369": {
+      "url": "https://amodei.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001278": {
+      "url": "https://bonamici.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000617": {
+      "url": "https://delbene.house.gov/constituent-services/washington-dc.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, DC"
+    },
+    "M001184": {
+      "url": "https://massie.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000454": {
+      "url": "https://foster.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000468": {
+      "url": "https://titus.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "C001095": {
+      "url": "https://www.cotton.senate.gov/help/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "H001068": {
+      "url": "https://huffman.house.gov/helping-you/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001287": {
+      "url": "https://bera.house.gov/get-help/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001285": {
+      "url": "https://juliabrownley.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000599": {
+      "url": "https://ruiz.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000472": {
+      "url": "https://takano.house.gov/services/tour-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "V000130": {
+      "url": "https://vargas.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000608": {
+      "url": "https://scottpeters.house.gov/visit-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000462": {
+      "url": "https://frankel.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "D000622": {
+      "url": "https://www.duckworth.senate.gov/help/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "B001282": {
+      "url": "https://barr.house.gov/constituent-validation-tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "W000812": {
+      "url": "https://wagner.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001067": {
+      "url": "https://hudson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001188": {
+      "url": "https://meng.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "J000294": {
+      "url": "https://jeffries.house.gov/serving-you/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001281": {
+      "url": "https://beatty.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000605": {
+      "url": "https://perry.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000814": {
+      "url": "https://weber.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001091": {
+      "url": "https://castro.house.gov/how-can-i-help/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000816": {
+      "url": "https://williams.house.gov/services/request-a-tour",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "V000131": {
+      "url": "https://veasey.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000607": {
+      "url": "https://pocan.house.gov/services/washington-dc-tour-ticket-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000385": {
+      "url": "https://robinkelly.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001101": {
+      "url": "https://katherineclark.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "N000188": {
+      "url": "https://norcross.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Request Tour"
+    },
+    "A000370": {
+      "url": "https://adams.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "P000609": {
+      "url": "https://palmer.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001072": {
+      "url": "https://hill.house.gov/constituent-services/tour-request-form.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000821": {
+      "url": "https://westerman.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000623": {
+      "url": "https://desaulnier.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "A000371": {
+      "url": "https://aguilar.house.gov/tours-and-tickets-thank-you/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000582": {
+      "url": "https://lieu.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visit Washington DC"
+    },
+    "T000474": {
+      "url": "https://torres.house.gov/services/tours-and-tickets?clear",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001103": {
+      "url": "https://buddycarter.house.gov/constituent-services/coronavirustourupdate.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "L000583": {
+      "url": "https://loudermilk.house.gov/services/tours/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours"
+    },
+    "A000372": {
+      "url": "https://allen.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Washington, D.C."
+    },
+    "B001295": {
+      "url": "https://bost.house.gov/tours-and-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tour Request"
+    },
+    "M001196": {
+      "url": "https://moulton.house.gov/services/washington-dc-tour-request",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Washington, D.C. Tour Request"
+    },
+    "M001194": {
+      "url": "https://moolenaar.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000624": {
+      "url": "https://debbiedingell.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "E000294": {
+      "url": "https://emmer.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000603": {
+      "url": "https://rouzer.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "W000822": {
+      "url": "https://watsoncoleman.house.gov/services/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "B001296": {
+      "url": "https://boyle.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001291": {
+      "url": "https://babin.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Washington, DC"
+    },
+    "P000610": {
+      "url": "https://plaskett.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "N000189": {
+      "url": "https://newhouse.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC and Tours"
+    },
+    "R000600": {
+      "url": "https://radewagen.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001198": {
+      "url": "https://www.sullivan.senate.gov/services/tour-request",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "E000295": {
+      "url": "https://www.ernst.senate.gov/assistance/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "K000388": {
+      "url": "https://trentkelly.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets, DC"
+    },
+    "L000585": {
+      "url": "https://lahood.house.gov/tours-and-flags",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Flags"
+    },
+    "D000626": {
+      "url": "https://davidson.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001108": {
+      "url": "https://comer.house.gov/tour-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour and Tickets"
+    },
+    "E000296": {
+      "url": "https://evans.house.gov/services/tours-and-tickets-0",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001190": {
+      "url": "https://schneider.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001302": {
+      "url": "https://biggs.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000389": {
+      "url": "https://khanna.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000613": {
+      "url": "https://panetta.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001112": {
+      "url": "https://carbajal.house.gov/constituent-services/tour-request.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "C001110": {
+      "url": "https://correa.house.gov/services/tour-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours & Tickets"
+    },
+    "D000628": {
+      "url": "https://dunn.house.gov/services/tour-request.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000609": {
+      "url": "https://rutherford.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001200": {
+      "url": "https://soto.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours Tickets"
+    },
+    "K000391": {
+      "url": "https://krishnamoorthi.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001077": {
+      "url": "https://clayhiggins.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting DC"
+    },
+    "J000299": {
+      "url": "https://mikejohnson.house.gov/services/visiting-dc.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "R000606": {
+      "url": "https://raskin.house.gov/tours-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tour Request"
+    },
+    "B001301": {
+      "url": "https://bergman.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "B001298": {
+      "url": "https://bacon.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours Tickets"
+    },
+    "E000297": {
+      "url": "https://espaillat.house.gov/services/tours-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000466": {
+      "url": "https://fitzpatrick.house.gov/tours-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours & Tickets"
+    },
+    "S001199": {
+      "url": "https://smucker.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000392": {
+      "url": "https://kustoff.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000581": {
+      "url": "https://gonzalez.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "A000375": {
+      "url": "https://arrington.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "J000298": {
+      "url": "https://jayapal.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "N000190": {
+      "url": "https://norman.house.gov/serving-you/tour-request.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "G000585": {
+      "url": "https://gomez.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "H001079": {
+      "url": "https://www.hydesmith.senate.gov/tour-request-form",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "H001082": {
+      "url": "https://hern.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "M001206": {
+      "url": "https://morelle.house.gov/contact/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, DC"
+    },
+    "S001205": {
+      "url": "https://scanlon.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "C001055": {
+      "url": "https://case.house.gov/services/tour-request.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001066": {
+      "url": "https://horsford.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001211": {
+      "url": "https://stanton.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tours and Tickets"
+    },
+    "H001090": {
+      "url": "https://harder.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000593": {
+      "url": "https://levin.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "N000191": {
+      "url": "https://neguse.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001121": {
+      "url": "https://crow.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001081": {
+      "url": "https://hayes.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001214": {
+      "url": "https://steube.house.gov/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "tours & visiting dc"
+    },
+    "M001208": {
+      "url": "https://mcbath.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours &#038; Tickets"
+    },
+    "F000469": {
+      "url": "https://fulcher.house.gov/services/tour-request/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "G000586": {
+      "url": "https://chuygarcia.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001117": {
+      "url": "https://casten.house.gov/contact/visiting-washington-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "U000040": {
+      "url": "https://underwood.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001307": {
+      "url": "https://baird.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "D000629": {
+      "url": "https://davids.house.gov/contact/tours-commendations-and-flag-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours, Commendations, and Flag Requests"
+    },
+    "T000482": {
+      "url": "https://trahan.house.gov/services/tour-request-information.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visit Washington D.C."
+    },
+    "P000617": {
+      "url": "https://pressley.house.gov/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001208": {
+      "url": "https://www.slotkin.senate.gov/services/tour-request/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "S001215": {
+      "url": "https://stevens.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "C001119": {
+      "url": "https://craig.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "O000173": {
+      "url": "https://omar.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001212": {
+      "url": "https://stauber.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000591": {
+      "url": "https://guest.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000614": {
+      "url": "https://pappas.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "V000133": {
+      "url": "https://vandrew.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000590": {
+      "url": "http://susielee.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours Tickets"
+    },
+    "O000172": {
+      "url": "https://ocasio-cortez.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000631": {
+      "url": "https://dean.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001085": {
+      "url": "https://houlahan.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "M001204": {
+      "url": "https://meuser.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "J000302": {
+      "url": "https://johnjoyce.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000610": {
+      "url": "https://reschenthaler.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours"
+    },
+    "T000480": {
+      "url": "https://timmons.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "J000301": {
+      "url": "https://dustyjohnson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001309": {
+      "url": "https://burchett.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000612": {
+      "url": "https://johnrose.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001120": {
+      "url": "https://crenshaw.house.gov/tour-requests",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "G000589": {
+      "url": "https://gooden.house.gov/visiting-dc",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, DC"
+    },
+    "F000468": {
+      "url": "https://fletcher.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "E000299": {
+      "url": "https://escobar.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "R000614": {
+      "url": "https://roy.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000587": {
+      "url": "https://sylviagarcia.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001216": {
+      "url": "https://schrier.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001213": {
+      "url": "https://steil.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001205": {
+      "url": "https://miller.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "H001089": {
+      "url": "https://www.hawley.senate.gov/tour-request/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "G000592": {
+      "url": "https://golden.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M000687": {
+      "url": "https://mfume.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000165": {
+      "url": "https://tiffany.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000377": {
+      "url": "https://www.kelly.senate.gov/services/visiting/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "I000056": {
+      "url": "https://issa.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S000250": {
+      "url": "https://sessions.house.gov/flags-tour-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Flags and Tour Requests"
+    },
+    "V000129": {
+      "url": "https://valadao.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "T000278": {
+      "url": "https://www.tuberville.senate.gov/services/visiting-washington-d-c/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "H000273": {
+      "url": "https://www.hickenlooper.senate.gov/tour-request/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Request a Tour"
+    },
+    "M001212": {
+      "url": "https://barrymoore.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "O000019": {
+      "url": "https://obernolte.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000397": {
+      "url": "https://youngkim.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "J000305": {
+      "url": "https://sarajacobs.house.gov/services/dc-tickets-and-tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "DC Tickets And Tours"
+    },
+    "B000825": {
+      "url": "https://boebert.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "C001039": {
+      "url": "https://cammack.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000472": {
+      "url": "https://franklin.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000032": {
+      "url": "https://donalds.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "G000593": {
+      "url": "https://gimenez.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S000168": {
+      "url": "https://salazar.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001116": {
+      "url": "https://clyde.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "H001091": {
+      "url": "https://hinson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001215": {
+      "url": "https://millermeeks.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000446": {
+      "url": "https://feenstra.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001211": {
+      "url": "https://marymiller.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001214": {
+      "url": "https://mrvan.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S000929": {
+      "url": "https://spartz.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M000871": {
+      "url": "https://mann.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "A000148": {
+      "url": "https://auchincloss.house.gov/services/tours-and-tickets?clear",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours And Tickets"
+    },
+    "M001136": {
+      "url": "https://mcclain.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000470": {
+      "url": "https://fischbach.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours And Tickets"
+    },
+    "R000305": {
+      "url": "https://ross.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000273": {
+      "url": "https://fernandez.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000597": {
+      "url": "https://garbarino.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M000317": {
+      "url": "https://malliotakis.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B000740": {
+      "url": "https://bice.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B000668": {
+      "url": "https://bentz.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M000194": {
+      "url": "https://mace.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001086": {
+      "url": "https://harshbarger.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000246": {
+      "url": "https://fallon.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000048": {
+      "url": "https://pfluger.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "J000304": {
+      "url": "https://jackson.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "N000026": {
+      "url": "https://nehls.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "V000134": {
+      "url": "https://vanduyne.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001213": {
+      "url": "https://blakemoore.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001159": {
+      "url": "https://strickland.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000471": {
+      "url": "https://fitzgerald.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000145": {
+      "url": "https://www.padilla.senate.gov/services/visiting/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "O000174": {
+      "url": "https://www.ossoff.senate.gov/services/tour-request/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tour Requests"
+    },
+    "W000790": {
+      "url": "https://www.warnock.senate.gov/services/visiting/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting Washington, D.C."
+    },
+    "T000478": {
+      "url": "https://tenney.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000595": {
+      "url": "https://letlow.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001125": {
+      "url": "https://troycarter.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001218": {
+      "url": "https://stansbury.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "E000071": {
+      "url": "https://ellzey.house.gov/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001313": {
+      "url": "https://shontelbrown.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001126": {
+      "url": "https://carey.house.gov/services/visit-washington-d-c/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000474": {
+      "url": "https://flood.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000475": {
+      "url": "https://finstad.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000579": {
+      "url": "https://patryan.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "Z000018": {
+      "url": "https://zinke.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001220": {
+      "url": "https://strong.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001132": {
+      "url": "https://crane.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001133": {
+      "url": "https://ciscomani.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001225": {
+      "url": "https://kevinmullin.house.gov/services/tours-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours &#038; Tickets"
+    },
+    "K000400": {
+      "url": "https://kamlager-dove.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000598": {
+      "url": "https://robertgarcia.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000620": {
+      "url": "https://pettersen.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "B001314": {
+      "url": "https://bean.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001216": {
+      "url": "https://mills.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000476": {
+      "url": "https://frost.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Visiting D.C."
+    },
+    "L000597": {
+      "url": "https://laurellee.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001218": {
+      "url": "https://mccormick.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001129": {
+      "url": "https://collins.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001219": {
+      "url": "https://moylan.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000487": {
+      "url": "https://tokuda.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours And Tickets"
+    },
+    "N000193": {
+      "url": "https://nunn.house.gov/priorities/tour/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "21 County Tours"
+    },
+    "J000309": {
+      "url": "https://jonathanjackson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000617": {
+      "url": "https://ramirez.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001225": {
+      "url": "https://sorensen.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001093": {
+      "url": "https://houchin.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001220": {
+      "url": "https://mcgarvey.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours & Tickets"
+    },
+    "I000058": {
+      "url": "https://ivey.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001221": {
+      "url": "https://scholten.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "J000307": {
+      "url": "https://james.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "T000488": {
+      "url": "https://thanedar.house.gov/services/tour-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours And Tickets"
+    },
+    "A000379": {
+      "url": "https://alford.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "B001316": {
+      "url": "https://burlison.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "E000235": {
+      "url": "https://ezell.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "D000230": {
+      "url": "https://dondavis.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000477": {
+      "url": "https://foushee.house.gov/tour-request",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours And Tickets"
+    },
+    "E000246": {
+      "url": "https://edwards.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000398": {
+      "url": "https://kean.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001226": {
+      "url": "https://menendez.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Request tours and tickets"
+    },
+    "V000136": {
+      "url": "https://vasquez.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000598": {
+      "url": "https://lalota.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000599": {
+      "url": "https://goldman.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000599": {
+      "url": "https://lawler.house.gov/services/visit-dc.htm",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "L000600": {
+      "url": "https://langworthy.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001223": {
+      "url": "https://sykes.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours & Tickets"
+    },
+    "B001317": {
+      "url": "https://brecheen.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "H001094": {
+      "url": "https://hoyle.house.gov/services/tours-and-tickets?clear",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001226": {
+      "url": "https://salinas.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000602": {
+      "url": "https://summerlee.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000530": {
+      "url": "https://deluzio.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001223": {
+      "url": "https://magaziner.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000478": {
+      "url": "https://fry.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "O000175": {
+      "url": "https://ogles.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001224": {
+      "url": "https://moran.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "S001224": {
+      "url": "https://keithself.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000603": {
+      "url": "https://luttrell.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000594": {
+      "url": "https://delacruz.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "C001130": {
+      "url": "https://crockett.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001131": {
+      "url": "https://casar.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001095": {
+      "url": "https://hunt.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001318": {
+      "url": "https://balint.house.gov/forms/tourrequest/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Request"
+    },
+    "G000600": {
+      "url": "https://gluesenkampperez.house.gov/tours",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "path_probe"
+    },
+    "V000135": {
+      "url": "https://vanorden.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tours and Tickets"
+    },
+    "H001096": {
+      "url": "https://hageman.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "A000380": {
+      "url": "https://amo.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001228": {
+      "url": "https://maloy.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001201": {
+      "url": "https://suozzi.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "TOURS AND TICKETS"
+    },
+    "K000402": {
+      "url": "https://kennedy.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "F000480": {
+      "url": "https://fong.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000619": {
+      "url": "https://rulli.house.gov/services/tours-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours Tickets"
+    },
+    "M001229": {
+      "url": "https://mciver.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours And Tickets"
+    },
+    "W000829": {
+      "url": "https://wied.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000110": {
+      "url": "https://fields.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001188": {
+      "url": "https://stutzman.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001123": {
+      "url": "https://cisneros.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001323": {
+      "url": "https://begich.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000481": {
+      "url": "https://figures.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "A000381": {
+      "url": "https://ansari.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours And Tickets"
+    },
+    "H001098": {
+      "url": "https://hamadeh.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001231": {
+      "url": "https://simon.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000605": {
+      "url": "https://gray.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000607": {
+      "url": "https://liccardo.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "W000830": {
+      "url": "https://whitesides.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000620": {
+      "url": "https://rivas.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000483": {
+      "url": "https://friedman.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000491": {
+      "url": "https://tran.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001241": {
+      "url": "https://min.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001100": {
+      "url": "https://hurd.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "C001137": {
+      "url": "https://crank.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "E000300": {
+      "url": "https://gabeevans.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001238": {
+      "url": "https://mcbride.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001099": {
+      "url": "https://haridopolos.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "J000311": {
+      "url": "https://jack.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001229": {
+      "url": "https://shreve.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001233": {
+      "url": "https://messmer.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "S001228": {
+      "url": "https://schmidt.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "O000176": {
+      "url": "https://olszewski.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "E000301": {
+      "url": "https://elfreth.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001232": {
+      "url": "https://mcclaindelaney.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001321": {
+      "url": "https://barrett.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001237": {
+      "url": "https://mcdonaldrivet.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001234": {
+      "url": "https://morrison.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001324": {
+      "url": "https://bell.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "O000177": {
+      "url": "https://onder.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000404": {
+      "url": "https://king-hinds.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000634": {
+      "url": "https://downing.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001240": {
+      "url": "https://mcdowell.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001102": {
+      "url": "https://markharris.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001101": {
+      "url": "https://harrigan.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000405": {
+      "url": "https://knott.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001236": {
+      "url": "https://timmoore.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "F000482": {
+      "url": "https://fedorchak.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000604": {
+      "url": "https://goodlander.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Request a Tour and Tickets"
+    },
+    "C001136": {
+      "url": "https://conaway.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000621": {
+      "url": "https://pou.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000602": {
+      "url": "https://gillen.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "L000606": {
+      "url": "https://latimer.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000622": {
+      "url": "https://riley.house.gov/services/dc-tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "D.C. Tours and Tickets"
+    },
+    "M001231": {
+      "url": "https://mannion.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "T000490": {
+      "url": "https://taylor.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "D000635": {
+      "url": "https://dexter.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001326": {
+      "url": "https://bynum.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001230": {
+      "url": "https://mackenzie.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001327": {
+      "url": "https://bresnahan.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "H001103": {
+      "url": "https://hernandez.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001325": {
+      "url": "https://sheribiggs.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000601": {
+      "url": "https://craiggoldman.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000603": {
+      "url": "https://gill.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "J000310": {
+      "url": "https://juliejohnson.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "K000403": {
+      "url": "https://mikekennedy.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "B001322": {
+      "url": "https://baumgartner.house.gov/services/tours-and-tickets/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "R000621": {
+      "url": "https://randall.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001235": {
+      "url": "https://rileymoore.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "P000622": {
+      "url": "https://patronis.house.gov/address_authentication?form=/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours Visiting D.C."
+    },
+    "F000484": {
+      "url": "https://fine.house.gov/forms/tourrequest",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "G000606": {
+      "url": "https://grijalva.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "V000139": {
+      "url": "https://vanepps.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001245": {
+      "url": "https://menefee.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "A000383": {
+      "url": "https://www.armstrong.senate.gov/visit-dc/",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tour Requests"
+    },
+    "F000485": {
+      "url": "https://fuller.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    },
+    "M001246": {
+      "url": "https://mejia.house.gov/services/tours-and-tickets",
+      "status": 200,
+      "checkedAt": "2026-08-08",
+      "via": "homepage_link",
+      "linkText": "Tours and Tickets"
+    }
+  },
+  "blocked": [
+    "D000096",
+    "M001210",
+    "P000034",
+    "S001176",
+    "T000460"
+  ],
+  "noTourPage": [
+    "B001300",
+    "B001305",
+    "B001306",
+    "B001315",
+    "C001115",
+    "D000563",
+    "D000616",
+    "E000298",
+    "F000479",
+    "G000576",
+    "G000583",
+    "G000608",
+    "J000295",
+    "K000401",
+    "L000491",
+    "L000560",
+    "L000562",
+    "L000596",
+    "L000601",
+    "M001199",
+    "M001217",
+    "M001222",
+    "O000086",
+    "P000603",
+    "S000522",
+    "S001195",
+    "S001196",
+    "T000481",
+    "T000486",
+    "V000128",
+    "W000779",
+    "W000788",
+    "Y000067"
+  ]
+}
