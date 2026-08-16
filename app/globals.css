@@ -1,26 +1,195 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * ===========================================================================
+ *  CapitolPass design tokens
+ * ===========================================================================
+ *
+ *  The reference points are GOV.UK and the US Web Design System, not a startup
+ *  landing page. The reasoning is practical rather than aesthetic: this app has
+ *  to be forwarded to a principal, a district IT department and a congressional
+ *  staffer, and it needs to read as a piece of public infrastructure to all
+ *  three. High contrast, generous type, obvious hierarchy, almost no
+ *  decoration.
+ *
+ *  Deliberate choices:
+ *    * One accent colour, used only for status. Colour is information here, so
+ *      spending it on decoration would make the status states quieter.
+ *    * Status is never encoded in colour alone — every pill carries a label and
+ *      a shape. Roughly one in twelve men has some form of colour vision
+ *      deficiency, and an app about physical access should not fail that test.
+ *    * A thick yellow focus ring, borrowed from GOV.UK. It is loud on purpose:
+ *      keyboard users should never have to hunt for the cursor.
+ *    * Light mode only, committed to rather than half-supported. A washed-out
+ *      dark mode would fail contrast in exactly the places that matter.
+ */
+
+@theme {
+  /* Navy — institutional, not corporate blue. */
+  --color-ink-950: #0b1524;
+  --color-ink-900: #10203a;
+  --color-ink-800: #16304f;
+  --color-ink-700: #1d3f6b;
+  --color-ink-600: #2b5185;
+  --color-ink-500: #3f6ba3;
+
+  /* Warm off-white — paper, not screen. */
+  --color-paper-50: #fdfcf9;
+  --color-paper-100: #f8f6f0;
+  --color-paper-200: #efebe1;
+  --color-paper-300: #ddd7c9;
+
+  /* Neutrals, warmed very slightly so they sit with the paper. */
+  --color-slate-50: #f7f7f6;
+  --color-slate-100: #ecebe8;
+  --color-slate-200: #d9d7d2;
+  --color-slate-300: #b9b6ae;
+  --color-slate-400: #8b8880;
+  --color-slate-500: #66635c;
+  --color-slate-600: #4a4842;
+  --color-slate-700: #34322e;
+  --color-slate-800: #22211e;
+
+  /* The single accent. Reserved for status and calls to action. */
+  --color-accent-700: #8a3312;
+  --color-accent-600: #a83f16;
+  --color-accent-500: #c4551f;
+  --color-accent-100: #fbe9df;
+
+  /* Status. Each pairs a dark text tone with a pale background. */
+  --color-ok-700: #1c5433;
+  --color-ok-100: #e3f2e8;
+  --color-warn-700: #7a5200;
+  --color-warn-100: #fdf0d5;
+  --color-stop-700: #8c1d1d;
+  --color-stop-100: #fbe5e5;
+  --color-info-700: #1d3f6b;
+  --color-info-100: #e6edf6;
+
+  --color-focus: #ffdd00;
+
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/*
+ * These element defaults live in `@layer base` on purpose.
+ *
+ * Tailwind v4 emits its utilities inside cascade layers, and unlayered CSS
+ * beats layered CSS no matter what the specificity is. An unlayered
+ * `a { text-decoration: underline }` would therefore override `no-underline`
+ * on every button-styled link in the app. Putting these in the base layer puts
+ * them back underneath the utilities, where defaults belong.
+ */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper-100);
+    color: var(--color-slate-800);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+
+  /*
+   * Focus: a solid yellow bar with a dark underline beneath it. Visible against
+   * both the paper background and the navy header, which a single-colour ring
+   * would not be.
+   */
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 0;
+    box-shadow: 0 3px 0 0 var(--color-ink-950);
+  }
+
+  /* Only suppress the default ring where we replace it deliberately. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink-950);
+    font-weight: 700;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-ink-700);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+  }
+
+  a:hover {
+    color: var(--color-ink-950);
+    text-decoration-thickness: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Skip link — visually hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-focus);
+  color: var(--color-ink-950);
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* Respect a user's motion preference across the whole app. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print: the chaperone briefing and the plan both get printed. */
+@media print {
+  body {
+    background: white;
+    font-size: 11pt;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #444;
+  }
 }

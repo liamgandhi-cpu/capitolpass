@@ -1,69 +1,191 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { ButtonLink, Card, InsetText, RuleTag, StatusPill } from '@/components/ui';
+import { RULES } from '@/lib/feasibility';
+import { schoolCount } from '@/lib/schools';
+import { allMembers } from '@/lib/congress/legislators';
 
-export default function Home() {
+export default function HomePage() {
+  // Real numbers from the loaded data, not marketing copy.
+  let schools = 0;
+  let members = 0;
+  try {
+    schools = schoolCount();
+    members = allMembers().length;
+  } catch {
+    // Data not loaded yet; the page still renders.
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="space-y-16">
+      {/* ------------------------------------------------------------------ */}
+      <section className="max-w-3xl">
+        <p className="mb-3 text-sm font-bold uppercase tracking-wider text-accent-600">
+          Field trips to the US Capitol
+        </p>
+        <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
+          Booking a Capitol trip is not one action. It is a scattered process that quietly excludes
+          schools without an inside track.
+        </h1>
+        <p className="mt-6 text-xl text-slate-600">
+          The teachers who pull this off are disproportionately the ones with a parent volunteer who
+          used to work on the Hill. Everyone else gives up somewhere in the 535 different forms.
+          CapitolPass is the router: one intake, correct addressing, real logistics, tracked status.
+        </p>
+
+        <div className="mt-8 flex flex-wrap gap-4">
+          <ButtonLink href="/signin">Plan a trip</ButtonLink>
+          <ButtonLink href="/join" tone="secondary">
+            Join with a code
+          </ButtonLink>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      <section>
+        <h2 className="text-2xl font-bold">Why it goes wrong</h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <Card>
+            <h3 className="text-lg font-bold">Two systems, no shared front door</h3>
+            <p className="mt-2 text-slate-600">
+              A tour can come from the Capitol Visitor Center&rsquo;s reservation system or from your
+              own Representative&rsquo;s office. Neither system knows the other exists. Booking one
+              does not tell the other anything.
+            </p>
+          </Card>
+          <Card>
+            <h3 className="text-lg font-bold">
+              A class of 30 cannot go as one staff-led group <RuleTag id="R1" />
+            </h3>
+            <p className="mt-2 text-slate-600">
+              Staff-led tours cap at {RULES.staffLedMaxGuests.value} guests — students, teachers and
+              chaperones counted together. Most teachers find this out after they have already asked.
+            </p>
+          </Card>
+          <Card>
+            <h3 className="text-lg font-bold">
+              One school tour per office, per week <RuleTag id="R2" />
+            </h3>
+            <p className="mt-2 text-slate-600">
+              You are competing with every other school in your district for a single weekly slot. The
+              week you request matters more than the day.
+            </p>
+          </Card>
+          <Card>
+            <h3 className="text-lg font-bold">
+              The meeting is a different request entirely <RuleTag id="R7" />
+            </h3>
+            <p className="mt-2 text-slate-600">
+              A meeting with your Member goes to the scheduler, on a different timeline, and is
+              confirmed far later because it depends on the floor schedule. Bundled with a tour
+              request, it disappears.
+            </p>
+          </Card>
         </div>
-      </main>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      <section>
+        <h2 className="text-2xl font-bold">What the app actually does</h2>
+
+        <ol className="mt-6 space-y-6">
+          <li className="border-l-[6px] border-ink-800 pl-5">
+            <h3 className="text-lg font-bold">You never type &ldquo;who is my representative&rdquo;</h3>
+            <p className="mt-1 text-slate-600">
+              Your school address comes from the NCES directory. Its coordinates go to the US Census
+              Geocoder, which returns your congressional district. From there we resolve your
+              Representative and Senators. {schools > 0 ? `${schools.toLocaleString()} schools` : 'The school directory'} and{' '}
+              {members > 0 ? `${members} current members` : 'every current member'} are already loaded.
+            </p>
+          </li>
+          <li className="border-l-[6px] border-ink-800 pl-5">
+            <h3 className="text-lg font-bold">You get a plan, not a form</h3>
+            <p className="mt-1 text-slate-600">
+              The feasibility engine checks your group size against the staff-led cap, your dates
+              against the lead-time windows and the days the Capitol is closed, and gives you a
+              dated critical path — request by this date, lock your headcount by that one.
+            </p>
+          </li>
+          <li className="border-l-[6px] border-ink-800 pl-5">
+            <h3 className="text-lg font-bold">Requests go where they are actually read</h3>
+            <p className="mt-1 text-slate-600">
+              We generate a complete packet per destination and take you to that office&rsquo;s own
+              form with everything ready to paste. If the office has claimed their CapitolPass
+              account, it goes straight into their queue instead.
+            </p>
+          </li>
+        </ol>
+
+        <div className="mt-8">
+          <InsetText>
+            <p className="font-bold text-ink-950">CapitolPass does not send email for you.</p>
+            <p className="mt-1 text-slate-600">
+              Automated bulk mail to .house.gov and .senate.gov gets filtered and wastes the time of
+              people whose inboxes are a public resource. Every request leaves through a channel a
+              human chose: their form, your mailbox, or their queue.
+            </p>
+          </InsetText>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      <section className="border-t border-slate-200 pt-10">
+        <h2 className="text-2xl font-bold">For congressional offices</h2>
+        <div className="mt-4 grid gap-6 md:grid-cols-[2fr_1fr]">
+          <div>
+            <p className="text-slate-600">
+              Claim your office and get a queue of school tour requests from schools whose district
+              match is already proved — resolved from the school&rsquo;s own coordinates, not guessed
+              from a ZIP code. Confirm, decline, or propose another date in one click.
+            </p>
+            <p className="mt-3 text-slate-600">
+              The queue includes a weekly capacity tracker, because you can only host{' '}
+              {RULES.officeSchoolToursPerWeek.value} school tour a week and nothing else you use shows
+              you that.
+            </p>
+            <div className="mt-5">
+              <ButtonLink href="/office/claim" tone="secondary">
+                Claim your office
+              </ButtonLink>
+            </div>
+          </div>
+          <Card className="bg-paper-50">
+            <h3 className="font-bold">Status is honest</h3>
+            <div className="mt-3 space-y-2 text-sm">
+              <div className="flex items-center gap-2">
+                <StatusPill tone="neutral">Draft</StatusPill>
+                <span className="text-slate-600">not sent yet</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <StatusPill tone="info">Sent</StatusPill>
+                <span className="text-slate-600">waiting on the office</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <StatusPill tone="warn">Alternate proposed</StatusPill>
+                <span className="text-slate-600">they offered another date</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <StatusPill tone="ok">Confirmed</StatusPill>
+                <span className="text-slate-600">you have a slot</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      <section className="border-t border-slate-200 pt-10">
+        <h2 className="text-2xl font-bold">Every rule we encode is written down</h2>
+        <p className="mt-2 max-w-2xl text-slate-600">
+          The group-size cap, the weekly office limit, the lead-time windows, the days the building is
+          closed. Each one carries the source it came from and the date we last checked it, and each
+          one is labelled as published guidance, documented practice, or our own planning judgment.
+        </p>
+        <p className="mt-4">
+          <Link href="/rules" className="font-bold">
+            Read the rules the engine runs on →
+          </Link>
+        </p>
+      </section>
     </div>
   );
 }
