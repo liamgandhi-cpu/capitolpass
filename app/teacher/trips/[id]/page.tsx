@@ -552,6 +552,20 @@ export default async function TripPlanPage({
                 {trip.join_code}
               </code>
             </p>
+
+            <div className="mt-5 border-l-[6px] border-l-slate-300 py-1 pl-4">
+              <p className="font-bold text-ink-950">Send families the Spanish version</p>
+              <p className="mt-1 text-slate-600">
+                The what-to-bring list and the permission-slip information are the pages where a
+                language barrier actually keeps a student off the bus. This link opens the whole
+                student page in Spanish — send it to families directly.
+              </p>
+              <p className="mt-2">
+                <Link href={`/trip/${trip.join_code}?lang=es`} className="font-bold">
+                  /trip/{trip.join_code}?lang=es
+                </Link>
+              </p>
+            </div>
           </div>
 
           {delegation?.representative ? (

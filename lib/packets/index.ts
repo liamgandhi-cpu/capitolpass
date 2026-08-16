@@ -93,7 +93,10 @@ function datesLine(trip: TripRow, requested: IsoDate): string {
   const alternates = [trip.alternate_date_1, trip.alternate_date_2].filter(Boolean) as string[];
   const others = alternates.filter((d) => d !== requested);
   if (others.length === 0) return formatLong(requested);
-  return `${formatLong(requested)} (alternates: ${others.map(formatLong).join('; ')})`;
+  // Wrapped rather than passed by reference: formatLong takes an optional
+  // locale as its second argument, and `.map(formatLong)` would hand it the
+  // array index.
+  return `${formatLong(requested)} (alternates: ${others.map((d) => formatLong(d)).join('; ')})`;
 }
 
 function accessibilityLine(trip: TripRow): string {

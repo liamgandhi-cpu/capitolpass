@@ -87,27 +87,54 @@ export function startOfIsoWeek(value: IsoDate): IsoDate {
   return addDays(value, -dayNum);
 }
 
-const LONG_DATE = new Intl.DateTimeFormat('en-US', {
+/**
+ * Formatters are cached per BCP-47 tag.
+ *
+ * Constructing an Intl.DateTimeFormat is not cheap and these run inside list
+ * renders, so the common tags are built once. The default stays en-US: only the
+ * student and family pages are translated, and every other caller passes
+ * nothing.
+ *
+ * A Spanish page showing "Tuesday, December 1, 2026" is the kind of seam that
+ * tells a reader the translation is a veneer, so the date has to move with the
+ * copy.
+ */
+const LONG_OPTIONS: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   month: 'long',
   day: 'numeric',
   year: 'numeric',
   timeZone: 'UTC',
-});
+};
 
-const SHORT_DATE = new Intl.DateTimeFormat('en-US', {
+const SHORT_OPTIONS: Intl.DateTimeFormatOptions = {
   month: 'short',
   day: 'numeric',
   year: 'numeric',
   timeZone: 'UTC',
-});
+};
 
-export function formatLong(value: IsoDate): string {
-  return LONG_DATE.format(parseDate(value));
+const longCache = new Map<string, Intl.DateTimeFormat>();
+const shortCache = new Map<string, Intl.DateTimeFormat>();
+
+function formatter(
+  cache: Map<string, Intl.DateTimeFormat>,
+  options: Intl.DateTimeFormatOptions,
+  locale: string,
+): Intl.DateTimeFormat {
+  const existing = cache.get(locale);
+  if (existing) return existing;
+  const created = new Intl.DateTimeFormat(locale, options);
+  cache.set(locale, created);
+  return created;
 }
 
-export function formatShort(value: IsoDate): string {
-  return SHORT_DATE.format(parseDate(value));
+export function formatLong(value: IsoDate, locale = 'en-US'): string {
+  return formatter(longCache, LONG_OPTIONS, locale).format(parseDate(value));
+}
+
+export function formatShort(value: IsoDate, locale = 'en-US'): string {
+  return formatter(shortCache, SHORT_OPTIONS, locale).format(parseDate(value));
 }
 
 /** "in 42 days" / "12 days ago" / "today", for deadline copy. */
