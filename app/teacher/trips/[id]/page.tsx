@@ -21,6 +21,7 @@ import { getTrip, requestsForTrip, storedPlan, toTripInput, questionsForTrip } f
 import { getSchool, domainTrust, lookupDomain } from '@/lib/schools';
 import { delegationFor } from '@/lib/congress/legislators';
 import { daysBetween, formatLong, formatShort, relativeDays, toIsoDate } from '@/lib/dates';
+import { CriticalPathTimeline } from '@/components/timeline';
 import { recomputePlanAction, requestCosignAction } from '../../actions';
 
 const SEVERITY_TONE: Record<Severity, StatusTone> = {
@@ -304,7 +305,7 @@ export default async function TripPlanPage({
       {/* ================================================================== */}
       {/* Critical path                                                      */}
       {/* ================================================================== */}
-      <section>
+      <section id="critical-path" className="scroll-mt-4">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="text-2xl font-bold">Critical path</h2>
@@ -324,6 +325,12 @@ export default async function TripPlanPage({
             see where you stand now.
           </p>
         ) : null}
+
+        <CriticalPathTimeline
+          milestones={plan.criticalPath}
+          today={today}
+          tripDate={plan.recommendedDate ?? trip.preferred_date}
+        />
 
         <ol className="mt-5 border-t border-slate-200">
           {plan.criticalPath.map((m) => (
