@@ -32,6 +32,7 @@
 
 import { appendFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
+import { siteOrigin } from './site-url';
 
 export interface Message {
   to: string;
@@ -44,7 +45,17 @@ export type DeliveryResult =
   | { delivered: true; via: 'resend' }
   | { delivered: false; via: 'outbox'; reason: string };
 
+/**
+ * Where undelivered mail is written.
+ *
+ * Defaults next to the database, which is right for local development. A
+ * container has a read-only application directory and a mounted volume, so the
+ * path has to be settable — otherwise every sign-in on a hosted deployment with
+ * no mail provider fails on a write to a directory that does not accept writes.
+ */
 function outboxPath(): string {
+  const explicit = process.env.CAPITOLPASS_OUTBOX;
+  if (explicit) return explicit;
   return path.join(process.cwd(), 'data', 'outbox.log');
 }
 
@@ -108,10 +119,16 @@ export async function sendMail(message: Message): Promise<DeliveryResult> {
   }
 }
 
-/** Absolute URL for links in email. */
+/**
+ * Absolute URL for links in email.
+ *
+ * Shares its notion of the public origin with the session cookie and every
+ * route-handler redirect — see lib/site-url.ts. A sign-in link that points
+ * somewhere other than where the cookie is valid is a link that does nothing.
+ */
 export function siteUrl(pathname = '/'): string {
   const base =
-    process.env.NEXT_PUBLIC_SITE_URL ??
+    siteOrigin() ??
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
   return new URL(pathname, base).toString();
 }

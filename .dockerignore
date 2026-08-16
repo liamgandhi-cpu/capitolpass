@@ -1,0 +1,26 @@
+# Keep the build context small and keep local state out of the image.
+node_modules
+.next
+.git
+.claude
+.vercel
+
+# Local database and mail log. The image builds its own database in the `data`
+# stage; copying a developer's machine state in would be both large and wrong.
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/outbox.log
+
+# data/legislators.json and data/tour-routes.json ARE needed — they are the
+# pinned federal snapshots the app reads at runtime. Not excluded.
+
+.env
+.env.*
+!.env.example
+
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+.DS_Store
+coverage

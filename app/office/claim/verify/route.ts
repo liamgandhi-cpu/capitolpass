@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { completeOfficeClaim } from '../../actions';
+import { absoluteUrl } from '@/lib/site-url';
 
 /**
  * Redeem an office claim link.
@@ -14,16 +15,16 @@ export async function GET(request: Request) {
   const token = url.searchParams.get('token');
 
   if (!token) {
-    return NextResponse.redirect(new URL('/office/claim?error=no_office', request.url));
+    return NextResponse.redirect(absoluteUrl('/office/claim?error=no_office', request));
   }
 
   const result = await completeOfficeClaim(token);
 
   if (!result.ok) {
     return NextResponse.redirect(
-      new URL(`/office/claim?claim_error=${result.reason}`, request.url),
+      absoluteUrl(`/office/claim?claim_error=${result.reason}`, request),
     );
   }
 
-  return NextResponse.redirect(new URL('/office', request.url));
+  return NextResponse.redirect(absoluteUrl('/office', request));
 }

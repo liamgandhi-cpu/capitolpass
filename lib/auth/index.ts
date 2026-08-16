@@ -18,6 +18,7 @@
 
 import { cookies } from 'next/headers';
 import { get, newId, newToken, nowIso, run, transaction } from '../db';
+import { cookieSecure } from '../site-url';
 
 export const SESSION_COOKIE = 'capitolpass_session';
 const SESSION_DAYS = 30;
@@ -159,25 +160,10 @@ export function magicLinkPayload<T>(link: MagicLink, fallback: T): T {
 // Sessions
 // ---------------------------------------------------------------------------
 
-/**
- * Whether the session cookie should carry the `Secure` flag.
- *
- * Keying this off NODE_ENV alone breaks a production build served over plain
- * HTTP on localhost — which is exactly what you get when you run `npm run
- * build && npm start` to check a release before deploying it. The browser
- * would accept the cookie but nothing else would, and sign-in would silently
- * fail with no error to look at.
- *
- * So: if NEXT_PUBLIC_SITE_URL is set, believe it — that is the deployment
- * telling us its own scheme. Only fall back to NODE_ENV when it is not set,
- * and fall back to secure, so an unconfigured production deployment is safe by
- * default rather than unsafe by default.
- */
-function cookieSecure(): boolean {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (siteUrl) return siteUrl.startsWith('https://');
-  return process.env.NODE_ENV === 'production';
-}
+// The cookie's Secure flag, the links in mail, and every route-handler redirect
+// all have to agree about where this deployment lives. They share one
+// implementation — see lib/site-url.ts, which also explains why the runtime
+// variable is CAPITOLPASS_SITE_URL and not the NEXT_PUBLIC_ one.
 
 export async function startSession(userId: string): Promise<void> {
   const token = newToken();

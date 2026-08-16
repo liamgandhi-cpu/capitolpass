@@ -1,0 +1,49 @@
+# Fly.io deployment.
+#
+# Chosen because this app's database is a file. See DEPLOY.md for the reasoning
+# and for the Postgres path if that ever stops being true.
+
+app = "capitolpass"
+primary_region = "iad"          # Ashburn, VA — nearest to the Capitol and to VA-10
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3000"
+  # Sets the Secure flag on the session cookie from its scheme. Must match the
+  # real hostname or sign-in fails with no visible error. Change this if you
+  # deploy under a different app name or a custom domain.
+  CAPITOLPASS_SITE_URL = "https://capitolpass.fly.dev"
+  # The three one-click demo doors. This is what lets someone evaluate the app
+  # without signing up. Remove it on any deployment serving real schools.
+  CAPITOLPASS_DEMO = "1"
+  CAPITOLPASS_DB = "/data/capitolpass.db"
+  CAPITOLPASS_OUTBOX = "/data/outbox.log"
+
+# The database file. Without this the machine's filesystem is ephemeral and
+# every deploy silently discards every trip anyone created.
+[[mounts]]
+  source = "capitolpass_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  # Never scale to zero: a cold start on a link a judge just clicked reads as a
+  # broken app. One always-on shared-cpu machine is a few dollars a month.
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+  # One writer. SQLite is single-writer, and two machines mounting one volume is
+  # not a thing Fly does anyway — this makes the constraint explicit rather than
+  # something to rediscover during a deploy.
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"

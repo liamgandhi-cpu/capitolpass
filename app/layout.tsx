@@ -3,6 +3,8 @@ import { Public_Sans } from 'next/font/google';
 import Link from 'next/link';
 import './globals.css';
 import { currentUser } from '@/lib/auth';
+import { personaForEmail } from '@/lib/auth/demo';
+import { DemoBanner } from '@/components/demo';
 
 const publicSans = Public_Sans({
   subsets: ['latin'],
@@ -124,6 +126,17 @@ function Footer() {
   );
 }
 
+/**
+ * Renders only when the session belongs to a seeded demo account and demo mode
+ * is switched on. Resolved from the session, not the URL — see personaForEmail.
+ */
+async function DemoBar() {
+  const user = await currentUser();
+  const persona = personaForEmail(user?.email);
+  if (!persona) return null;
+  return <DemoBanner persona={persona} />;
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={publicSans.variable}>
@@ -132,6 +145,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <Header />
+        <DemoBar />
         <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
           {children}
         </main>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ButtonLink, Card, InsetText, RuleTag, StatusPill } from '@/components/ui';
+import { DemoEntry } from '@/components/demo';
 import { RULES } from '@/lib/feasibility';
 import { schoolCount } from '@/lib/schools';
 import { allMembers } from '@/lib/congress/legislators';
@@ -39,6 +40,9 @@ export default function HomePage() {
           </ButtonLink>
         </div>
       </section>
+
+      {/* Renders nothing unless CAPITOLPASS_DEMO=1. */}
+      <DemoEntry />
 
       {/* ------------------------------------------------------------------ */}
       <section>

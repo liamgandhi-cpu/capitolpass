@@ -5,6 +5,7 @@ import {
   markEmailVerified,
   startSession,
 } from '@/lib/auth';
+import { absoluteUrl } from '@/lib/site-url';
 
 /**
  * Redeem a sign-in link.
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
   const token = url.searchParams.get('token');
 
   const fail = (reason: string) =>
-    NextResponse.redirect(new URL(`/signin?error=${reason}`, request.url));
+    NextResponse.redirect(absoluteUrl(`/signin?error=${reason}`, request));
 
   if (!token) return fail('not_found');
 
@@ -33,6 +34,6 @@ export async function GET(request: Request) {
   await startSession(user.id);
 
   return NextResponse.redirect(
-    new URL(user.role === 'staff' ? '/office' : '/teacher', request.url),
+    absoluteUrl(user.role === 'staff' ? '/office' : '/teacher', request),
   );
 }
