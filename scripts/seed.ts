@@ -25,7 +25,7 @@
  * than showing a number we made up.
  */
 
-import { all, get, newId, nowIso, run, transaction } from '../lib/db';
+import { all, db, get, newId, nowIso, run, transaction } from '../lib/db';
 import { migrate } from '../lib/db';
 import { ensureOfficesExist, approveOfficeClaim, officeByBioguide, requestOfficeClaim } from '../lib/offices';
 import { createTrip, addQuestion, updateRequestStatus, requestsForTrip } from '../lib/trips';
@@ -364,6 +364,18 @@ async function main() {
   console.log('  Congressional staff   : demo.staffer@mail.house.gov');
   console.log(`  Student join codes    : ${bigTrip.join_code}, ${smallTrip.join_code}`);
   console.log('─'.repeat(64));
+
+  // Fold the write-ahead log back into the database file.
+  //
+  // The connection runs in WAL mode, so everything this script just wrote lives
+  // in capitolpass.db-wal until SQLite checkpoints it. That is invisible
+  // locally, because the app opens the same directory and picks the WAL up.
+  //
+  // It is not invisible in a container. The Dockerfile builds the database in
+  // one stage and copies a single file out of it, and a copy taken without this
+  // is a database with no demo in it — which surfaces much later as a demo door
+  // redirecting to ?demo=unseeded on the deployed app.
+  db().exec('PRAGMA wal_checkpoint(TRUNCATE)');
 }
 
 main().catch((err) => {
