@@ -119,6 +119,28 @@ export const TOUR_PATH_CANDIDATES = [
   '/services/tour-requests',
 ] as const;
 
+/**
+ * The office's own menu wording for its tour link, when discovery read one off
+ * their navigation — "Tours and Tickets", "Schedule a DC Tour".
+ *
+ * resolveTourRoute folds this into a sentence for the teacher, which is right
+ * for a packet and useless for counting. lib/congress/coverage.ts needs the raw
+ * string to show how 498 offices name the same thing 90-odd different ways.
+ */
+export function verifiedLinkText(bioguideId: string): string | null {
+  return verifiedRoutes()?.routes[bioguideId]?.linkText ?? null;
+}
+
+/** Offices a firewall refused during discovery. Not the same as having none. */
+export function blockedOffices(): string[] {
+  return verifiedRoutes()?.blocked ?? [];
+}
+
+/** When the verified set was last rebuilt. */
+export function routesGeneratedAt(): string | null {
+  return verifiedRoutes()?.generatedAt ?? null;
+}
+
 export function resolveTourRoute(member: Member): OfficeRoute {
   const verified = verifiedRoutes()?.routes[member.bioguideId];
 

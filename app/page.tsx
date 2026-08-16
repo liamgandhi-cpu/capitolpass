@@ -55,6 +55,11 @@ export default function HomePage() {
               own Representative&rsquo;s office. Neither system knows the other exists. Booking one
               does not tell the other anything.
             </p>
+            <p className="mt-3">
+              <Link href="/front-doors" className="font-bold">
+                See all 537 offices measured →
+              </Link>
+            </p>
           </Card>
           <Card>
             <h3 className="text-lg font-bold">

@@ -28,6 +28,7 @@ async function Header() {
     ? user.role === 'staff'
       ? [
           { href: '/office', label: 'Request queue' },
+          { href: '/front-doors', label: '535 front doors' },
           { href: '/rules', label: 'The rules' },
         ]
       : [
@@ -36,6 +37,7 @@ async function Header() {
           { href: '/venues', label: 'Lunch' },
         ]
     : [
+        { href: '/front-doors', label: '535 front doors' },
         { href: '/rules', label: 'The rules' },
         { href: '/join', label: 'Join a trip' },
         { href: '/office/claim', label: 'For congressional offices' },
