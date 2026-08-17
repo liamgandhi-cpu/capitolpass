@@ -31,9 +31,60 @@ import { ensureOfficesExist, approveOfficeClaim, officeByBioguide, requestOffice
 import { createTrip, addQuestion, updateRequestStatus, requestsForTrip } from '../lib/trips';
 import { representativeFor } from '../lib/congress/legislators';
 import { seedDomain, searchSchools, resolveSchoolDistrict } from '../lib/schools';
-import { addDays, dayOfWeek, isoWeekKey, startOfIsoWeek, toIsoDate } from '../lib/dates';
+import { addDays, dayOfWeek, daysBetween, isoWeekKey, startOfIsoWeek, toIsoDate } from '../lib/dates';
+import { RULES } from '../lib/feasibility/rules.config';
 import { isFederalHoliday } from '../lib/feasibility/holidays';
 import { setWeekStatus } from '../lib/offices/availability';
+
+/**
+ * A trip date that is far enough out to be realistic and, where the calendar
+ * still allows it, inside the semiquincentennial window R15 is about.
+ *
+ * The seed's dates are offsets from today, so they drift. A 104-day offset was
+ * landing the flagship demo trip a day past the end of the peak window, which
+ * meant the 250th-anniversary advisory — a whole rule, and the reason the app
+ * is timely — never appeared in the demo anyone actually opens.
+ *
+ * This pulls the date back inside the window when it can do so without dropping
+ * below a realistic lead time, and otherwise leaves it alone. It shifts the
+ * demo, never the rule: R15's window is what it is, and a trip genuinely after
+ * it should genuinely not get the advisory.
+ */
+function demoTripDates(offsets: number[]): string[] {
+  const { peakEnd } = RULES.semiquincentennial.value;
+  const MIN_LEAD_DAYS = 45;
+  const [preferred] = offsets;
+
+  // How far the whole set has to move, decided once from the preferred date.
+  //
+  // Shifting each date independently collapsed all three onto the same day: the
+  // pull-back clamps to the same in-window week no matter which offset it
+  // started from, so a trip with three candidate dates showed one date three
+  // times. The shift is a property of the set, not of each member.
+  //
+  // Snap first, then test. A target of Nov 29 sits inside the window, passes
+  // the check, and is then snapped forward off a Sunday to Dec 1 — back
+  // outside it.
+  let shift = 0;
+  if (schoolDay(addDays(today(), preferred)) > peakEnd) {
+    for (let weeks = 1; weeks <= 6; weeks += 1) {
+      const candidate = schoolDay(addDays(today(), preferred - weeks * 7));
+      if (candidate > peakEnd) continue;
+      // Nothing inside the window leaves a believable lead time. Use the real
+      // dates — a trip genuinely after the anniversary year should genuinely
+      // not get the advisory, and faking that is worse than losing the beat.
+      if (daysBetween(today(), candidate) < MIN_LEAD_DAYS) break;
+      shift = weeks * 7;
+      break;
+    }
+  }
+
+  return offsets.map((offset) => schoolDay(addDays(today(), offset - shift)));
+}
+
+function today(): string {
+  return toIsoDate(new Date());
+}
 
 /**
  * Snap a seeded trip date onto a day a school would actually go.
@@ -237,7 +288,10 @@ async function main() {
   const teacherId = createUser('demo.teacher@lcps.org', 'Dana Whitfield (demo)', 'teacher', school.nces_id);
   const teacher2Id = createUser('demo.teacher2@lcps.org', 'Marcus Reyes (demo)', 'teacher', school.nces_id);
 
-  const today = toIsoDate(new Date());
+  // Computed as sets so the spacing between a preferred date and its
+  // alternates survives any shift into the anniversary window.
+  const bigTripDates = demoTripDates([104, 111, 118]);
+  const smallTripDates = demoTripDates([61, 68]);
 
   console.log('Creating demo trips…');
 
@@ -247,8 +301,8 @@ async function main() {
     teacherId,
     schoolNcesId: school.nces_id,
     title: '8th Grade Civics — Capitol Trip',
-    preferredDate: schoolDay(addDays(today, 104)),
-    alternateDates: [schoolDay(addDays(today, 111)), schoolDay(addDays(today, 118))],
+    preferredDate: bigTripDates[0],
+    alternateDates: [bigTripDates[1], bigTripDates[2]],
     students: 28,
     teachers: 2,
     chaperones: 4,
@@ -267,8 +321,8 @@ async function main() {
     teacherId: teacher2Id,
     schoolNcesId: school.nces_id,
     title: 'AP Government Seminar — Capitol Visit',
-    preferredDate: schoolDay(addDays(today, 61)),
-    alternateDates: [schoolDay(addDays(today, 68))],
+    preferredDate: smallTripDates[0],
+    alternateDates: [smallTripDates[1]],
     students: 11,
     teachers: 1,
     chaperones: 2,
@@ -319,19 +373,22 @@ async function main() {
       // offset, so a teacher opening either trip actually sees the office's
       // answer next to the dates they picked. That is the whole point of the
       // feature and it is invisible if the published weeks sit elsewhere.
-      const published: Array<[number, 'open' | 'full' | 'closed', string | null]> = [
-        [61, 'open', 'Best week for us this month.'],
-        [68, 'full', 'Already hosting a school from Loudoun this week.'],
-        [104, 'full', 'A district school asked first and we said yes.'],
-        [111, 'closed', 'District work period — the office is not in Washington.'],
-        [118, 'open', null],
+      // Dates, not offsets: these have to be the exact weeks the demo trips
+      // landed on after any shift, or the office is publishing availability for
+      // weeks no teacher in the demo is looking at.
+      const published: Array<[string, 'open' | 'full' | 'closed', string | null]> = [
+        [smallTripDates[0], 'open', 'Best week for us this month.'],
+        [smallTripDates[1], 'full', 'Already hosting a school from Loudoun this week.'],
+        [bigTripDates[0], 'full', 'A district school asked first and we said yes.'],
+        [bigTripDates[1], 'closed', 'District work period — the office is not in Washington.'],
+        [bigTripDates[2], 'open', null],
         // Offsets match the trip dates above and are snapped the same way, so
         // the published week is the week the teacher is actually looking at.
       ];
-      for (const [dayOffset, status, note] of published) {
+      for (const [date, status, note] of published) {
         setWeekStatus({
           officeId: office.id,
-          isoWeek: isoWeekKey(startOfIsoWeek(schoolDay(addDays(today, dayOffset)))),
+          isoWeek: isoWeekKey(startOfIsoWeek(date)),
           status,
           note,
           userId: staffId,
