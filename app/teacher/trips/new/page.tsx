@@ -14,6 +14,8 @@ import {
 import { currentUser } from '@/lib/auth';
 import { RULES } from '@/lib/feasibility';
 import { addDays, toIsoDate } from '@/lib/dates';
+import { getSchool } from '@/lib/schools';
+import { OfficeAvailabilityHint } from '@/components/availability-hint';
 import { createTripAction } from '../../actions';
 
 export const metadata = { title: 'Plan a trip' };
@@ -43,6 +45,9 @@ export default async function NewTripPage({
     .filter((label): label is string => Boolean(label));
 
   const today = toIsoDate(new Date());
+  // Read from the cached district on the school row. Resolving it here would
+  // mean a Census round trip on every render of an intake form.
+  const school = user.school_nces_id ? getSchool(user.school_nces_id) : null;
   const suggested = addDays(today, 100);
 
   return (
@@ -101,6 +106,15 @@ export default async function NewTripPage({
               </p>
             </InsetText>
           </div>
+
+          {/* Renders nothing unless this teacher's own office has published
+              something. Placed here rather than only on the plan, because the
+              decision this changes is which dates to type. */}
+          <OfficeAvailabilityHint
+            districtState={school?.district_state ?? null}
+            districtNumber={school?.district_number ?? null}
+            from={today}
+          />
         </Card>
 
         {/* ---------------------------------------------------------------- */}
