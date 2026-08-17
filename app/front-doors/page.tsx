@@ -16,19 +16,34 @@ export const metadata: Metadata = {
 };
 
 /**
- * Solid fills rather than the tinted status pills used elsewhere.
+ * Solid fills rather than the tinted status pills used elsewhere. At this
+ * density — 537 cells — a tint and a border read as one grey mass.
  *
- * At this density — 537 cells — a tint and a border read as one grey mass. The
- * ramp is deliberately ordered worst-to-best in luminance so the pattern is
- * still legible in greyscale, and every cell carries its own text label for
- * screen readers. Colour never carries the meaning alone: the legend below
- * states every count in words.
+ * Not the green/amber/grey/red traffic light this started as. Measured against
+ * the page background, that ramp put `verified` at 8.22:1 and `unknown` at
+ * 8.42:1 — a green and a red of near-identical luminance, which is the classic
+ * pair that collapses into one colour under deuteranopia and into one grey when
+ * printed. The two ends of the scale were the two least distinguishable cells
+ * on the page.
+ *
+ * This ramp separates the three "you get a link" levels by luminance down the
+ * app's own navy, and keeps red for the single office where there is no web
+ * route at all — a different hue and a genuinely different outcome, so it
+ * should stand out rather than blend into a scale.
+ *
+ * Colour never carries the meaning alone regardless: every cell has a text
+ * label for screen readers and the legend states each count in words.
  */
 const CELL_FILL: Record<RouteConfidence, string> = {
-  verified: 'bg-ok-700',
-  contact_form: 'bg-warn-700',
+  verified: 'bg-ink-800',
+  contact_form: 'bg-ink-500',
   website: 'bg-slate-400',
-  unknown: 'bg-stop-700',
+  // Red separates from the navy ramp by hue, but the two darkest fills are
+  // still only 1.47:1 apart, so on a greyscale print the single `unknown` cell
+  // would read as another `verified` one. The outline makes it differ in shape
+  // as well as colour, which is the only difference that survives both
+  // greyscale and every kind of colour vision.
+  unknown: 'bg-stop-700 outline-2 outline-offset-1 outline-stop-700',
 };
 
 const LEGEND_ORDER: RouteConfidence[] = ['verified', 'contact_form', 'website', 'unknown'];
@@ -159,6 +174,18 @@ export default function FrontDoorsPage() {
           ))}
         </ul>
 
+        {/*
+          Every verified cell is a real link, which is right — the claim is "we
+          checked this" and a reader should be able to check it too. The cost is
+          536 tab stops in a row, so a keyboard user reaching the path
+          distribution below would have to pass through the entire grid first.
+          That is a Bypass Blocks failure, and this is the standard fix: an
+          in-page skip that is invisible until focused.
+        */}
+        <a href="#paths-title" className="skip-link">
+          Skip the office grid
+        </a>
+
         <div className="mt-6 flex flex-wrap gap-x-5 gap-y-4">
           {coverage.states.map((state) => (
             <div key={state.state}>
@@ -194,7 +221,7 @@ export default function FrontDoorsPage() {
 
       {/* --------------------------------------------------------------- */}
       <section aria-labelledby="paths-title">
-        <h2 id="paths-title" className="text-2xl font-bold">
+        <h2 id="paths-title" tabIndex={-1} className="scroll-mt-4 text-2xl font-bold">
           Where they put it
         </h2>
         <p className="mt-2 max-w-3xl text-slate-600">

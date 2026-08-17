@@ -263,7 +263,13 @@ export default async function OfficeQueuePage({
                                 name="status"
                                 value={status}
                                 aria-current={current ? 'true' : undefined}
-                                className={`border-2 px-3 py-1 text-sm font-bold ${
+                                // min-h-11 is 44px. WCAG 2.1 AA has no target
+                                // size criterion, so the tighter button passed
+                                // — but a scheduler answering a week from a
+                                // phone is a real case, and four small buttons
+                                // sitting side by side is exactly where a
+                                // mis-tap costs someone a wrong answer.
+                                className={`inline-flex min-h-11 items-center border-2 px-3 py-1 text-sm font-bold ${
                                   current
                                     ? 'border-ink-900 bg-ink-900 text-paper-50'
                                     : 'border-slate-400 bg-white text-ink-900 hover:border-ink-900 hover:bg-ink-900 hover:text-paper-50'

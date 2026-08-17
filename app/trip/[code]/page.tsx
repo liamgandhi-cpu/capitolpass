@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import {
   Button,
@@ -22,7 +23,19 @@ import { RULES } from '@/lib/feasibility';
 import { formatLong } from '@/lib/dates';
 import { redirect } from 'next/navigation';
 
-export const metadata = { title: 'Your trip' };
+/**
+ * Localised, because this page is delivered to families as a link. An English
+ * tab title on a Spanish page is the first thing a parent sees and the first
+ * signal that the translation is a veneer.
+ */
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string }>;
+}): Promise<Metadata> {
+  const locale = localeFrom(await searchParams);
+  return { title: pick(STUDENT_COPY, locale).pageTitle };
+}
 
 async function submitQuestion(formData: FormData) {
   'use server';

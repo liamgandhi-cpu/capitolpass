@@ -16,6 +16,8 @@ import type { Translations } from './index';
 
 const en = {
   // --- page furniture -------------------------------------------------------
+  /** Browser tab and link previews. A family receives this page as a link. */
+  pageTitle: 'Your trip',
   languageLabel: 'Language',
   viewIn: 'Ver esta página en español',
 
@@ -99,6 +101,7 @@ const en = {
 export type StudentCopy = typeof en;
 
 const es: StudentCopy = {
+  pageTitle: 'Tu viaje',
   languageLabel: 'Idioma',
   viewIn: 'View this page in English',
 

@@ -84,101 +84,112 @@ export function CriticalPathTimeline({
 
   return (
     <figure className="mt-5">
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        width="100%"
-        role="img"
-        aria-hidden="true"
-        className="block overflow-visible"
-      >
-        {/* The runway from today to trip day. */}
-        <line
-          x1={todayX}
-          y1={AXIS_Y}
-          x2={tripX}
-          y2={AXIS_Y}
-          stroke="var(--color-slate-300)"
-          strokeWidth={4}
-        />
+      {/*
+        Scrolls rather than shrinks.
 
-        {/* Today. A thin full-height rule, because "where am I on this" is the
-            first question anyone asks of a schedule. */}
-        <line
-          x1={todayX}
-          y1={AXIS_Y - 34}
-          x2={todayX}
-          y2={AXIS_Y + 16}
-          stroke="var(--color-slate-400)"
-          strokeWidth={2}
-          strokeDasharray="4 4"
-        />
-        <text
-          x={todayX}
-          y={AXIS_Y + 34}
-          textAnchor="start"
-          className="fill-slate-500 text-[19px] font-bold"
+        The drawing scales with its container, and the labels scale with it. At
+        a phone's width that put "Today" and "Trip day" at roughly six pixels —
+        present, correctly positioned, and unreadable. A minimum width keeps the
+        type legible and lets the narrow case scroll, which is what the capacity
+        strip on the office page already does with the same problem.
+      */}
+      <div className="overflow-x-auto pb-1">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          width="100%"
+          role="img"
+          aria-hidden="true"
+          className="block min-w-[40rem] overflow-visible"
         >
-          Today
-        </text>
+          {/* The runway from today to trip day. */}
+          <line
+            x1={todayX}
+            y1={AXIS_Y}
+            x2={tripX}
+            y2={AXIS_Y}
+            stroke="var(--color-slate-300)"
+            strokeWidth={4}
+          />
 
-        {/* Each milestone date. */}
-        {[...groups.entries()].map(([date, group]) => {
-          const cx = x(date);
-          const worst =
-            group.find((m) => m.status === 'overdue') ??
-            group.find((m) => m.status === 'due_soon') ??
-            group[0];
-          return (
-            <g key={date}>
-              <line
-                x1={cx}
-                y1={AXIS_Y - 18}
-                x2={cx}
-                y2={AXIS_Y}
-                stroke={STATUS_FILL[worst.status]}
-                strokeWidth={3}
-              />
-              <circle cx={cx} cy={AXIS_Y - 18} r={9} fill={STATUS_FILL[worst.status]} />
-              {group.length > 1 ? (
-                // Centred on the dot itself. Without dominantBaseline the
-                // glyph sits on its baseline and reads as hanging below the
-                // circle rather than inside it.
-                <text
-                  x={cx}
-                  y={AXIS_Y - 18}
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  className="fill-white text-[15px] font-bold"
-                >
-                  {group.length}
-                </text>
-              ) : null}
-            </g>
-          );
-        })}
+          {/* Today. A thin full-height rule, because "where am I on this" is the
+              first question anyone asks of a schedule. */}
+          <line
+            x1={todayX}
+            y1={AXIS_Y - 34}
+            x2={todayX}
+            y2={AXIS_Y + 16}
+            stroke="var(--color-slate-400)"
+            strokeWidth={2}
+            strokeDasharray="4 4"
+          />
+          <text
+            x={todayX}
+            y={AXIS_Y + 34}
+            textAnchor="start"
+            className="fill-slate-500 text-[19px] font-bold"
+          >
+            Today
+          </text>
 
-        {/* Trip day, the thing everything is counted back from. */}
-        <circle cx={tripX} cy={AXIS_Y} r={12} fill="var(--color-accent-600)" />
-        {/* Clear of the marker row: the ticks sit at AXIS_Y - 18 with r=9, so
-            their tops reach AXIS_Y - 27. This baseline keeps the label above
-            that even when a marker lands close to trip day. */}
-        <text
-          x={tripX}
-          y={AXIS_Y - 38}
-          textAnchor="end"
-          className="fill-ink-950 text-[21px] font-bold"
-        >
-          Trip day
-        </text>
-        <text
-          x={tripX}
-          y={AXIS_Y + 34}
-          textAnchor="end"
-          className="fill-slate-500 text-[19px] font-bold"
-        >
-          {formatShort(tripDate)}
-        </text>
-      </svg>
+          {/* Each milestone date. */}
+          {[...groups.entries()].map(([date, group]) => {
+            const cx = x(date);
+            const worst =
+              group.find((m) => m.status === 'overdue') ??
+              group.find((m) => m.status === 'due_soon') ??
+              group[0];
+            return (
+              <g key={date}>
+                <line
+                  x1={cx}
+                  y1={AXIS_Y - 18}
+                  x2={cx}
+                  y2={AXIS_Y}
+                  stroke={STATUS_FILL[worst.status]}
+                  strokeWidth={3}
+                />
+                <circle cx={cx} cy={AXIS_Y - 18} r={9} fill={STATUS_FILL[worst.status]} />
+                {group.length > 1 ? (
+                  // Centred on the dot itself. Without dominantBaseline the
+                  // glyph sits on its baseline and reads as hanging below the
+                  // circle rather than inside it.
+                  <text
+                    x={cx}
+                    y={AXIS_Y - 18}
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    className="fill-white text-[15px] font-bold"
+                  >
+                    {group.length}
+                  </text>
+                ) : null}
+              </g>
+            );
+          })}
+
+          {/* Trip day, the thing everything is counted back from. */}
+          <circle cx={tripX} cy={AXIS_Y} r={12} fill="var(--color-accent-600)" />
+          {/* Clear of the marker row: the ticks sit at AXIS_Y - 18 with r=9, so
+              their tops reach AXIS_Y - 27. This baseline keeps the label above
+              that even when a marker lands close to trip day. */}
+          <text
+            x={tripX}
+            y={AXIS_Y - 38}
+            textAnchor="end"
+            className="fill-ink-950 text-[21px] font-bold"
+          >
+            Trip day
+          </text>
+          <text
+            x={tripX}
+            y={AXIS_Y + 34}
+            textAnchor="end"
+            className="fill-slate-500 text-[19px] font-bold"
+          >
+            {formatShort(tripDate)}
+          </text>
+        </svg>
+      </div>
 
       <figcaption className="mt-2 text-sm text-slate-500">
         {deadlineCount} {deadlineCount === 1 ? 'deadline' : 'deadlines'} before trip day on{' '}
