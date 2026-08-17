@@ -28,6 +28,11 @@ Four things, in the order that makes the project make sense fastest.
 
 `npm test` runs 108 tests in about 200ms with no network and no fixtures.
 
+The `submission/` directory holds the working documents for the Congressional App
+Challenge entry: a [checklist](submission/CHECKLIST.md), a [video
+script](submission/VIDEO.md), an [interview guide](submission/VALIDATION.md), and
+[draft form answers](submission/FORM-ANSWERS.md).
+
 ---
 
 ## Contents
