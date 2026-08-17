@@ -17,6 +17,19 @@ No API keys, no database server, no credentials. `npm run setup` pulls the real 
 
 ---
 
+## If you are reviewing this
+
+Four things, in the order that makes the project make sense fastest.
+
+1. **[`/front-doors`](app/front-doors/page.tsx)** — all 537 congressional offices, measured. This is the finding the whole project rests on and it takes about twenty seconds to grasp.
+2. **Open the demo as a teacher with a class of 34.** The plan's first move is to tell her that the path she was about to take cannot seat her group. Set `CAPITOLPASS_DEMO=1` and the doors are on the landing page.
+3. **[`lib/feasibility/rules.config.ts`](lib/feasibility/rules.config.ts)** — every rule the app applies, with its source, the date it was last checked, and whether it is published guidance or our own judgment.
+4. **[`DECISIONS.md`](DECISIONS.md)** — what was assumed, what was measured, and what changed. Three assumptions in the original spec turned out to be false; D3, D4/D5 and D6 are those.
+
+`npm test` runs 108 tests in about 200ms with no network and no fixtures.
+
+---
+
 ## Contents
 
 - [The problem](#the-problem)
@@ -30,7 +43,7 @@ No API keys, no database server, no credentials. `npm run setup` pulls the real 
 - [Running it](#running-it)
 - [Testing](#testing)
 - [What is live and what is roadmap](#what-is-live-and-what-is-roadmap)
-- [Deploying](#deploying)
+- [Deploying](#deploying) · full steps in [`DEPLOY.md`](DEPLOY.md)
 
 ---
 
@@ -76,17 +89,22 @@ They describe the trip once. The feasibility engine returns a **plan, not a form
    ┌─────────────────────────┴──────────────────────────────────────┐
    │                        lib/                                     │
    │                                                                 │
-   │  feasibility/    ← THE CORE. Pure, no I/O, no clock.           │
-   │    rules.config.ts   every rule, cited and dated                │
+   │  feasibility/    ← THE CORE. Pure, no I/O, no clock.            │
+   │    rules.config.ts   all 15 rules, cited, dated, confidence-rated│
    │    engine.ts         input → plan                               │
    │    holidays.ts       federal holidays, computed not hardcoded   │
    │                                                                 │
    │  districts/      census.ts   coordinates → congressional district│
-   │  congress/       legislators.ts, routing.ts (the 535 front doors)│
+   │  congress/       legislators.ts · routing.ts (the 535 front doors)
+   │                  coverage.ts  ← also pure. The national picture  │
    │  schools/        NCES lookup + the email-domain mapping problem  │
    │  packets/        one packet per destination, three send modes    │
    │  trips/          trips, requests, status transitions             │
-   │  offices/        office queue, constituent check, weekly capacity│
+   │  offices/        queue, constituent check, weekly capacity       │
+   │                  availability.ts  weeks an office has published  │
+   │  i18n/           student.ts   family-facing copy, en + es        │
+   │  auth/           passwordless sessions · demo.ts (the front door)│
+   │  site-url.ts     one runtime origin: cookies, mail, redirects    │
    └─────────────────────────┬───────────────────────────────────────┘
                              │
                     ┌────────┴────────┐
