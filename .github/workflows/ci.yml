@@ -1,0 +1,51 @@
+# Typecheck, lint, test and build on every push.
+#
+# Deliberately does NOT run `npm run setup`. The test suite is pure: it reads
+# the federal snapshots committed in data/, and the one suite that needs a
+# database builds its own in a temp directory. So CI needs no network beyond
+# `npm ci`, and a run takes well under a minute.
+#
+# That is a property worth protecting. A test suite that needs a hundred
+# thousand school records downloaded before it can start is a test suite nobody
+# runs.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # node:sqlite is built in, so there is no native module to compile and
+          # no database service to stand up. The version matters: the API is
+          # only stable from 22 onwards.
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          # Matches how the container is configured. Without it the build would
+          # inline nothing for the site URL, which is correct but worth being
+          # explicit about — see lib/site-url.ts.
+          NEXT_TELEMETRY_DISABLED: '1'
