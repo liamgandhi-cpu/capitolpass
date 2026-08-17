@@ -81,14 +81,13 @@ describe('student copy', () => {
   });
 
   it('leaves no English string sitting in the Spanish copy', () => {
-    // `viewIn` is the deliberate exception: on the Spanish page it offers the
-    // English one, so it is *supposed* to be in the other language.
-    const exempt = new Set(['viewIn']);
-
+    // No exemptions. There was one, for a key that offered the other language
+    // by name — and it turned out nothing rendered that key at all, so the
+    // exemption was quietly protecting dead copy from the only check that
+    // would have found it. If a genuine exception ever appears, it needs a
+    // comment saying which string and why, not a bare set.
     const enByPath = new Map(strings(en));
-    const identical = strings(es).filter(
-      ([path, value]) => !exempt.has(path) && enByPath.get(path) === value,
-    );
+    const identical = strings(es).filter(([path, value]) => enByPath.get(path) === value);
 
     expect(identical.map(([path]) => path)).toEqual([]);
   });

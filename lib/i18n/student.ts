@@ -19,7 +19,6 @@ const en = {
   /** Browser tab and link previews. A family receives this page as a link. */
   pageTitle: 'Your trip',
   languageLabel: 'Language',
-  viewIn: 'Ver esta página en español',
 
   // --- what to bring --------------------------------------------------------
   bringHeading: 'Before you leave the house',
@@ -103,7 +102,6 @@ export type StudentCopy = typeof en;
 const es: StudentCopy = {
   pageTitle: 'Tu viaje',
   languageLabel: 'Idioma',
-  viewIn: 'View this page in English',
 
   bringHeading: 'Antes de salir de casa',
   leaveBehind: 'Deja esto en casa',
