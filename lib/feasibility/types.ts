@@ -70,7 +70,7 @@ export interface DateAssessment {
 }
 
 export interface TourStrategy {
-  id: 'office_staff_led' | 'cvc_group' | 'split_staff_led_and_cvc';
+  id: 'office_staff_led' | 'office_guided_school' | 'cvc_group';
   title: string;
   summary: string;
   viable: boolean;

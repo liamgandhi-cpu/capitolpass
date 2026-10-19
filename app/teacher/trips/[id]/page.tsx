@@ -20,7 +20,7 @@ import type { Finding, Severity } from '@/lib/feasibility/types';
 import { getTrip, requestsForTrip, storedPlan, toTripInput, questionsForTrip } from '@/lib/trips';
 import { getSchool, domainTrust, lookupDomain } from '@/lib/schools';
 import { delegationFor, representativeFor } from '@/lib/congress/legislators';
-import { officeByBioguide } from '@/lib/offices';
+import { isDemoOffice, officeByBioguide } from '@/lib/offices';
 import {
   hasPublishedAvailability,
   weekStatusFor,
@@ -109,14 +109,17 @@ export default async function TripPlanPage({
   const trust = domainTrust(domain ? lookupDomain(domain) : null);
   const verified = trust.canEarnVerifiedBadge && trip.cosign_status === 'confirmed';
 
-  // The office this trip's staff-led request would go to, and whether it has
-  // published anything at all. Resolved once rather than per date card.
+  // The office this trip's request would go to, and whether it has published
+  // anything at all. Resolved once rather than per date card.
   const representative =
     trip.district_state && trip.district_number !== null
       ? representativeFor(trip.district_state, trip.district_number)
       : null;
   const officeForTrip = representative ? officeByBioguide(representative.bioguideId) : null;
   const officePublishes = officeForTrip ? hasPublishedAvailability(officeForTrip.id) : false;
+  // A real office claimed by a demo account. What it "published" is invented by
+  // the seed, and must never be presented as that office's own words.
+  const officeIsDemo = officeForTrip ? isDemoOffice(officeForTrip.id) : false;
 
   /** What the office said about the week containing `date`, or null if nothing. */
   const officeWeek = (date: string) => {
@@ -201,7 +204,13 @@ export default async function TripPlanPage({
         <h2 className="text-2xl font-bold">Your dates</h2>
 
         {officeForTrip ? (
-          officePublishes ? (
+          officePublishes && officeIsDemo ? (
+            <p className="mt-1 max-w-3xl text-slate-600">
+              <strong className="text-ink-950">Sample data.</strong> In this demo, invented weekly
+              availability stands in for {officeForTrip.member_name}&rsquo;s office to show how the
+              feature works. Nothing below came from the office.
+            </p>
+          ) : officePublishes ? (
             <p className="mt-1 max-w-3xl text-slate-600">
               {officeForTrip.member_name}&rsquo;s office publishes its weekly availability through
               CapitolPass, so some of this is their answer rather than our estimate.
@@ -250,7 +259,8 @@ export default async function TripPlanPage({
                 <div className="mt-3 border-t border-slate-200 pt-3">
                   <div className="flex items-center gap-2">
                     <StatusPill tone={OFFICE_WEEK_TONE[officeWeek(d.date)!.status]}>
-                      Office: {WEEK_STATUS_LABEL[officeWeek(d.date)!.status]}
+                      {officeIsDemo ? 'Sample office' : 'Office'}:{' '}
+                      {WEEK_STATUS_LABEL[officeWeek(d.date)!.status]}
                     </StatusPill>
                   </div>
                   <p className="mt-1 text-sm text-slate-600">

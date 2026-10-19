@@ -154,39 +154,79 @@ function assessDate(
 // Tour strategies
 // ---------------------------------------------------------------------------
 
+/**
+ * The ways a school group can get into the Capitol, and which one to lead with.
+ *
+ * There are two kinds of tour an office can arrange, and the difference is the
+ * most consequential thing this engine knows:
+ *
+ *   - a **staff-led** tour, given by the office's own staff or interns, capped
+ *     at 15 per guide (R1) and limited per week (R2);
+ *   - a **guided school tour** the office books with the Visitor Center, for a
+ *     school group of up to 50 (R16).
+ *
+ * A teacher who only knows about the first one concludes a full class cannot
+ * go through their office. It can. It has to ask for the right thing.
+ */
 function buildStrategies(input: TripInput): TourStrategy[] {
   const guests = totalGuests(input);
-  const cap = RULES.staffLedMaxGuests.value;
+  const staffCap = RULES.staffLedMaxGuests.value;
+  const guidedCap = RULES.officeGuidedSchoolMaxGuests.value;
   const strategies: TourStrategy[] = [];
 
-  const fitsStaffLed = guests <= cap;
+  const fitsStaffLed = guests <= staffCap;
+  const fitsGuided = guests <= guidedCap;
 
-  // --- Strategy 1: office staff-led tour for the whole group ---------------
+  // --- Strategy 1: staff-led tour through the office ----------------------
   strategies.push({
     id: 'office_staff_led',
     title: 'Staff-led tour through your congressional office',
     summary: fitsStaffLed
-      ? `Your group of ${guests} fits within the ${cap}-guest staff-led limit.`
-      : `Your group of ${guests} is over the ${cap}-guest staff-led limit, so this cannot seat everyone.`,
+      ? `Your group of ${guests} fits within the ${staffCap}-person staff-led limit.`
+      : `Your group of ${guests} is over the ${staffCap}-person staff-led limit, so this cannot take everyone.`,
     viable: fitsStaffLed,
     recommended: false, // decided below
-    guestsCovered: fitsStaffLed ? guests : cap,
+    guestsCovered: Math.min(guests, staffCap),
     destinations: ['house_office_tour'],
     rationale: fitsStaffLed
       ? [
-          `Staff-led tours are capped at ${cap} guests and your group is ${guests}.`,
-          'These tours are led by your Member’s own staff and are usually the more personal experience.',
-          'Your office can reserve only one school tour per week, so the week you request matters.',
+          `Staff-led tours take up to ${staffCap} people per guide and your group is ${guests}.`,
+          'These are given by your Member’s own staff or interns and are usually the more personal experience.',
+          'Offices can run only a limited number of staff-led tours each week, so the week you request matters.',
         ]
       : [
-          `Staff-led tours are capped at ${cap} guests. Your group is ${guests}, which is ${guests - cap} over.`,
-          'This is the limit most teachers find out about only after they have already asked their office.',
-          'You can still use this path for part of the group — see the split option below.',
+          `Staff-led tours take up to ${staffCap} people per guide, adults included. Your group is ${guests}.`,
+          'Asking for a staff-led tour for a full class is the most common way a request goes wrong.',
+          'Your office can still book you a different kind of tour. See the guided school tour below.',
         ],
     ruleIds: ['R1', 'R2'],
   });
 
-  // --- Strategy 2: CVC group reservation ----------------------------------
+  // --- Strategy 2: guided school tour booked by the office ---------------
+  strategies.push({
+    id: 'office_guided_school',
+    title: 'Guided school tour booked by your congressional office',
+    summary: fitsGuided
+      ? `Your office books a Visitor Center guided tour for your whole group of ${guests}.`
+      : `Your group of ${guests} is over the ${guidedCap}-person limit for a school group booked through an office.`,
+    viable: fitsGuided,
+    recommended: false,
+    guestsCovered: Math.min(guests, guidedCap),
+    destinations: ['house_office_tour'],
+    rationale: fitsGuided
+      ? [
+          `Offices can book a guided tour for a school group of up to ${guidedCap} people. Your group is ${guests}.`,
+          'Ask for a school group tour by name, and give your full headcount with the adults included. Other groups booked this way are held to 15.',
+          'One request, to the office that represents your school, covering everyone.',
+        ]
+      : [
+          `School groups booked through an office are limited to ${guidedCap} people. Your group is ${guests}.`,
+          'Book directly with the Visitor Center instead, or ask your office whether it can split you across two tours.',
+        ],
+    ruleIds: ['R16', 'R6'],
+  });
+
+  // --- Strategy 3: book directly with the Visitor Center ------------------
   const cvcMin = RULES.cvcGroupMinimum.value;
   const perSlot = RULES.cvcGuestsPerSlot.value;
   const slotsNeeded = Math.ceil(guests / perSlot);
@@ -194,9 +234,9 @@ function buildStrategies(input: TripInput): TourStrategy[] {
 
   strategies.push({
     id: 'cvc_group',
-    title: 'Capitol Visitor Center group reservation',
+    title: 'Book directly with the Capitol Visitor Center',
     summary: isGroup
-      ? `Books your whole group of ${guests}${slotsNeeded > 1 ? `, across ${slotsNeeded} staggered entry times` : ''}.`
+      ? `Books your whole group of ${guests}${slotsNeeded > 1 ? `, across ${slotsNeeded} staggered entry times` : ''}, without going through an office.`
       : `Your group of ${guests} is under the ${cvcMin}-visitor group threshold, so you would book as individuals.`,
     viable: true,
     recommended: false,
@@ -204,9 +244,11 @@ function buildStrategies(input: TripInput): TourStrategy[] {
     destinations: ['cvc_group_reservation'],
     rationale: [
       isGroup
-        ? `The Visitor Center treats ${cvcMin} or more visitors as a group, and your group of ${guests} qualifies.`
+        ? `The Visitor Center treats ${cvcMin} or more visitors as a group, with its own reservation system, and your group of ${guests} qualifies.`
         : `Under ${cvcMin} visitors the Visitor Center does not treat you as a group; book through the standard reservation system.`,
-      'This path has no 15-guest cap, which is why it is the realistic option for a full class.',
+      fitsGuided
+        ? 'A good backup if your office cannot take you that week. It does not involve your office at all.'
+        : 'The realistic path for a group this size, because it is not limited the way office-booked tours are.',
       ...(slotsNeeded > 1
         ? [
             `At roughly ${perSlot} guests per entry time, expect about ${slotsNeeded} staggered slots rather than one.`,
@@ -216,34 +258,15 @@ function buildStrategies(input: TripInput): TourStrategy[] {
     ruleIds: isGroup ? ['R3', 'R4'] : ['R3'],
   });
 
-  // --- Strategy 3: split ---------------------------------------------------
-  // Only interesting when the group is genuinely too big for one staff-led
-  // tour. A split is more work for the teacher, so we only propose it when it
-  // buys something: the personal staff-led experience for part of the group.
-  if (!fitsStaffLed) {
-    const remainder = guests - cap;
-    strategies.push({
-      id: 'split_staff_led_and_cvc',
-      title: `Split: ${cap} on the staff-led tour, ${remainder} at the Visitor Center`,
-      summary: `Keeps the staff-led experience for one group of ${cap} while the other ${remainder} take a staggered Visitor Center tour.`,
-      viable: true,
-      recommended: false,
-      guestsCovered: guests,
-      destinations: ['house_office_tour', 'cvc_group_reservation'],
-      rationale: [
-        `Splits your ${guests} people into a ${cap}-person staff-led group and a ${remainder}-person Visitor Center group.`,
-        'The two groups run at staggered times and swap, so nobody misses out.',
-        'This is more coordination on your side, and it needs both requests to land. Only worth it if the staff-led experience matters to you.',
-        `Remember the adults count toward the ${cap}: your staff-led group of ${cap} includes its own chaperones.`,
-      ],
-      ruleIds: ['R1', 'R2', 'R3'],
-    });
-  }
-
   // --- Pick the recommendation --------------------------------------------
-  // Rule of thumb: seat everyone with the least coordination risk. A single
-  // request that covers the whole group beats two requests that also cover it.
-  const recommendedId = fitsStaffLed ? 'office_staff_led' : 'cvc_group';
+  // Seat everyone with one request, and prefer the office that represents the
+  // school: it is the more personal experience, and it is the office this app
+  // exists to connect the school to. Above the office limit, go direct.
+  const recommendedId = fitsStaffLed
+    ? 'office_staff_led'
+    : fitsGuided
+      ? 'office_guided_school'
+      : 'cvc_group';
   for (const s of strategies) s.recommended = s.id === recommendedId;
 
   return strategies;
@@ -271,27 +294,30 @@ function buildRequests(input: TripInput, strategies: TourStrategy[], targetDate:
         id: 'cvc_tour',
         destination: 'cvc_group_reservation',
         title: 'Capitol Visitor Center group tour reservation',
-        why: 'The Visitor Center runs its own Advance Reservation System. It does not know about anything you send your congressional office, and your office cannot book it for you.',
+        why: 'The Visitor Center runs its own Advance Reservation System for groups. It does not know about anything you send a congressional office, so if you also ask your office, cancel whichever booking you do not use.',
         sendBy: previousWeekday(addDays(targetDate, -t.comfortable)),
         leadTime: classifyLeadTime(daysOut, t),
-        guests: recommended.id === 'split_staff_led_and_cvc'
-          ? guests - RULES.staffLedMaxGuests.value
-          : guests,
+        guests,
         ruleIds: ['R3', 'R5'],
       });
     }
 
     if (usesOffice) {
       const t = RULES.officeTourLeadTimeDays.value;
+      const guided = recommended.id === 'office_guided_school';
       requests.push({
         id: 'office_tour',
         destination: 'house_office_tour',
-        title: 'Staff-led tour request to your Representative’s office',
-        why: 'Every House and Senate office runs its own tour request form on its own website. There is no shared system — this request has to go to your office directly.',
+        title: guided
+          ? 'Guided school tour request to your Representative’s office'
+          : 'Staff-led tour request to your Representative’s office',
+        why: guided
+          ? 'Every House and Senate office runs its own tour request form on its own website, so this has to go to your office directly. Ask for a guided school group tour by name and give your full headcount: a request that reads as a staff-led tour gets held to 15.'
+          : 'Every House and Senate office runs its own tour request form on its own website. There is no shared system — this request has to go to your office directly.',
         sendBy: previousWeekday(addDays(targetDate, -t.comfortable)),
         leadTime: classifyLeadTime(daysOut, t),
-        guests: Math.min(guests, RULES.staffLedMaxGuests.value),
-        ruleIds: ['R1', 'R2', 'R6'],
+        guests: guided ? guests : Math.min(guests, RULES.staffLedMaxGuests.value),
+        ruleIds: guided ? ['R16', 'R6'] : ['R1', 'R2', 'R6'],
       });
     }
   }
@@ -433,15 +459,27 @@ function buildFindings(
   const findings: Finding[] = [];
   const guests = totalGuests(input);
   const cap = RULES.staffLedMaxGuests.value;
+  const guidedCap = RULES.officeGuidedSchoolMaxGuests.value;
 
   // --- The headline constraint -------------------------------------------
-  if (guests > cap) {
+  // The teacher's likely mistake depends on the size of the group, so the
+  // headline does too. Over 15 the danger is asking for the wrong kind of tour;
+  // over 50 it is asking the office at all.
+  if (guests > guidedCap) {
     findings.push({
-      code: 'GROUP_OVER_STAFF_LED_CAP',
+      code: 'GROUP_OVER_OFFICE_LIMIT',
       severity: 'high',
-      title: `Your group of ${guests} cannot go as one staff-led tour`,
-      detail: `Staff-led tours through a congressional office are capped at ${cap} guests, counting students, teachers and chaperones together. Your group is ${guests}. Book the Visitor Center group tour as your main path — or split the group if the staff-led experience matters to you.`,
-      ruleId: 'R1',
+      title: `Your group of ${guests} is too big to book through your office`,
+      detail: `Offices can book a guided tour for a school group of up to ${guidedCap} people, and a staff-led tour takes at most ${cap}. Your group is ${guests}. Book directly with the Capitol Visitor Center, which handles large groups across staggered entry times.`,
+      ruleId: 'R16',
+    });
+  } else if (guests > cap) {
+    findings.push({
+      code: 'ASK_FOR_GUIDED_SCHOOL_TOUR',
+      severity: 'high',
+      title: `Ask your office for a guided school tour, not a staff-led one`,
+      detail: `A staff-led tour takes at most ${cap} people per guide, adults included, and your group is ${guests}. Your office can also book a guided tour for a school group of up to ${guidedCap}, which takes everyone in one request. Say “school group” and give your full headcount when you ask — a request that reads as a staff-led tour gets held to ${cap}.`,
+      ruleId: 'R16',
     });
   } else {
     findings.push({
@@ -519,16 +557,16 @@ function buildFindings(
   }
 
   // --- Weekly office capacity --------------------------------------------
-  const usesOffice = strategies.some(
-    (s) => s.recommended && s.destinations.some((d) => d.endsWith('office_tour')),
-  );
-  if (usesOffice) {
+  // R2 limits staff-led tours specifically, so it only applies when that is
+  // the tour we are telling the teacher to ask for.
+  const recommendedStrategy = strategies.find((s) => s.recommended);
+  if (recommendedStrategy?.id === 'office_staff_led') {
     findings.push({
       code: 'OFFICE_WEEKLY_LIMIT',
       severity: 'medium',
-      title: 'Your office can only host one school tour that week',
+      title: 'Your office can run only a few staff-led tours that week',
       detail:
-        'Congressional offices are limited to one school tour per week, so you are effectively competing with every other school in your district for that week. Requesting early matters more than picking the perfect day.',
+        'Offices can run only a limited number of staff-led tours each week — some publish it as one — so you may be competing with other schools in your district for the same week. Requesting early matters more than picking the perfect day.',
       ruleId: 'R2',
     });
   }
@@ -611,14 +649,14 @@ function buildFindings(
     // constraint from one competing for an office's single weekly slot.
     const recommended = strategies.find((s) => s.recommended);
     const needsOfficeSlot =
-      recommended?.id === 'office_staff_led' || recommended?.id === 'split_staff_led_and_cvc';
+      recommended?.id === 'office_staff_led' || recommended?.id === 'office_guided_school';
     findings.push({
       code: 'SEMIQUINCENTENNIAL_DEMAND',
       severity: needsOfficeSlot ? 'medium' : 'info',
       title: 'You are planning into the 250th anniversary year',
       detail: needsOfficeSlot
-        ? `July 4, 2026 is the 250th anniversary of the Declaration of Independence, and your trip falls in the busiest stretch of that year. Your office can host ${RULES.officeSchoolToursPerWeek.value} school tour per week — that number does not change because more schools are asking. Send the request at the early end of the window below, not the late end, and treat your alternate dates as real rather than as a formality.`
-        : `July 4, 2026 is the 250th anniversary of the Declaration of Independence, and your trip falls in the busiest stretch of that year. Your group is going through the Visitor Center, which is not capped the way a congressional office is — but reservations still fill, so book at the early end of the window below. This is our judgment, not a published policy.`,
+        ? `July 4, 2026 is the 250th anniversary of the Declaration of Independence, and your trip falls in the busiest stretch of that year. The tours an office can arrange each week are limited, and that number does not change because more schools are asking. Send the request at the early end of the window below, not the late end, and treat your alternate dates as real rather than as a formality. This is our judgment, not a published policy.`
+        : `July 4, 2026 is the 250th anniversary of the Declaration of Independence, and your trip falls in the busiest stretch of that year. Your group is going through the Visitor Center directly, and reservations still fill, so book at the early end of the window below. This is our judgment, not a published policy.`,
       ruleId: 'R15',
     });
   }

@@ -44,23 +44,23 @@ export interface DemoPersona {
 export const DEMO_PERSONAS: readonly DemoPersona[] = [
   {
     key: 'teacher',
-    email: 'demo.teacher@lcps.org',
+    email: 'demo.teacher@pwcs.edu',
     destination: '/teacher',
     name: 'Dana Whitfield',
-    role: 'Teacher · 8th grade civics · Osbourn Park High, VA-10',
+    role: 'Teacher · 12th grade government · Osbourn Park High, VA-10',
     blurb:
-      'A class of 34 — over the staff-led cap. The plan says no to the obvious path and routes the group to the Visitor Center instead.',
+      'A class of 34 — too big for a staff-led tour. The plan tells her to ask her office for a guided school tour instead, which takes everyone.',
     lookFor:
-      'Open the trip. The first thing the plan does is tell you the path you were going to take cannot seat your group.',
+      'Open the trip. The first thing the plan does is tell you the tour you were about to ask for cannot take your group, and what to ask for instead.',
   },
   {
     key: 'teacher-small',
-    email: 'demo.teacher2@lcps.org',
+    email: 'demo.teacher2@pwcs.edu',
     destination: '/teacher',
     name: 'Marcus Reyes',
     role: 'Teacher · small group · Osbourn Park High, VA-10',
     blurb:
-      'A group of 14, which does fit a staff-led tour. Sent in-app to an office that has claimed its account.',
+      'A group of 14, which fits a staff-led tour. Sent in-app to the sample office queue.',
     lookFor:
       'Compare this plan against the 34-person one. Same engine, one input different, completely different route.',
   },
@@ -71,9 +71,9 @@ export const DEMO_PERSONAS: readonly DemoPersona[] = [
     name: 'Alex Chen',
     role: 'Congressional staff · demo office',
     blurb:
-      'The other side: a queue of requests with the constituent check already done, and the weekly capacity tracker.',
+      'The other side: a queue of requests with the constituent check already done, and a weekly tracker. All sample data.',
     lookFor:
-      'The capacity tracker. An office may host one school tour a week, and nothing else a staffer uses shows them that.',
+      'The weekly tracker, and the availability an office can publish so schools see it before they pick a date.',
   },
 ] as const;
 

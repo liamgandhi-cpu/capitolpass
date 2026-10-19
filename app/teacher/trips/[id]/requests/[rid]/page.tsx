@@ -21,7 +21,7 @@ import { getSchool, domainTrust, lookupDomain } from '@/lib/schools';
 import { eventsForRequest, getRequest, getTrip, savePacketSnapshot } from '@/lib/trips';
 import { delegationFor } from '@/lib/congress/legislators';
 import { cvcRoute, explainConfidence, resolveMeetingRoute, resolveTourRoute } from '@/lib/congress/routing';
-import { isOfficeClaimed } from '@/lib/offices';
+import { isDemoOffice, isOfficeClaimed, officeByBioguide } from '@/lib/offices';
 import { buildPacket, mailtoUrl } from '@/lib/packets';
 import { formatLong, formatShort } from '@/lib/dates';
 import { markRequestSentAction, recordResponseAction } from '../../../../actions';
@@ -100,6 +100,11 @@ export default async function PacketPage({
           : null;
 
   const officeClaimed = member ? isOfficeClaimed(member.bioguideId) : false;
+  // Claimed by a seeded demo account rather than by the office itself. The
+  // request still goes to a queue, but it is the demo's queue, and saying the
+  // real office "has claimed their account" would put words in its mouth.
+  const claimedOffice = member && officeClaimed ? officeByBioguide(member.bioguideId) : null;
+  const officeIsDemo = claimedOffice ? isDemoOffice(claimedOffice.id) : false;
   const events = eventsForRequest(request.id);
 
   return (
@@ -127,12 +132,23 @@ export default async function PacketPage({
         <h2 className="text-2xl font-bold">Where this goes</h2>
 
         {officeClaimed && request.destination_type !== 'cvc_group_reservation' ? (
-          <Panel title="This office is on CapitolPass" tone="ok">
-            <p>
-              {member?.name}&rsquo;s office has claimed their account, so this request goes straight
-              into their queue. No email, no form, no wondering whether it arrived — you will see the
-              status change here when they respond.
-            </p>
+          <Panel
+            title={officeIsDemo ? 'Sample office queue' : 'This office is on CapitolPass'}
+            tone={officeIsDemo ? 'info' : 'ok'}
+          >
+            {officeIsDemo ? (
+              <p>
+                In this demo, a sample account stands in for {member?.name}&rsquo;s office, so you
+                can see what happens when an office uses CapitolPass. Sending puts this request in the
+                sample queue. Nothing reaches the real office.
+              </p>
+            ) : (
+              <p>
+                {member?.name}&rsquo;s office has claimed their account, so this request goes
+                straight into their queue. No email, no form, no wondering whether it arrived — you
+                will see the status change here when they respond.
+              </p>
+            )}
             <form action={markRequestSentAction} className="mt-4">
               <input type="hidden" name="request_id" value={request.id} />
               <input type="hidden" name="trip_id" value={trip.id} />
@@ -326,9 +342,9 @@ export default async function PacketPage({
 
       <InsetText>
         <p className="text-slate-600">
-          CapitolPass never sends this for you. Automated mail to congressional offices gets filtered
-          and wastes the time of people whose inboxes are a public resource. Every route above puts a
-          human — you, or a staffer who chose to receive requests here — in the loop.
+          CapitolPass never sends this for you. Automated mail to congressional offices gets filtered,
+          and it lands on staff who are already answering constituents. Every route above puts a
+          person — you, or a staffer who chose to receive requests here — in the loop.
         </p>
       </InsetText>
     </div>

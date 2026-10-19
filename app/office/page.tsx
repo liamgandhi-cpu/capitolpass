@@ -18,6 +18,7 @@ import {
 import { currentUser } from '@/lib/auth';
 import {
   districtMatch,
+  isDemoOffice,
   memberForOffice,
   officesForUser,
   pendingStaffFor,
@@ -117,6 +118,20 @@ export default async function OfficeQueuePage({
         }
       />
 
+      {/* The demo claims the real office the demo school resolves to, so the
+          routing is real. Everything else on this page is invented, and a
+          staffer of that office must not mistake it for their own records. */}
+      {offices.some((o) => isDemoOffice(o.id)) ? (
+        <Panel title="This is sample data" tone="info">
+          <p>
+            A demo account has claimed this office to show how the queue works. The requests,
+            availability and notes here were invented for the demo. None of it came from{' '}
+            {offices.map((o) => o.member_name).join(', ')}&rsquo;s office, and nothing here is sent
+            to it.
+          </p>
+        </Panel>
+      ) : null}
+
       {query.responded ? (
         <Panel title="Response recorded" tone="ok">
           <p>The teacher can see the change immediately. No email round trip.</p>
@@ -149,16 +164,20 @@ export default async function OfficeQueuePage({
             <div>
               <h2 className="text-2xl font-bold">Weekly capacity</h2>
               <p className="mt-1 max-w-3xl text-slate-600">
-                Your office can reserve {office.weekly_tour_limit} school tour
-                {office.weekly_tour_limit === 1 ? '' : 's'} per week. Nothing else you use shows you
-                this, which is how two schools in the same district end up competing for the same
-                week without either of them knowing.
+                Every school group on the books, week by week, against a limit of{' '}
+                {office.weekly_tour_limit} per week. When two schools in the district ask for the same
+                week, this is where it shows up — before either of them has been promised anything.
               </p>
 
               <p className="mt-2 font-bold text-ink-950">
                 {booked.length === 0
                   ? `Nothing booked in the next ${capacity.length} weeks.`
-                  : `${booked.length} of the next ${capacity.length} weeks ${booked.length === 1 ? 'has' : 'have'} a school tour on it.`}
+                  : // Named, because the strip scrolls and the booked week is
+                    // often off-screen: a count next to a row of zeros reads
+                    // as a bug.
+                    `${booked.length} of the next ${capacity.length} weeks ${booked.length === 1 ? 'has' : 'have'} a school tour on it: the week${booked.length === 1 ? '' : 's'} of ${booked
+                      .map((w) => formatShort(w.weekStart).replace(/, \d{4}$/, ''))
+                      .join(', ')}.`}
               </p>
 
               {/* Scrolls rather than shrinking: the window stretches to reach
@@ -425,9 +444,14 @@ export default async function OfficeQueuePage({
                                   <>
                                     <strong>{item.guests}</strong> — {item.students} students,{' '}
                                     {item.teachers} teachers, {item.chaperones} chaperones
-                                    {item.guests > RULES.staffLedMaxGuests.value ? (
+                                    {item.guests > RULES.officeGuidedSchoolMaxGuests.value ? (
+                                      <span className="ml-2 font-bold text-stop-700">
+                                        over the {RULES.officeGuidedSchoolMaxGuests.value}-person
+                                        school-group limit
+                                      </span>
+                                    ) : item.guests > RULES.staffLedMaxGuests.value ? (
                                       <span className="ml-2 font-bold text-warn-700">
-                                        over the {RULES.staffLedMaxGuests.value}-guest staff-led limit
+                                        too big for staff-led — a guided school tour
                                       </span>
                                     ) : null}
                                   </>

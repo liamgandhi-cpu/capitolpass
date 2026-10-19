@@ -10,7 +10,6 @@ import {
 } from '@/components/ui';
 import { searchMembers, memberByBioguide } from '@/lib/congress/legislators';
 import { formatDistrict } from '@/lib/districts/states';
-import { RULES } from '@/lib/feasibility';
 import { startOfficeClaim } from '../actions';
 
 export const metadata = { title: 'Claim your office' };
@@ -57,7 +56,7 @@ export default async function ClaimOfficePage({
           </li>
           <li>
             <strong className="text-ink-950">
-              A weekly tracker for the {RULES.officeSchoolToursPerWeek.value}-tour-per-week limit.
+              A weekly tracker for the tours you can take on.
             </strong>{' '}
             See at a glance which weeks are already spoken for before you promise one.
           </li>
@@ -66,9 +65,9 @@ export default async function ClaimOfficePage({
             propose another date. The teacher sees it immediately, with no email thread.
           </li>
           <li>
-            <strong className="text-ink-950">Group size flagged against the cap.</strong> A request
-            for 34 people is marked as over the {RULES.staffLedMaxGuests.value}-guest staff-led limit
-            before you open it.
+            <strong className="text-ink-950">The right tour for the group size.</strong> A request
+            for 34 people arrives marked as a guided school tour rather than a staff-led one, so it
+            is not mistaken for a request you have to turn down.
           </li>
         </ul>
       </Card>

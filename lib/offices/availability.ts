@@ -5,9 +5,9 @@
  * WHY THIS EXISTS
  * ----------------------------------------------------------------------------
  * Everything else in this app routes a request to the right place. That is
- * useful and it does not touch the actual scarcity: a congressional office may
- * host one school tour a week, and nobody outside that office can see which
- * weeks are already gone.
+ * useful and it does not touch the actual scarcity: a congressional office can
+ * arrange only a limited number of tours a week, and nobody outside that
+ * office can see which weeks are already gone.
  *
  * So two schools in the same district pick the same week, both send a request
  * two months out, and one of them finds out in October that the answer was
@@ -33,7 +33,6 @@
 
 import { all, get, newId, nowIso, run } from '../db';
 import { isoWeekKey, startOfIsoWeek, addDays, type IsoDate } from '../dates';
-import { RULES } from '../feasibility/rules.config';
 
 /** What an office has said about a week. `unpublished` is the absence of a row. */
 export type WeekStatus = 'open' | 'full' | 'closed' | 'unpublished';
@@ -68,7 +67,7 @@ export const WEEK_STATUS_LABEL: Record<WeekStatus, string> = {
  */
 export const WEEK_STATUS_MEANING: Record<WeekStatus, string> = {
   open: 'The office has said it can take a school tour this week.',
-  full: `The office has already committed its ${RULES.officeSchoolToursPerWeek.value} school tour for this week. Pick another week, or go through the Visitor Center.`,
+  full: 'The office has said it cannot take another school group this week. Pick another week, or book directly with the Visitor Center.',
   closed: 'The office has said it is not hosting tours this week at all.',
   unpublished:
     'This office has not published anything about this week. That is not a no — most offices do not publish at all. Request as normal.',

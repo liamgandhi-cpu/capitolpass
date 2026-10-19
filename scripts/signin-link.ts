@@ -1,7 +1,7 @@
 /**
  * Print a sign-in link for an existing account.
  *
- *   npm run signin:link demo.teacher@lcps.org
+ *   npm run signin:link demo.teacher@pwcs.edu
  *
  * ----------------------------------------------------------------------------
  * WHY THIS EXISTS
@@ -31,8 +31,8 @@ const email = process.argv[2];
 if (!email) {
   console.error('Usage: npm run signin:link <email>\n');
   console.error('Seeded demo accounts:');
-  console.error('  demo.teacher@lcps.org         teacher, 34-person trip');
-  console.error('  demo.teacher2@lcps.org        teacher, 14-person trip');
+  console.error('  demo.teacher@pwcs.edu         teacher, 34-person trip');
+  console.error('  demo.teacher2@pwcs.edu        teacher, 14-person trip');
   console.error('  demo.staffer@mail.house.gov   congressional office queue');
   process.exit(1);
 }

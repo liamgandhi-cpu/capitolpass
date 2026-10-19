@@ -6,8 +6,8 @@ evidence that anyone else thinks so.
 That gap is worth closing, and not only for the scoring rubric. Right now the
 strongest claim the project can make is *I believe this is a problem and here is
 what I measured about the routing.* Five conversations turns that into *I asked
-seven teachers and a congressional scheduler, and six of the seven had already
-hit the fifteen-guest cap without knowing it existed.*
+seven teachers and a congressional scheduler, and six of the seven did not know
+a full class has to ask for a guided school tour rather than a staff-led one.*
 
 Almost no submission has any of this. It is the cheapest available advantage.
 
@@ -19,8 +19,9 @@ Four questions. Everything below is in service of them.
 
 1. **Does the problem land?** Have they actually tried to organise a DC trip, and
    where did it stall?
-2. **Was the fifteen-guest cap a surprise?** This is the app's central claim. If
-   experienced teachers all knew it already, the framing needs to change.
+2. **Did they know there are two kinds of office tour?** Staff-led takes 15; a
+   guided school tour the office books takes up to 50. This is the app's central
+   claim. If experienced teachers all knew it already, the framing needs to change.
 3. **Would published office availability change what they do?** This is the
    newest and least proven feature.
 4. **What would stop them using this?** The answer you least want is the one
@@ -62,7 +63,8 @@ contaminated the moment they see a solution.
 6. **Now show the 34-person plan.** Do not explain it. Ask: *what is this telling
    you?* Then wait. Whether they get it unaided is the single most useful thing
    you will learn all day.
-7. Did you know about the fifteen-guest cap?
+7. Did you know a staff-led tour takes only 15, and that an office can book a
+   guided tour for a school group of up to 50?
 8. **Show the date cards with the office availability.** Would knowing this
    before you picked dates change anything?
 9. What is missing? What would stop you using this?
@@ -90,7 +92,19 @@ yours.
 
 ## The congressional office conversation
 
-You have access most applicants do not. Use it once, well.
+You intern in Rep. Subramanyam's office, so you have access most applicants do
+not. Use it once, well, and **do it first**: the tour coordinator can confirm or
+correct the rules the whole app rests on.
+
+Two things to keep straight, because this is also the office judging the
+contest:
+
+- **Tell the office's App Challenge contact that you're entering**, before you
+  submit, and ask whether they want anything handled differently because you
+  intern there. Let them decide; don't wait for them to find out.
+- **Use only what the office would make public.** Ask the coordinator the rules
+  as you would for a school project, and don't put constituent names, specific
+  requests, or internal numbers in the app, the video or the form.
 
 **Ask for twenty minutes with whoever handles tour requests** — usually a staff
 assistant or the scheduler, not the district director. That person lives inside
@@ -98,6 +112,22 @@ the exact constraint this app is built around, and their reaction is the most
 credible sentence available to this project.
 
 ### What to ask
+
+**Check the rules first.** These are what the app tells teachers, sourced from
+other offices' public pages (R1, R2 and R16 on `/rules`). Your own office's
+answer outranks all of them:
+
+- Is a staff-led tour limited to 15 people per staffer, adults included?
+- Can the office book a guided tour for a school group larger than that? Is the
+  limit 50?
+- Is there a limit on staff-led tours per week? On school groups per week?
+- How far ahead should a school ask? Your office's page says at least three
+  weeks; the app uses longer windows as comfortable.
+
+If any answer differs, change `lib/feasibility/rules.config.ts` to match, set
+`lastVerified` to that day, and cite the office as the source.
+
+**Then the workflow:**
 
 1. How do school tour requests actually reach you now? Email, the web form, a
    phone call?
@@ -126,9 +156,9 @@ represented is a worse outcome than not having the quote.
 
 ## What to do with the results
 
-**In the video**, one line at most, early: *"I talked to seven teachers. Six had
-never heard of the fifteen-guest cap."* Do not spend thirty seconds on
-methodology.
+**In the video**, one line at most, early: *"I talked to seven teachers. Six
+didn't know a full class has to ask for a different kind of tour."* Do not spend
+thirty seconds on methodology.
 
 **In the written submission**, a short section: how many people, what roles, the
 three things you learned, and — most valuable — **one thing you changed because

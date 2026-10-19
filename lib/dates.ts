@@ -63,7 +63,7 @@ export function previousWeekday(value: IsoDate): IsoDate {
 /**
  * ISO-8601 week identifier, e.g. "2026-W16".
  *
- * Congressional offices are limited to one school tour per *week*, so requests
+ * Congressional offices limit how many tours they run per *week*, so requests
  * have to be bucketed into a week key that both sides agree on. ISO weeks run
  * Monday–Sunday, which matches how a scheduler thinks about their week.
  */

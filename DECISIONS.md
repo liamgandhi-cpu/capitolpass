@@ -8,6 +8,8 @@ those are exact.
 The short version: the spec for this project was written before any of the
 federal data had been touched, and three of its load-bearing assumptions turned
 out to be false. The workarounds are most of what is interesting in the codebase.
+A fourth mistake was in the app itself, and the most important one; D16 is how it
+was caught.
 
 ---
 
@@ -28,7 +30,7 @@ it makes "when was this plan computed" a visible property of a plan rather than
 an invisible one, which is why the trip page can say *this plan was computed 5
 days ago, recompute to see where you stand now*.
 
-**Consequence:** the 108-test suite runs in ~200ms with no network and no
+**Consequence:** the 110-test suite runs in ~300ms with no network and no
 fixtures, so it actually gets run.
 
 ---
@@ -37,7 +39,7 @@ fixtures, so it actually gets run.
 
 **Decided:** at the same time as D1.
 
-All fifteen rules live in `lib/feasibility/rules.config.ts`. Each one has the
+All sixteen rules live in `lib/feasibility/rules.config.ts`. Each one has the
 value the engine uses, a one-sentence explanation in a teacher's language, the
 source it came from, the date that source was last checked, and a confidence
 level:
@@ -419,16 +421,16 @@ a matter of record. What follows from it for a teacher is a judgment, and R15
 carries `heuristic` confidence so the app says so wherever it appears.
 
 **We publish no visitor forecast, because we do not have one worth quoting.** The
-advice rests on arithmetic instead: an office may host one school tour a week
-whether ten schools ask or a hundred. Lead time is the only variable a teacher
+advice rests on arithmetic instead: the tours an office can arrange each week do
+not grow whether ten schools ask or a hundred. Lead time is the only variable a teacher
 controls. That needs no forecast to be true, and it is the kind of claim that
 survives a judge asking where the number came from.
 
 The advisory keys off the *recommended* strategy rather than whatever is merely
-viable — the split-group option is always technically viable, which would have
-made the branch constant and the advice generic. A group heading for the Visitor
-Center faces a different constraint from one competing for an office's single
-weekly slot, and saying the same thing to both would overstate it for one of
+viable — the split-group option (since removed, see D16) was always technically
+viable, which would have made the branch constant and the advice generic. A group heading for the Visitor
+Center faces a different constraint from one competing for an office's limited
+weekly slots, and saying the same thing to both would overstate it for one of
 them.
 
 One knock-on worth recording, because it is the sort of thing that quietly
@@ -440,3 +442,66 @@ dropping below a believable lead time — **shifting the demo, never the rule.**
 nothing inside the window leaves enough lead time, the real date stands, because
 a trip genuinely after the anniversary year should genuinely not get the
 advisory.
+
+---
+
+## D16 — The 15-person cap is for staff-led tours, not for schools
+
+**Decided:** 2026-10-10, after checking the engine against what offices publish.
+
+The first version of the engine said a tour through a congressional office caps
+at 15, so it told a class of 34 that it could not go through its own office and
+sent it to the Visitor Center. That was the app's headline moment, and it was
+wrong.
+
+Office tour pages draw a distinction the engine did not:
+
+- **Staff-led tours**, given by the office's own staff or interns, take at most
+  15 per guide — Sen. King: "limited to groups of fifteen or less"; Rep. Sewell:
+  "no more than 15 guests per staffer or intern".
+- **Guided tours the office books** for its constituents allow larger school
+  groups — Sen. Kaine and Rep. Vindman (VA-7): "school groups cannot exceed 50
+  persons and all other groups are limited to 15 persons".
+
+So the engine now has two office paths. R1 stays at 15 and is scoped to
+staff-led tours. R16 is new: a guided school tour, up to 50. A class of 16 to 50
+is sent to its own office and told to **ask for a school group tour by name**,
+because a request that reads as a staff-led one gets held to 15 — that is the
+real version of the mistake teachers make. Over 50, the plan books the Visitor
+Center directly. The old split option (15 staff-led, the rest at the Visitor
+Center) is gone: one guided request now covers what it needed two for.
+
+R2 was narrowed the same way. The published "one tour per week" limit is for
+staff-led tours (Rep. Espaillat's page; Roll Call reported the same limit when
+tours reopened in 2022), so the weekly warning now fires only when staff-led is
+the plan, and the copy says offices run "a limited number" rather than asserting
+one number for everything. Office practice varies, which is why R1, R2 and R16
+are `documented`, not `published`, and why an office's own published
+availability outranks all three.
+
+R1 and R2 had no source links before this. They do now, and so does R16.
+
+What this changes about the story: the app still heads off the most common
+mistake, but the mistake is asking for the wrong kind of tour, not asking at all.
+That is a better thing to tell a teacher, because it keeps the request with the
+office that represents the school.
+
+---
+
+## D17 — A real office in the demo, with nothing put in its mouth
+
+**Decided:** 2026-10-10.
+
+The demo claims the real office the demo school resolves to — Rep. Subramanyam's,
+for VA-10 — because the routing is the point: a real school, a real district, a
+real Representative. But the seed then "published" availability for that office
+with notes like "a district school asked first and we said yes", and the teacher
+page said the office "publishes its weekly availability through CapitolPass".
+None of that came from the office.
+
+Now `isDemoOffice()` is true when every approved staff account on an office is a
+seeded demo persona, and every page that shows what the office said labels it:
+the trip page calls it sample data and tags each week "Sample office", the
+office queue opens with a sample-data notice, and the seeded notes start with
+"Sample note:". It is deliberately not gated on the demo flag, because the data
+is invented whether or not the demo doors are on.

@@ -31,7 +31,7 @@ const strategy = (p: ReturnType<typeof buildPlan>, id: string) =>
 const recommended = (p: ReturnType<typeof buildPlan>) => p.strategies.find((s) => s.recommended)!;
 
 // ---------------------------------------------------------------------------
-// The 15/16 boundary — the rule the whole product exists to surface
+// The 15/16 boundary — the staff-led cap
 // ---------------------------------------------------------------------------
 
 describe('group size boundary at the staff-led cap', () => {
@@ -50,14 +50,14 @@ describe('group size boundary at the staff-led cap', () => {
     expect(strategy(plan, 'office_staff_led').viable).toBe(true);
     expect(recommended(plan).id).toBe('office_staff_led');
     expect(findingCodes(plan)).toContain('GROUP_FITS_STAFF_LED');
-    expect(findingCodes(plan)).not.toContain('GROUP_OVER_STAFF_LED_CAP');
+    expect(findingCodes(plan)).not.toContain('ASK_FOR_GUIDED_SCHOOL_TOUR');
   });
 
   it('at 16 guests, the staff-led tour stops being viable', () => {
     const plan = buildPlan(trip({ groupSize: { students: 13, teachers: 1, chaperones: 2 } }));
     expect(plan.totalGuests).toBe(16);
     expect(strategy(plan, 'office_staff_led').viable).toBe(false);
-    expect(findingCodes(plan)).toContain('GROUP_OVER_STAFF_LED_CAP');
+    expect(findingCodes(plan)).toContain('ASK_FOR_GUIDED_SCHOOL_TOUR');
   });
 
   it('one extra chaperone is enough to break a group of exactly 15', () => {
@@ -66,50 +66,63 @@ describe('group size boundary at the staff-led cap', () => {
     expect(strategy(at15, 'office_staff_led').viable).toBe(true);
     expect(strategy(at16, 'office_staff_led').viable).toBe(false);
   });
-
-  it('a full class of 30 is pushed to the Visitor Center, not the office', () => {
-    const plan = buildPlan(trip({ groupSize: { students: 30, teachers: 2, chaperones: 4 } }));
-    expect(plan.totalGuests).toBe(36);
-    expect(recommended(plan).id).toBe('cvc_group');
-    expect(recommended(plan).guestsCovered).toBe(36);
-  });
 });
 
 // ---------------------------------------------------------------------------
-// Split-group recommendation
+// The guided school tour — how a full class goes through its office (R16)
 // ---------------------------------------------------------------------------
 
-describe('split-group option', () => {
-  it('is not offered when the whole group already fits a staff-led tour', () => {
-    const plan = buildPlan(trip({ groupSize: { students: 10, teachers: 1, chaperones: 1 } }));
-    expect(plan.strategies.map((s) => s.id)).not.toContain('split_staff_led_and_cvc');
+describe('guided school tour booked by the office', () => {
+  it('uses 50 as the school-group limit, tracking the config', () => {
+    expect(RULES.officeGuidedSchoolMaxGuests.value).toBe(50);
+    expect(RULES.officeGuidedSchoolMaxGuests.id).toBe('R16');
   });
 
-  it('is offered once the group is over the cap', () => {
-    const plan = buildPlan(trip({ groupSize: { students: 25, teachers: 2, chaperones: 3 } }));
-    expect(plan.strategies.map((s) => s.id)).toContain('split_staff_led_and_cvc');
+  it('sends a full class of 36 through its office, not away from it', () => {
+    // The mistake an earlier version made: treating the staff-led cap as the
+    // ceiling on office tours and telling a full class to go elsewhere.
+    const plan = buildPlan(trip({ groupSize: { students: 30, teachers: 2, chaperones: 4 } }));
+    expect(plan.totalGuests).toBe(36);
+    expect(recommended(plan).id).toBe('office_guided_school');
+    expect(recommended(plan).guestsCovered).toBe(36);
+    expect(recommended(plan).destinations).toEqual(['house_office_tour']);
   });
 
-  it('splits at the cap and covers the whole group', () => {
-    const plan = buildPlan(trip({ groupSize: { students: 25, teachers: 2, chaperones: 3 } }));
-    const split = strategy(plan, 'split_staff_led_and_cvc');
-    expect(plan.totalGuests).toBe(30);
-    expect(split.guestsCovered).toBe(30);
-    expect(split.title).toContain('15');
-    expect(split.title).toContain('15'); // 30 - 15 remainder
-    expect(split.destinations).toEqual(['house_office_tour', 'cvc_group_reservation']);
+  it('tells the teacher to ask for a school group tour by name', () => {
+    const plan = buildPlan(trip({ groupSize: { students: 28, teachers: 2, chaperones: 4 } }));
+    const headline = plan.findings.find((f) => f.code === 'ASK_FOR_GUIDED_SCHOOL_TOUR')!;
+    expect(headline.severity).toBe('high');
+    expect(headline.ruleId).toBe('R16');
+    expect(headline.detail).toMatch(/school group/i);
   });
 
-  it('is never the default recommendation, because it needs two requests to land', () => {
-    const plan = buildPlan(trip({ groupSize: { students: 25, teachers: 2, chaperones: 3 } }));
-    expect(strategy(plan, 'split_staff_led_and_cvc').recommended).toBe(false);
+  it('is viable at exactly 50 and not at 51', () => {
+    const at50 = buildPlan(trip({ groupSize: { students: 44, teachers: 2, chaperones: 4 } }));
+    const at51 = buildPlan(trip({ groupSize: { students: 45, teachers: 2, chaperones: 4 } }));
+    expect(strategy(at50, 'office_guided_school').viable).toBe(true);
+    expect(recommended(at50).id).toBe('office_guided_school');
+    expect(strategy(at51, 'office_guided_school').viable).toBe(false);
+  });
+
+  it('over 50, recommends booking directly with the Visitor Center', () => {
+    const plan = buildPlan(trip({ groupSize: { students: 80, teachers: 4, chaperones: 8 } }));
     expect(recommended(plan).id).toBe('cvc_group');
+    expect(findingCodes(plan)).toContain('GROUP_OVER_OFFICE_LIMIT');
+    expect(findingCodes(plan)).not.toContain('ASK_FOR_GUIDED_SCHOOL_TOUR');
   });
 
-  it('warns that adults count toward the 15 on the staff-led half', () => {
-    const plan = buildPlan(trip({ groupSize: { students: 25, teachers: 2, chaperones: 3 } }));
-    const split = strategy(plan, 'split_staff_led_and_cvc');
-    expect(split.rationale.join(' ')).toMatch(/adults count toward/i);
+  it('always offers the Visitor Center as a backup', () => {
+    for (const students of [10, 30, 80]) {
+      const plan = buildPlan(trip({ groupSize: { students, teachers: 2, chaperones: 2 } }));
+      expect(strategy(plan, 'cvc_group').viable).toBe(true);
+    }
+  });
+
+  it('only warns about the weekly staff-led limit when staff-led is the plan', () => {
+    const small = buildPlan(trip());
+    const large = buildPlan(trip({ groupSize: { students: 30, teachers: 2, chaperones: 4 } }));
+    expect(findingCodes(small)).toContain('OFFICE_WEEKLY_LIMIT');
+    expect(findingCodes(large)).not.toContain('OFFICE_WEEKLY_LIMIT');
   });
 });
 
@@ -230,10 +243,17 @@ describe('days the Capitol is closed', () => {
 // ---------------------------------------------------------------------------
 
 describe('request generation', () => {
-  it('generates one CVC request for an oversized group', () => {
+  it('generates one office request for a full class, covering everyone', () => {
     const plan = buildPlan(trip({ groupSize: { students: 30, teachers: 2, chaperones: 4 } }));
-    expect(plan.requests.map((r) => r.id)).toEqual(['cvc_tour']);
+    expect(plan.requests.map((r) => r.id)).toEqual(['office_tour']);
     expect(plan.requests[0].guests).toBe(36);
+    expect(plan.requests[0].title).toMatch(/guided school tour/i);
+  });
+
+  it('generates one CVC request for a group too big for an office', () => {
+    const plan = buildPlan(trip({ groupSize: { students: 80, teachers: 4, chaperones: 8 } }));
+    expect(plan.requests.map((r) => r.id)).toEqual(['cvc_tour']);
+    expect(plan.requests[0].guests).toBe(92);
   });
 
   it('generates an office request for a group that fits', () => {
@@ -454,16 +474,18 @@ describe('the 250th anniversary advisory (R15)', () => {
     expect(advisory('2027-05-12')).toBeUndefined();
   });
 
-  it('is sharper for a group that needs the capped office slot', () => {
-    // A group of 14 fits a staff-led tour, so the one-per-week cap is the thing
-    // standing between them and a slot.
+  it('is sharper for a group that needs a limited office slot', () => {
+    // Groups of 14 and 34 both go through their office, staff-led or guided,
+    // and compete for the limited tours it can arrange each week.
     const small = advisory('2026-05-12', { students: 10, teachers: 2, chaperones: 2 });
     expect(small?.severity).toBe('medium');
-    expect(small?.detail).toContain('per week');
+    expect(small?.detail).toContain('each week');
+    const class34 = advisory('2026-05-12', { students: 28, teachers: 2, chaperones: 4 });
+    expect(class34?.severity).toBe('medium');
 
-    // A group of 34 is pushed to the Visitor Center, which is not capped the
-    // same way, so the same advice would be overstated.
-    const large = advisory('2026-05-12', { students: 28, teachers: 2, chaperones: 4 });
+    // A group of 92 books the Visitor Center directly, so the office-slot
+    // advice would be overstated.
+    const large = advisory('2026-05-12', { students: 80, teachers: 4, chaperones: 8 });
     expect(large?.severity).toBe('info');
   });
 

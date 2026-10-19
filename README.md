@@ -17,21 +17,49 @@ No API keys, no database server, no credentials. `npm run setup` pulls the real 
 
 ---
 
+## What it looks like
+
+**A class of 34, and the plan opens by heading off the most common mistake.** A staff-led tour takes 15, so asking for one gets a full class turned away. The plan tells the teacher to ask her office for a guided school tour instead, which takes up to 50, and shows the office's published availability next to her dates (sample data in the demo).
+
+![A teacher's trip plan: the group of 34 is told to ask for a guided school tour rather than a staff-led one, and the date cards show sample office availability as full, closed and open](docs/screenshots/trip-plan.png)
+
+**All 537 offices, measured.** 498 confirmed tour pages at 92 different URL paths.
+
+![The /front-doors page: four stat tiles and a grid with one cell per congressional office, grouped by state](docs/screenshots/front-doors.png)
+
+**The office side.** A weekly capacity tracker built around the one-school-tour-a-week limit, and one click to publish availability to every school in the district.
+
+![The congressional office request queue, showing weekly capacity and the availability controls](docs/screenshots/office-queue.png)
+
+<details>
+<summary>Landing page and the rules page</summary>
+
+![The landing page](docs/screenshots/landing.png)
+
+![The /rules page, listing every rule with its source, last-verified date and confidence level](docs/screenshots/rules.png)
+
+</details>
+
+---
+
 ## If you are reviewing this
 
 Four things, in the order that makes the project make sense fastest.
 
 1. **[`/front-doors`](app/front-doors/page.tsx)** — all 537 congressional offices, measured. This is the finding the whole project rests on and it takes about twenty seconds to grasp.
-2. **Open the demo as a teacher with a class of 34.** The plan's first move is to tell her that the path she was about to take cannot seat her group. Set `CAPITOLPASS_DEMO=1` and the doors are on the landing page.
+2. **Open the demo as a teacher with a class of 34.** The plan's first move is to tell her the tour she was about to ask for cannot take her group, and what to ask for instead. Set `CAPITOLPASS_DEMO=1` and the doors are on the landing page.
 3. **[`lib/feasibility/rules.config.ts`](lib/feasibility/rules.config.ts)** — every rule the app applies, with its source, the date it was last checked, and whether it is published guidance or our own judgment.
 4. **[`DECISIONS.md`](DECISIONS.md)** — what was assumed, what was measured, and what changed. Three assumptions in the original spec turned out to be false; D3, D4/D5 and D6 are those.
 
-`npm test` runs 108 tests in about 200ms with no network and no fixtures.
+`npm test` runs 110 tests in about 300ms with no network and no fixtures.
+
+**How this was built.** CapitolPass is a 2026 Congressional App Challenge entry by Liam Gandhi, a student at Thomas Jefferson High School for Science and Technology. It was built with Claude, Anthropic's AI assistant, as a coding assistant. Every commit Claude helped write carries a `Co-Authored-By` trailer, so the history shows exactly where it was involved. [`DECISIONS.md`](DECISIONS.md) records the reasoning, including the mistakes and how each was caught.
 
 The `submission/` directory holds the working documents for the Congressional App
 Challenge entry: a [checklist](submission/CHECKLIST.md), a [video
-script](submission/VIDEO.md), an [interview guide](submission/VALIDATION.md), and
-[draft form answers](submission/FORM-ANSWERS.md).
+script](submission/VIDEO.md), an [interview guide](submission/VALIDATION.md),
+[draft form answers](submission/FORM-ANSWERS.md), and a [judge-prep study
+guide](submission/JUDGE-PREP.md).
 
 ---
 
@@ -44,7 +72,7 @@ script](submission/VIDEO.md), an [interview guide](submission/VALIDATION.md), an
 - [The 535 front doors](#the-535-front-doors)
 - [Published availability](#published-availability)
 - [Spanish for families](#spanish-for-families)
-- [Three things the original plan got wrong](#three-things-the-original-plan-got-wrong)
+- [Four things the plan got wrong](#four-things-the-plan-got-wrong)
 - [Running it](#running-it)
 - [Testing](#testing)
 - [What is live and what is roadmap](#what-is-live-and-what-is-roadmap)
@@ -57,7 +85,7 @@ script](submission/VIDEO.md), an [interview guide](submission/VALIDATION.md), an
 Five specific failure points, all encoded in the app:
 
 1. **Two booking systems, no shared front door.** A tour can be booked through the Capitol Visitor Center's Advance Reservation System, or through the office of the school's own Representative or Senators. Neither system knows the other exists.
-2. **Staff-led tours cap at 15 guests**, counting students, teachers and chaperones together — and **each congressional office may reserve only one school tour per week.** A class of 30 physically cannot go as one staff-led group. Most teachers find this out after they have already asked.
+2. **There are two kinds of office tour, and only one of them fits a class.** A tour led by the office's own staff or interns takes **at most 15 people per guide**, adults included, and offices can run only a few a week. A **guided school tour** the office books with the Visitor Center takes **a school group of up to 50** — but a teacher has to know to ask for it. Ask for a staff-led tour for a class of 30 and the honest answer is no.
 3. **Every House and Senate office runs its own tour request form on its own website.** No standard format, no standard fields, no standard lead time. 535 different front doors.
 4. **A meeting with the Member is a completely separate request**, on a different timeline, handled by the office scheduler rather than the tour coordinator.
 5. **The logistics kill trips that clear all of the above.** No visitor parking. No food or drink inside. No bag storage of any kind. Chaperone ratios, headcounts and permission slips are the teacher's problem alone.
@@ -128,7 +156,7 @@ They describe the trip once. The feasibility engine returns a **plan, not a form
 
 `lib/feasibility/` is the intellectual core, and it is deliberately easy to audit.
 
-**Every rule lives in one annotated config file.** [`lib/feasibility/rules.config.ts`](lib/feasibility/rules.config.ts) holds all fifteen, each with:
+**Every rule lives in one annotated config file.** [`lib/feasibility/rules.config.ts`](lib/feasibility/rules.config.ts) holds all sixteen, each with:
 
 - the value the engine uses,
 - a one-sentence explanation a teacher would understand,
@@ -136,7 +164,7 @@ They describe the trip once. The feasibility engine returns a **plan, not a form
 - the date that source was last checked,
 - and a **confidence level**: `published` (stated in official guidance), `documented` (consistent across many offices but not centrally published), or `heuristic` (our own planning judgment, not policy).
 
-That last distinction is load-bearing. The app renders it, so a teacher can always tell whether we are quoting a rule or offering an opinion. Of the fifteen rules, **five are published guidance, five are documented practice, and five are explicitly our own judgment** — and the judgment calls (CVC slot sizing, screening buffer, chaperone ratios, paperwork lead times, and the 250th-anniversary advisory) are labelled as advice everywhere they appear. `/rules` shows all of them with sources and last-verified dates.
+That last distinction is load-bearing. The app renders it, so a teacher can always tell whether we are quoting a rule or offering an opinion. Of the sixteen rules, **five are published guidance, six are documented practice, and five are explicitly our own judgment** — and the judgment calls (CVC slot sizing, screening buffer, chaperone ratios, paperwork lead times, and the 250th-anniversary advisory) are labelled as advice everywhere they appear. `/rules` shows all of them with sources and last-verified dates.
 
 **The engine is pure.** `buildPlan(input) → plan`, with no database, no network, and no clock — `requestedOn` is an input. Same input, same plan, forever. That is what makes the test suite meaningful rather than decorative.
 
@@ -146,7 +174,7 @@ What it decides:
 
 | Concern | What happens |
 |---|---|
-| Group size | 15 or under → staff-led tour viable. 16+ → not viable, CVC recommended, split offered as an option but never as the default (it needs two requests to land) |
+| Group size | 15 or under → staff-led tour recommended. 16–50 → guided school tour booked by the office recommended, and the teacher is told to ask for it by name. Over 50 → book directly with the Visitor Center. The Visitor Center is always offered as a backup |
 | Dates | Sundays and federal holidays rejected outright; Saturdays flagged because offices are not staffed; lead time banded against the worst threshold across everything the trip needs |
 | Meeting vs tour | Always separate requests, separate deadlines, separate tracking |
 | Critical path | Counted backwards from the trip date, never landing a deadline on a weekend |
@@ -182,8 +210,9 @@ suite for being newer.
 ## Published availability
 
 Everything else in the app routes a request to the right place. That is useful
-and it does not touch the actual scarcity: **an office may host one school tour
-a week, and nobody outside that office can see which weeks are already gone.**
+and it does not touch the actual scarcity: **an office can arrange only a
+limited number of tours a week, and nobody outside that office can see which
+weeks are already gone.**
 So two schools in the same district pick the same week, both send a request two
 months out, and one of them finds out in October that the answer was always
 going to be no.
@@ -225,9 +254,9 @@ reader who hits an English paragraph stops trusting the ones they could read.
 
 Teachers get the link to hand to families directly from the trip page.
 
-## Three things the original plan got wrong
+## Four things the plan got wrong
 
-This project was specced before it was built, and three assumptions in that spec turned out to be false. They are documented here rather than quietly worked around, because the workarounds are some of the more interesting parts of the codebase.
+This project was specced before it was built, and three assumptions in that spec turned out to be false. A fourth was in the app itself, and was caught by checking it against what congressional offices actually publish. They are documented here rather than quietly worked around, because the workarounds are some of the more interesting parts of the codebase.
 
 ### 1. `contact_form` does not cover 535 offices — it covers 88
 
@@ -286,6 +315,12 @@ The CCD ships latitude and longitude for essentially every school, so [`lib/dist
 
 **We never infer a district from a ZIP code.** ZIPs cross district lines routinely, and a wrong guess sends a teacher's request to an office that will correctly ignore it because they are not a constituent.
 
+### 4. The 15-person cap is for staff-led tours, not for schools
+
+The first version of the engine treated the staff-led cap as the ceiling on anything an office could arrange, and told a class of 34 that it could not go through its own office. Office tour pages say otherwise: Sen. Kaine's and Rep. Vindman's both state that "school groups cannot exceed 50 persons and all other groups are limited to 15," and Rep. Sewell's distinguishes 15 per staffer from guide-led tours of up to 50.
+
+So the engine now knows two kinds of office tour: staff-led (R1, 15 per guide; R2, limited per week) and a guided school tour the office books (R16, up to 50). A class of 34 is told to ask for the second one by name, which is the advice that actually gets it into the building. The weekly limit was narrowed the same way: it is published for staff-led tours, so the app no longer applies it to everything. See D16 in [`DECISIONS.md`](DECISIONS.md).
+
 ---
 
 ## Running it
@@ -321,9 +356,9 @@ npm run data:tour-routes -- --retry      # only the offices a firewall blocked
 
 | Account | What it shows |
 |---|---|
-| `demo.teacher@lcps.org` | **34 people** — over the 15-guest cap. Pushed to the Visitor Center, offered a split, meeting tracked separately |
-| `demo.teacher2@lcps.org` | **14 people** — fits a staff-led tour. Sent in-app to a claimed office |
-| `demo.staffer@mail.house.gov` | The office queue with that request in it, constituent check passed, weekly capacity tracker |
+| `demo.teacher@pwcs.edu` | **34 people** — too big for staff-led. Told to ask the office for a guided school tour, meeting tracked separately |
+| `demo.teacher2@pwcs.edu` | **14 people** — fits a staff-led tour. Sent in-app to a claimed office |
+| `demo.staffer@mail.house.gov` | The office queue with that request in it, constituent check passed, weekly tracker. The demo claims the real VA-10 office so the routing is real, and every page labels the office's requests, availability and notes as **sample data** |
 
 Students join at `/join` with the codes the seed prints.
 
@@ -334,7 +369,7 @@ Students join at `/join` with the codes the seed prints.
 ```bash
 npm run build
 npm start                                    # http://localhost:3000
-npm run signin:link demo.teacher@lcps.org    # prints a sign-in link
+npm run signin:link demo.teacher@pwcs.edu    # prints a sign-in link
 ```
 
 Two things differ from `npm run dev`, and both are deliberate:
@@ -358,15 +393,15 @@ Everything is optional except as noted. See [`.env.example`](.env.example).
 ## Testing
 
 ```bash
-npm test                    # 108 tests, no network, ~200ms
-NETWORK_TESTS=1 npm test    # 113 tests, adds live Census Geocoder checks
+npm test                    # 110 tests, no network, ~300ms
+NETWORK_TESTS=1 npm test    # 115 tests, adds live Census Geocoder checks
 npm run typecheck
 ```
 
 The suite concentrates on what a reviewer can verify is correct:
 
 - **The 15/16 boundary** — at exactly 15 the staff-led tour is viable; at 16 it is not; one extra chaperone breaks a group of 15. The test asserts against the config value, not a literal, so the rule and the test cannot drift apart.
-- **Split-group recommendations** — offered only above the cap, splits at the cap, covers the whole group, and is never the default.
+- **The 50/51 boundary** — a class of 16 to 50 is sent to its own office for a guided school tour and told to ask for it by name; at 51 the plan books the Visitor Center directly. The weekly staff-led warning fires only when staff-led is the plan.
 - **Lead-time thresholds** — each side of every boundary, and the rule that the worst threshold across all needed requests wins.
 - **Closed days** — Sundays, federal holidays, and holidays observed on a different day than they fall (July 4th 2026 is a Saturday, observed Friday the 3rd).
 - **District resolution at borders** — two nearby points in different districts must resolve differently. This is the case a ZIP-code lookup gets wrong.

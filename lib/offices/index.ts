@@ -12,6 +12,7 @@ import { all, get, newId, nowIso, run, transaction } from '../db';
 import { isoWeekKey, startOfIsoWeek, addDays, daysBetween, type IsoDate } from '../dates';
 import { RULES } from '../feasibility/rules.config';
 import { allMembers, memberByBioguide, type Member } from '../congress/legislators';
+import { DEMO_PERSONAS } from '../auth/demo';
 
 export interface Office {
   id: string;
@@ -70,6 +71,29 @@ export function officeByBioguide(bioguideId: string): Office | null {
   return get<Office>('SELECT * FROM offices WHERE bioguide_id = ?', bioguideId);
 }
 
+/**
+ * True when every approved staff account on this office is a seeded demo
+ * persona.
+ *
+ * The demo claims a real office — the one the demo school's district actually
+ * resolves to — so that the routing it shows is real. Everything that office
+ * then "says" is invented by the seed. Pages use this to label it as sample
+ * data, so nothing fabricated is ever presented as a real office's words.
+ * Deliberately not gated on CAPITOLPASS_DEMO: the data is fabricated whether
+ * or not the demo doors are switched on.
+ */
+export function isDemoOffice(officeId: string): boolean {
+  const staff = all<{ email: string }>(
+    `SELECT u.email FROM office_staff s
+     JOIN users u ON u.id = s.user_id
+     WHERE s.office_id = ? AND s.status = 'approved'`,
+    officeId,
+  );
+  if (staff.length === 0) return false;
+  const demoEmails = new Set(DEMO_PERSONAS.map((p) => p.email));
+  return staff.every((row) => demoEmails.has(row.email.trim().toLowerCase()));
+}
+
 export function officesForUser(userId: string): Office[] {
   return all<Office>(
     `SELECT o.* FROM offices o
@@ -106,7 +130,7 @@ export function ensureOfficesExist(): number {
         member.district,
         member.name,
         'unclaimed',
-        RULES.officeSchoolToursPerWeek.value,
+        RULES.officeStaffLedToursPerWeek.value,
         nowIso(),
       );
       created += 1;
@@ -312,7 +336,7 @@ export function weeklyCapacity(
   weeks = 8,
 ): WeekCapacity[] {
   const office = getOffice(officeId);
-  const limit = office?.weekly_tour_limit ?? RULES.officeSchoolToursPerWeek.value;
+  const limit = office?.weekly_tour_limit ?? RULES.officeStaffLedToursPerWeek.value;
 
   const rows = all<{ requested_date: string; status: string }>(
     `SELECT requested_date, status FROM requests

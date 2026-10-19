@@ -1,151 +1,205 @@
 # Congressional App Challenge, submission form
 
-Drafts for the portal fields, in your voice. Anything in [brackets] is a fact I
-don't have. Fill those in or cut them, but don't leave them.
+Drafts for the portal fields, in your voice, matched to the six questions the
+**2026 rulebook** lists (section 4, "Questions"). The rulebook says the portal
+asks questions "similar to" these, so check the real field names and any word
+limits when you log in, and trim to fit.
 
-Check the actual field names and word limits on the portal before you paste.
-They move around year to year.
+Anything in [brackets] is a fact I don't have. Fill it in or cut it, but don't
+leave it in.
+
+**After 12:00 pm EDT on Monday, October 26, 2026, the submission cannot be
+changed in any way.** Submit a day early.
 
 ---
 
-## App name
+## 1. What is the title of your app?
 
 CapitolPass
 
 ---
 
-## What does your app do?
+## 2. Explain the app's purpose.
 
 CapitolPass plans a school field trip to the US Capitol.
 
-You describe the trip once. It figures out which school you're at, which
-congressional district that is, and who your Representative and Senators are, so
-you never have to look any of that up. Then it tells you whether your trip
-actually works.
+A teacher describes the trip once. The app works out which school they're at,
+which congressional district that is, and who their Representative and Senators
+are, so they never have to look any of that up. Then it tells them whether the
+trip actually works.
 
-That last part is the point. A tour led by a congressional office's staff caps at
-15 people, counting chaperones. Most teachers find that out after they've already
-asked. If you have a class of 30, the app says so up front and routes you to the
-Capitol Visitor Center instead, with a dated list of what you have to send and
-when.
+That last part is the point. There are two kinds of tour an office can arrange.
+A staff-led tour, given by the office's own staff or interns, takes at most 15
+people, chaperones included. A guided school tour the office books takes a school
+group of up to 50. A teacher with a class of 30 who asks for the first kind gets
+told no. The app tells her up front to ask for the second kind by name, and gives
+her a dated list of what to send and when.
 
-It also has a side for congressional offices. They get a queue of requests where
-the constituent check is already done, and they can publish which weeks they can
-actually host a school. An office can only take one school tour a week, so two
-schools in the same district end up fighting over the same week without either of
-them knowing. Now they can see it before they pick a date.
+There's also a side for congressional offices. They get a queue of requests
+where the constituent check is already done, and they can publish which weeks
+they can actually host a school. Offices can only run so many tours a week, so
+two schools in the same district can end up asking for the same week without
+either of them knowing. Now teachers can see that before they pick a date.
 
 ---
 
-## What inspired you to create this app?
+## 3. What inspired you to create this app?
 
 [This is the one part I can't write for you. Put the real story here.]
 
-If you have one, use it. A specific teacher, a specific trip, a specific person
-who gave up. One real sentence about a real person beats anything else you could
-put in this box.
+You intern in Rep. Subramanyam's office, so you may have a real story: what you
+saw of how tour requests come in, or what made you think a teacher needed this.
+Use it if you have it, with two cautions. Don't share anything the office
+wouldn't make public, like a constituent's name or a specific request. And say
+plainly that you intern there; the judges will know anyway.
+
+One real sentence about a real person beats anything else you could put in this
+box.
 
 If you don't have a story, the honest version works fine:
 
-> I looked at how you actually book a trip to the Capitol and there's no single
-> way to do it. There are 535 congressional offices and every one of them runs
+> I looked at how you actually book a trip to the Capitol, and there's no single
+> way to do it. There are 537 congressional offices, and every one of them runs
 > its own tour page on its own website. I checked all of them. 498 have a real
-> tour page and they're at 92 different URLs. The teachers who pull this off are
-> mostly the ones who already know somebody who worked on the Hill. Everybody
-> else gives up somewhere in the middle.
+> tour page, and they're at 92 different URLs, each with its own rules. A
+> teacher doing this for the first time has to piece it all together from
+> scratch.
 >
-> 2026 is the 250th anniversary, so a lot more schools are going to try this
-> year, and the number of tours an office can host per week hasn't changed.
+> 2026 was the 250th anniversary, so more schools than usual tried to make this
+> trip, and the number of tours an office can host each week didn't change.
 
 ---
 
-## What programming languages and tools did you use?
+## 4. What technical/coding difficulty did you face, and how did you address it?
 
-TypeScript, on Next.js 16 with React. Tailwind for styling. SQLite through
-Node's built-in driver, so there's no database server to install. Vitest for
-tests.
+Three things I assumed turned out to be wrong, and fixing them was most of the
+real work.
 
-Almost the whole thing is server rendered. There's basically no client side
-JavaScript, which keeps it usable on a school laptop with bad wifi.
+**Finding the tour pages.** I assumed the congressional dataset had a contact
+form for every member. It has one for 88 out of 537, and a tour request doesn't
+go to the general contact form anyway. It goes to a separate tour page, and no
+list of those exists. So I wrote a script to find them.
 
-It runs on real federal data, none of it behind an API key:
-
-- 100,155 schools from the NCES Common Core of Data, each with coordinates
-- The US Census Geocoder, for turning those coordinates into a congressional
-  district
-- The congress-legislators dataset, for all 537 current members
-
-I also wrote a script that goes out and finds each office's tour request page,
-since no list of those exists anywhere.
-
----
-
-## What challenges did you face, and what did you learn?
-
-Three things I assumed turned out to be wrong, and they were the interesting
-part.
-
-**I assumed the congressional dataset had a contact form for every member.** It
-has one for 88 out of 537. And a tour request doesn't go to the general contact
-form anyway, it goes to a separate tour page. So I wrote a script to find them.
-
-**My first version of that script guessed at URLs.** It tried paths like
-`/services/tours` and checked if they loaded. It topped out at 89 offices, and it
-was never going to do better, because it could only find paths I'd already
-thought of. So I rewrote it to load each office's homepage and read the
-navigation menu instead, the way a person would. That found 485. It also cost
-about two requests per office instead of ten.
+My first version guessed at URLs. It tried paths like `/services/tours` and
+checked whether they loaded. It topped out at 89 offices and was never going to
+do better, because it could only find paths I'd already thought of. So I
+rewrote it to load each office's homepage and read the navigation menu instead,
+the way a person would. That found 485, at about two requests per office
+instead of ten.
 
 Partway through, house.gov started returning 403 on URLs that had worked ten
 minutes earlier. That's a firewall doing its job. I made the script record those
 as "blocked" instead of "no tour page," because treating a rate limit like a
 missing page would have quietly filled my data with wrong answers.
 
-**I assumed I could geocode school addresses.** I tested three. Two returned
-nothing. School addresses are messy. But the school directory ships latitude and
-longitude for basically every school, and the Census has a separate endpoint that
-takes coordinates and does a point in polygon lookup against the district
-boundaries. That works everywhere. So the app never uses an address, and it never
-guesses a district from a ZIP code, since ZIPs cross district lines all the time
-and a wrong guess sends a teacher's request to an office that will correctly
-ignore it.
+**Finding the district.** I assumed I could geocode school addresses. I tested
+three, and two returned nothing. School addresses are messy. But the federal
+school directory has latitude and longitude for basically every school, and the
+Census has a separate endpoint that takes coordinates and does a point-in-polygon
+lookup against district boundaries. That works everywhere. So the app never uses
+an address, and it never guesses a district from a ZIP code. ZIPs cross district
+lines all the time, and a wrong guess sends a teacher's request to an office
+that will correctly ignore it.
 
-The bigger thing I learned is that being honest about what you don't know is a
-feature. Every rule the app applies is written down with where it came from, when
-I last checked it, and whether it's official guidance or just my own judgment.
-Five of the fifteen are my judgment, and the app says so every time one of them
-shows up. It would have been easy to state all fifteen in the same confident
-voice. That would have been lying.
+**Making the rules testable.** All of the trip logic is one pure function: a
+trip goes in, a plan comes out, with no database, no network and no clock. That
+meant I could test it properly. There are 108 tests, and they run in under a
+second.
 
 ---
 
-## Anything else? (if the form has this field)
+## 5. What did you learn while participating in the CAC? What was your biggest takeaway?
 
-There's one thing the app will never do, and I built it that way on purpose. It
-won't email a congressional office for you. Automated mail to .house.gov gets
-filtered, and it wastes the time of people whose inboxes are a public resource.
-Every request leaves through a channel a human picked, either the office's own
-form, the teacher's own mailbox, or a queue that office signed up for.
+My biggest takeaway is that being honest about what you don't know is a
+feature.
 
-The student and family pages are in Spanish as well as English. The permission
-slip and the what you can't bring list are exactly where a language barrier keeps
-a kid off the bus.
+Every rule the app applies is written down with where it came from, when I last
+checked it, and whether it's official guidance or my own judgment. Five of the
+sixteen are my judgment, and the app says so every time one of them shows up. It
+would have been easy to state all sixteen in the same confident voice, but that
+would have been lying to the teachers using it.
 
-[If you talked to teachers or to a congressional office, one line here. How many
-people, and the single most surprising thing they told you. Skip it if you
-didn't.]
+That habit is also how I caught my biggest mistake. My first version said a tour
+through a congressional office caps at 15 people, so it told a class of 34 to go
+somewhere else. When I went back to find a source for that rule, the office tour
+pages said something different: 15 is the limit for a staff-led tour, but an
+office can book a guided tour for a school group of up to 50. The app had been
+telling teachers the opposite of what they needed to hear. I fixed the rule, the
+plan, and the request the app writes for the office, and now every rule links
+to where it came from.
+
+The same thing came up with data. An office that hasn't published its
+availability shows as "not published," never as "open." Silence isn't a yes,
+and an app that pretends it is will send a teacher after a week that was never
+available.
+
+I also learned to check my assumptions against real data before building on
+them. Every big problem in this project, the three in question 4 and the tour
+limit above, came from something I was sure of until I checked.
+
+[If you talked to teachers or a congressional office, one line here: how many
+people, and the most surprising thing they told you. Skip it if you didn't.]
 
 ---
 
-## If they ask about AI assistance
+## 6. What would you change about your app if you were to create a 2.0 version?
 
-Answer it straight. Say what you used it for and what you decided yourself.
-Something like:
+Three things, in order:
 
-> I used Claude as a coding assistant. The research calls were mine: checking all
-> 537 offices, finding out the contact form data was incomplete, testing the
-> geocoder and switching to coordinates, and deciding which rules were solid
-> enough to state as fact. [Adjust this to what's actually true.]
+1. **Get real offices using the queue.** Right now the office side runs on a
+   demo office. The domain check is real, since you can't get a house.gov
+   address without working there, but it doesn't prove *which* office you work
+   for. Version 2 would confirm claims with the office directly, and I'd start
+   with my own Representative's office.
+2. **Keep the tour-page data fresh automatically.** The 498 tour URLs were each
+   confirmed on a recorded date, but websites change. I'd run the discovery
+   script on a schedule and flag any office whose page moved or broke.
+3. **Cover more of the trip.** Lunch is the part teachers ask about most, and
+   the current directory is just public information with no real partners. I'd
+   also add live Metro data, which needs an API key I haven't set up.
 
-Don't undersell it and don't hide it. The commit history and the decision log are
-both in the repo and both show the work.
+---
+
+## AI usage disclosure
+
+**Read this before you write the answer.** The 2026 rulebook says:
+
+- AI is allowed only if **all** AI usage is **fully disclosed** in the submission.
+- AI "must not constitute the entirety of the technical development."
+- "All coding and technical development must be done by the student," and you
+  are "expected to demonstrate significant individual contributions and
+  technical understanding."
+- Judges can ask for the app and source code to verify it, and refusing means
+  disqualification.
+
+The repo's commit history shows Claude as co-author on 33 of the 34 commits.
+That is accurate, it is public once the repo is on GitHub, and a judge who
+reads it will see it. Don't try to hide it. Write the disclosure so it matches
+what the history already shows, and make sure the **Significant individual
+contributions** part is true.
+
+A shape that works (rewrite it so every sentence is accurate):
+
+> I used Claude (Anthropic's AI assistant) as a coding assistant throughout,
+> and the commit history shows it as co-author. [Say plainly how much of the
+> code it wrote.]
+>
+> The decisions and research were mine: [list what is actually yours. For
+> example, choosing the problem; checking how tour requests work; deciding to
+> measure all 537 offices; finding that the contact-form data covered only 88;
+> testing the geocoder and switching to coordinates; deciding which rules were
+> solid enough to state as fact and which to label as my judgment; deciding the
+> app would never email an office.]
+>
+> I can explain how every part of it works, and I'm happy to walk a judge
+> through the code.
+
+Then make that last line true. See [`JUDGE-PREP.md`](JUDGE-PREP.md).
+
+---
+
+## Repo and demo links
+
+- **Repo:** [your GitHub URL]. Open it in a private window to check it's public.
+- **Live app:** [your deployed URL]. Check that the demo doors work in a private window.
+- **Video:** [YouTube or Vimeo URL]. Must be set to **public**, not unlisted.

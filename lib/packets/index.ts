@@ -23,6 +23,7 @@
 import { formatLong, type IsoDate } from '../dates';
 import type { Member } from '../congress/legislators';
 import type { DestinationType } from '../feasibility/types';
+import { RULES } from '../feasibility/rules.config';
 import type { School } from '../schools';
 import type { TripRow } from '../trips';
 import { accessibilityNeeds } from '../trips';
@@ -142,23 +143,33 @@ function officeTourPacket(ctx: PacketContext): Packet {
   const memberName = member ? `${member.chamber === 'senate' ? 'Senator' : 'Representative'} ${member.name}` : 'our Member of Congress';
   const schoolName = ctx.school?.name ?? ctx.schoolNameFallback;
 
+  // Over the staff-led cap, the right ask is a guided school group tour (R16).
+  // Naming it matters: a request that reads as a staff-led tour gets held to
+  // 15, and a full class is then told it cannot come.
+  const guided = ctx.guests > RULES.staffLedMaxGuests.value;
+  const grade = GRADE_LABELS[trip.grade_band]?.toLowerCase() ?? '';
+
   const narrative = [
-    `${schoolName} is bringing a ${GRADE_LABELS[trip.grade_band]?.toLowerCase() ?? ''} group of ${ctx.guests} to Washington and would like to request a staff-led tour of the Capitol.`,
+    guided
+      ? `${schoolName} is bringing a ${grade} school group of ${ctx.guests} to Washington and would like to request a guided school group tour of the Capitol through your office.`
+      : `${schoolName} is bringing a ${grade} group of ${ctx.guests} to Washington and would like to request a staff-led tour of the Capitol.`,
     ctx.verified
       ? 'This request was submitted through CapitolPass and has been confirmed by a school administrator.'
       : 'This request was submitted through CapitolPass.',
-    `We understand staff-led tours are limited to 15 guests and that your office can host one school tour per week, so we have kept our group within that limit and offered alternate dates.`,
+    guided
+      ? `The ${ctx.guests} includes every student, teacher and chaperone. We have offered alternate dates in case the requested week is unavailable.`
+      : `We understand staff-led tours are limited to ${RULES.staffLedMaxGuests.value} people, so we have kept our group within that limit and offered alternate dates.`,
   ].join(' ');
 
   const fields = commonFields(ctx);
 
   return {
     destination: 'house_office_tour',
-    title: 'Staff-led Capitol tour request',
+    title: guided ? 'Guided school group tour request' : 'Staff-led Capitol tour request',
     addressedTo: member ? `Office of ${memberName}` : 'Your congressional office',
     fields,
     plainText: toPlainText(fields),
-    emailSubject: `Capitol tour request — ${schoolName}, ${formatLong(ctx.requestedDate)}`,
+    emailSubject: `${guided ? 'School group' : 'Capitol'} tour request — ${schoolName}, ${formatLong(ctx.requestedDate)}`,
     emailBody: [
       `Dear Office of ${memberName},`,
       '',

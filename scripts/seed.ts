@@ -280,13 +280,13 @@ async function main() {
   console.log(`  ${school.name} — ${school.city}, ${school.state} → VA-10\n`);
 
   // A plausible district domain, seeded so the demo shows a confirmed match.
-  seedDomain('lcps.org', school.nces_id, 'Seeded for the demo; confirm before relying on it.');
+  seedDomain('pwcs.edu', school.nces_id, 'Seeded for the demo; confirm before relying on it.');
 
   // -------------------------------------------------------------------------
   // Teachers and trips
   // -------------------------------------------------------------------------
-  const teacherId = createUser('demo.teacher@lcps.org', 'Dana Whitfield (demo)', 'teacher', school.nces_id);
-  const teacher2Id = createUser('demo.teacher2@lcps.org', 'Marcus Reyes (demo)', 'teacher', school.nces_id);
+  const teacherId = createUser('demo.teacher@pwcs.edu', 'Dana Whitfield (demo)', 'teacher', school.nces_id);
+  const teacher2Id = createUser('demo.teacher2@pwcs.edu', 'Marcus Reyes (demo)', 'teacher', school.nces_id);
 
   // Computed as sets so the spacing between a preferred date and its
   // alternates survives any shift into the anniversary window.
@@ -300,13 +300,13 @@ async function main() {
   const bigTrip = createTrip({
     teacherId,
     schoolNcesId: school.nces_id,
-    title: '8th Grade Civics — Capitol Trip',
+    title: 'Government 12 — Capitol Trip',
     preferredDate: bigTripDates[0],
     alternateDates: [bigTripDates[1], bigTripDates[2]],
     students: 28,
     teachers: 2,
     chaperones: 4,
-    gradeBand: 'middle',
+    gradeBand: 'high',
     arrivalMethod: 'charter_bus',
     accessibilityNeeds: ['wheelchair'],
     wantsTour: true,
@@ -377,10 +377,12 @@ async function main() {
       // landed on after any shift, or the office is publishing availability for
       // weeks no teacher in the demo is looking at.
       const published: Array<[string, 'open' | 'full' | 'closed', string | null]> = [
-        [smallTripDates[0], 'open', 'Best week for us this month.'],
-        [smallTripDates[1], 'full', 'Already hosting a school from Loudoun this week.'],
-        [bigTripDates[0], 'full', 'A district school asked first and we said yes.'],
-        [bigTripDates[1], 'closed', 'District work period — the office is not in Washington.'],
+        // Worded as samples, because they are: the office is real and these
+        // words are not its own. The teacher page labels them as well.
+        [smallTripDates[0], 'open', 'Sample note: a good week for a school visit.'],
+        [smallTripDates[1], 'full', 'Sample note: another school already has this week.'],
+        [bigTripDates[0], 'full', 'Sample note: another district school asked first.'],
+        [bigTripDates[1], 'closed', 'Sample note: district work period, no tours this week.'],
         [bigTripDates[2], 'open', null],
         // Offsets match the trip dates above and are snapped the same way, so
         // the published week is the week the teacher is actually looking at.
@@ -416,8 +418,8 @@ async function main() {
 
   console.log('─'.repeat(64));
   console.log('Demo accounts (sign in at /signin — the link prints to this console):');
-  console.log('  Teacher (large group) : demo.teacher@lcps.org');
-  console.log('  Teacher (small group) : demo.teacher2@lcps.org');
+  console.log('  Teacher (large group) : demo.teacher@pwcs.edu');
+  console.log('  Teacher (small group) : demo.teacher2@pwcs.edu');
   console.log('  Congressional staff   : demo.staffer@mail.house.gov');
   console.log(`  Student join codes    : ${bigTrip.join_code}, ${smallTrip.join_code}`);
   console.log('─'.repeat(64));

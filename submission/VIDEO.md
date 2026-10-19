@@ -1,20 +1,37 @@
-# Demo video — script and shot list
+# Demo video: script and shot list
 
-Target run time **3:15**. Confirm the current limit on the Congressional App
-Challenge portal before you cut; it has been four minutes in recent years, and
-going over is a disqualification rather than a deduction.
+**Hard limit: 3:00.** The 2026 rulebook says the video "should be 1-3 minutes
+long" and that judges may penalize videos outside that range. Target **2:45**,
+which leaves room for natural pauses. The video **must be public** on YouTube
+or Vimeo. Unlisted is not enough.
 
-## The problem this script solves
+## What the rulebook requires on screen
 
-CapitolPass does not demo itself. Its value is *reasoning* — the app knows a
-rule and applies it — and reasoning is invisible on screen. A tour of the
-interface would show a lot of well-set text and land nothing.
+The 2026 rules list six things the video must contain. Every one is placed
+below, and the script marks each with ✅ where it lands. Do not cut a ✅ line.
 
-So the video is built around one beat: **the app tells you no.** Most student
-projects say yes to everything. Yours looks at a class of 34 and says the path
-you were about to take cannot seat your group, here is why, here is what can,
-and here is the date you have to act by. Everything else in the script exists to
-set that up or to pay it off.
+1. ✅ Your name
+2. ✅ The app's name
+3. ✅ The purpose **in one clear sentence**
+4. ✅ The target audience
+5. ✅ The tools and languages used
+6. ✅ The app actually working
+
+## The idea the script is built on
+
+CapitolPass does not demo itself. Its value is *reasoning*: the app knows a rule
+and applies it. Reasoning is invisible on screen, so a tour of the interface
+would show a lot of well-set text and land nothing.
+
+So the video is built around one beat: **the app catches the mistake.** A
+teacher with a full class asks her office for a staff-led tour, which takes 15,
+and is told no. This app looks at a class of 34, says that tour can't take her
+group, tells her the tour that can (a guided school tour, up to 50) and to ask
+for it by name, and gives her the date she has to act by.
+
+The rules behind it are sourced from congressional office tour pages, and the
+demo office's availability is labelled as sample data on screen. Both matter:
+the people judging this run tours for VA-10.
 
 Say "I" throughout. Judges are scoring a student, not a product.
 
@@ -22,181 +39,143 @@ Say "I" throughout. Judges are scoring a student, not a product.
 
 ## Before you record
 
-- [ ] `npm run db:reset && npm run db:seed` — fresh demo data, dates snapped to real school weekdays
-- [ ] Confirm the deployed URL loads and the three demo doors work
+- [ ] `npm run db:reset && npm run db:seed` the same day you record, so dates are fresh and land on real school weekdays
+- [ ] Open Dana's trip and **write down the number of days until the first deadline**. The script uses it at 1:35, and it changes with the date you record
 - [ ] Browser at 1280×800, zoom 100%, bookmarks bar hidden, no other tabs
 - [ ] Sign out first, so the landing page is the signed-out one
-- [ ] Have `/front-doors` pre-loaded in a second tab — it is a heavy page and you do not want to film it loading
-- [ ] Record system audio off; narrate over the top afterwards if that is easier than live
+- [ ] Pre-load `/front-doors` in a second tab. It is a heavy page and you do not want to film it loading
+- [ ] Record system audio off. Narrating over the top afterwards is fine
 
 ---
 
-## Script
+## Script (target 2:45)
 
-### 0:00 – 0:20 · The scatter
+### 0:00 – 0:15 · Who you are, and the one sentence
 
-**On screen:** `/front-doors`, scrolled so the state grid fills the frame.
+**On screen:** the landing page, top of the hero.
 
-> Every one of these squares is a congressional office. Five hundred and
-> thirty-seven of them, and every single one runs its own tour request page, on
-> its own website, at its own address.
+> Hi, I'm Liam Gandhi ✅, and this is CapitolPass ✅.
 >
-> I know that because I checked all of them.
+> CapitolPass plans a school field trip to the US Capitol: it finds your
+> representatives, tells you what will actually work for your group, and gives
+> you every deadline. ✅
 
-**Cut to:** the four stat tiles — 537 / 498 / 92 / 66.
+*That second line is the one-sentence purpose the rules ask for. Say it exactly
+once, cleanly.*
 
-> Four hundred and ninety-eight have a real tour page. They are at ninety-two
-> different URLs. Sixty-six of those are used by exactly one office.
+### 0:15 – 0:40 · The scatter, and who it's for
+
+**On screen:** `/front-doors`, scrolled so the state grid fills the frame. Then
+the stat tiles.
+
+> It's for teachers bringing a class to the Capitol ✅, and the offices that
+> answer them.
+>
+> Every square is a congressional office. I checked all five hundred and
+> thirty-seven, and their tour pages are at ninety-two different URLs. There's
+> no single front door.
 
 *Do not explain the colours. The grid does that on its own.*
 
----
+**If you have a real story about a real teacher, one sentence of it goes here.**
+A named person beats any statistic in this video.
 
-### 0:20 – 0:45 · Who this is actually for
+### 0:40 – 1:25 · The app catches the mistake
 
-**On screen:** the landing page hero.
+**On screen:** back on the landing page, click **Open as Dana**, then open her trip.
 
-> Booking a Capitol field trip is not one action. It is a scattered, undocumented
-> process, and the teachers who pull it off are disproportionately the ones with
-> a parent volunteer who used to work on the Hill.
+> This is a real high school in Virginia's tenth district. Its representative
+> came from the Census geocoder, not from her.
+
+**Let the first finding sit on screen for a full two seconds before you speak.**
+
+> Thirty-four people. And the first thing the app does is stop her asking for
+> the wrong thing.
 >
-> Everyone else gives up somewhere in those ninety-two front doors.
+> A staff-led tour, the kind an office's own staff give, takes fifteen people,
+> chaperones included. Ask for one with a class of thirty-four and the answer is
+> no. But her office can also book a guided school tour for up to fifty, so the
+> app tells her to ask for that, by name.
 
-**If you have a real story, it goes here and it replaces this paragraph.** One
-sentence about a specific teacher, a specific class, a specific trip that did
-not happen. A named person beats any statistic in this video.
+**Scroll to the strategies, so the guided school tour shows as Recommended.**
 
----
+### 1:25 – 1:55 · The deadline nobody tells you
 
-### 0:45 – 1:35 · The app says no
+**On screen:** the critical path timeline, then the three date cards.
 
-**On screen:** click **Open as Dana** on the landing page. Land on the trip list,
-click through to the trip.
-
-> This is a real school in Virginia's tenth district. I never typed who her
-> representative is — the school's coordinates come from the federal school
-> directory, go to the Census geocoder, and come back as a congressional
-> district.
-
-**Scroll to the first finding. Let it sit on screen for a full two seconds
-before you say anything.**
-
-> Thirty-four people. And the first thing the app does is tell her the thing she
-> was about to do cannot work.
+> Every deadline, counted back from the trip. The first is [N] days away.
 >
-> A tour led by a congressional office's staff is capped at fifteen guests —
-> students, teachers and chaperones counted together. Most teachers find that
-> out *after* they have already asked.
+> And offices can publish which weeks they can host a school. In the demo that's
+> sample data, but here her first choice is full, and she'd know before she
+> picked it.
 
-**Scroll to the strategies section.**
+### 1:55 – 2:15 · The other side
 
-> So it does not just refuse. It ranks what is actually open to a group this
-> size: the Visitor Center seats all thirty-four, and splitting the group is
-> offered but never as the default, because a split needs two separate requests
-> to land.
+**On screen:** switch to **Alex Chen** via the demo banner. The office queue,
+then "What teachers can see."
 
----
+> This is the office's side: a weekly tracker, and one click to publish
+> availability to every school in the district. A week they haven't published
+> never shows as open.
 
-### 1:35 – 2:05 · The deadline nobody tells you about
-
-**On screen:** the critical path timeline.
-
-> Counted backwards from the trip date. Seven deadlines, drawn to scale — you can
-> see the six quiet weeks and then three deadlines landing inside one.
->
-> The first one is in five days. Nobody tells a teacher that.
-
-**On screen:** the date cards, showing OFFICE: FULL / CLOSED / OPEN.
-
-> And this is the part I am most pleased with. The office has published which
-> weeks it can actually take a school. Her first choice is already gone — a
-> district school asked first.
->
-> She finds that out now, instead of in October.
-
----
-
-### 2:05 – 2:35 · The other side
-
-**On screen:** switch to **Alex Chen** via the demo banner. Land on the office queue.
-
-> Same system, from the congressional office. A queue of requests where the
-> constituent check is already done, and a weekly capacity tracker — because an
-> office may host one school tour a week and nothing else a staffer uses shows
-> them that.
-
-**Scroll to "What teachers can see."**
-
-> This is where that availability came from. One click, and it is visible to
-> every school in the district before they commit to a date.
->
-> A week the office says nothing about shows as *not published* — never as open.
-> Silence is not a yes, and the app never pretends otherwise.
-
----
-
-### 2:35 – 3:00 · What I got wrong
-
-**On screen:** `DECISIONS.md` on GitHub, or the `/rules` page.
-
-*This section is worth more than another feature. Judges score what you
-learned, and almost nobody uses the time on it.*
-
-> Three things in my own spec turned out to be false.
->
-> I assumed the legislators dataset had a contact form for every member. It has
-> them for eighty-eight out of five hundred and thirty-seven.
->
-> I assumed I could geocode school addresses. Two of the first three I tried
-> returned nothing, so the whole thing runs on coordinates instead.
->
-> And my first script for finding tour pages guessed at URLs. It topped out at
-> eighty-nine offices, because it could only ever find paths I had thought of.
-> Reading each office's own navigation menu instead found four hundred and
-> eighty-five.
-
----
-
-### 3:00 – 3:15 · Close
+### 2:15 – 2:35 · How I built it, and what I got wrong
 
 **On screen:** the `/rules` page, showing the confidence labels.
 
-> Every rule the app applies is written down, with its source, the date I last
-> checked it, and whether it is published guidance or my own judgment. Four of
-> the fifteen are my judgment, and the app says so everywhere they appear.
+> I built it in TypeScript with Next.js, React and SQLite ✅, on real federal
+> data: a hundred thousand schools and every member of Congress.
 >
-> July fourth, twenty twenty-six is the two hundred and fiftieth anniversary.
-> The weekly tour cap is the same as it was last year. That is the whole reason
-> this needs to exist now.
+> My first version told a class of thirty-four it couldn't go through its
+> office at all. Then I checked what offices actually publish, and school groups
+> can be up to fifty. So I fixed it, and now every rule shows its source.
 
-**End card:** the URL, on screen, for three full seconds.
+### 2:35 – 2:45 · Close
+
+**On screen:** the landing page, with the URL in the address bar.
+
+> Every school should be able to make this trip. I'm Liam Gandhi, and this is
+> CapitolPass.
+
+**End card:** the deployed URL, on screen for three full seconds. (The end card
+can run past 2:45. Stay under 3:00.)
 
 ---
 
-## Things to cut if you run long
+## If you run long
 
-In this order:
+Cut in this order:
 
-1. The split-group explanation at 1:20 (keep the cap, drop the ranking detail)
-2. The landing page section at 0:20 — go straight from the grid to Dana
-3. The Senate/House stat detail in the opening
+1. "Ask for one with a class of thirty-four and the answer is no" at 1:10
+2. The "one click to publish availability" clause at 2:05
+3. The geocoder sentence at 0:45. Keep "a real high school in Virginia's tenth district"
 
-**Never cut:** the app-says-no beat, the office availability beat, or *What I
-got wrong*.
+**Never cut:** your name, the one-sentence purpose, "it's for teachers," the
+tools line, the catches-the-mistake beat, or "In the demo that's sample data."
+The first four are required by the rules. The fifth is the whole video. The last
+keeps you from presenting invented data as the office's own to the office.
 
 ## Things not to do
 
 - **Do not narrate the interface.** "Here we can see a button that says…" is
-  the single most common way these videos die.
+  the most common way these videos die.
 - **Do not show sign-up.** That is why the demo doors exist.
 - **Do not apologise for what is unfinished.** The roadmap is honestly labelled
-  in the app; a judge who finds it will credit you. A judge who hears you
-  apologise will go looking for more.
-- **Do not read this script aloud verbatim.** Learn the beats and say them like
-  a person. Two takes of natural speech beat one perfect read.
+  in the app.
+- **Do not read this word for word.** Learn the beats and say them like a
+  person. Two takes of natural speech beat one perfect read.
+- **Do not call the 250th anniversary upcoming.** July 4, 2026 has passed, and
+  judges watch this in November or later. If you mention it, use the past
+  tense: the anniversary brought more schools, and the weekly cap didn't move.
 
 ## Captions
 
-Upload a caption file rather than relying on auto-captions. It takes ten
-minutes, some judges watch muted, and an app that targets WCAG 2.1 AA with an
-uncaptioned demo video is an own goal a judge may well notice.
+Upload a caption file instead of relying on auto-captions. It takes ten
+minutes, some judges watch muted, and auto-captions will mangle "CapitolPass"
+and "Subramanyam."
+
+## Timing check
+
+Read the script aloud once with a stopwatch before you record. At a normal
+speaking pace the narration is about 2:25 (about 360 words), which leaves 15 seconds for pauses
+and the end card. If your read-through comes in over 2:45, cut from the list
+above before you record, not in the edit.

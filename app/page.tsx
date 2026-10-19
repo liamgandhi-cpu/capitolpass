@@ -3,6 +3,7 @@ import { ButtonLink, Card, InsetText, Panel, RuleTag, StatusPill } from '@/compo
 import { DemoEntry } from '@/components/demo';
 import { RULES } from '@/lib/feasibility';
 import { schoolCount } from '@/lib/schools';
+import { toIsoDate } from '@/lib/dates';
 import { allMembers } from '@/lib/congress/legislators';
 
 export default async function HomePage({
@@ -55,13 +56,14 @@ export default async function HomePage({
           Field trips to the US Capitol
         </p>
         <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
-          Booking a Capitol trip is not one action. It is a scattered process that quietly excludes
-          schools without an inside track.
+          Bringing a class to the Capitol takes more steps than it should, and they are not written
+          down in one place.
         </h1>
         <p className="mt-6 text-xl text-slate-600">
-          The teachers who pull this off are disproportionately the ones with a parent volunteer who
-          used to work on the Hill. Everyone else gives up somewhere in the 535 different forms.
-          CapitolPass is the router: one intake, correct addressing, real logistics, tracked status.
+          Every congressional office runs its own tour page, the Visitor Center runs its own
+          reservations, and the details that decide whether a trip works are spread across both.
+          CapitolPass puts them in one plan: who represents your school, the right kind of tour for
+          your group, and every deadline. The office gets a complete request it can answer.
         </p>
 
         <div className="mt-8 flex flex-wrap gap-4">
@@ -73,32 +75,54 @@ export default async function HomePage({
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      <section className="border-l-[6px] border-l-accent-600 bg-accent-100 py-5 pl-6 pr-5">
-        <p className="text-sm font-bold uppercase tracking-wider text-accent-700">
-          Why this year <RuleTag id="R15" />
-        </p>
-        <h2 className="mt-1 text-2xl font-bold">
-          July 4, 2026 is the 250th anniversary. The weekly tour cap is the same as it was
-          in 2025.
-        </h2>
-        <p className="mt-3 max-w-3xl text-slate-700">
-          An office may host {RULES.officeSchoolToursPerWeek.value} school tour a week. That number
-          does not go up because more schools are asking. Every constraint in this app gets tighter
-          in an anniversary year, and lead time is the only one a teacher actually controls — which
-          is why the plan puts your deadlines first and why it says so in{' '}
-          <Link href="/rules#R15" className="font-bold">
-            a rule we have labelled as our own judgment
-          </Link>
-          , not as federal policy.
-        </p>
-      </section>
+      {/*
+        R15's window closes, and this page is read long after it does. Once the
+        anniversary season is over the banner stops talking about "this year"
+        and says the part that was always true: the weekly cap never moved.
+      */}
+      {toIsoDate(new Date()) <= RULES.semiquincentennial.value.peakEnd ? (
+        <section className="border-l-[6px] border-l-accent-600 bg-accent-100 py-5 pl-6 pr-5">
+          <p className="text-sm font-bold uppercase tracking-wider text-accent-700">
+            Why this year <RuleTag id="R15" />
+          </p>
+          <h2 className="mt-1 text-2xl font-bold">
+            July 4, 2026 is the 250th anniversary. The tours an office can arrange each week stay
+            the same.
+          </h2>
+          <p className="mt-3 max-w-3xl text-slate-700">
+            More schools want to come this year, and offices can still run only a limited number of
+            staff-led tours a week. Every constraint in this app gets tighter in an anniversary
+            year, and lead time is the only one a teacher actually controls — which is why the plan
+            puts your deadlines first and why it says so in{' '}
+            <Link href="/rules#R15" className="font-bold">
+              a rule we have labelled as our own judgment
+            </Link>
+            , not as federal policy.
+          </p>
+        </section>
+      ) : (
+        <section className="border-l-[6px] border-l-accent-600 bg-accent-100 py-5 pl-6 pr-5">
+          <p className="text-sm font-bold uppercase tracking-wider text-accent-700">
+            Why lead time matters <RuleTag id="R2" />
+          </p>
+          <h2 className="mt-1 text-2xl font-bold">
+            2026 was the 250th anniversary. The weekly tour limits never moved.
+          </h2>
+          <p className="mt-3 max-w-3xl text-slate-700">
+            Offices can run only a limited number of staff-led tours a week, in an anniversary year
+            and in every other year. Demand rises and falls; that number does not. Lead time is the
+            only constraint a teacher actually controls, which is why the plan puts your deadlines
+            first.
+          </p>
+        </section>
+      )}
 
       {/* Renders nothing unless CAPITOLPASS_DEMO=1. */}
       <DemoEntry />
 
       {/* ------------------------------------------------------------------ */}
       <section>
-        <h2 className="text-2xl font-bold">Why it goes wrong</h2>
+        <h2 className="text-2xl font-bold">What trips up a first-time trip</h2>
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <Card>
             <h3 className="text-lg font-bold">Two systems, no shared front door</h3>
@@ -115,20 +139,21 @@ export default async function HomePage({
           </Card>
           <Card>
             <h3 className="text-lg font-bold">
-              A class of 30 cannot go as one staff-led group <RuleTag id="R1" />
+              A full class needs a different kind of tour <RuleTag id="R1" /> <RuleTag id="R16" />
             </h3>
             <p className="mt-2 text-slate-600">
-              Staff-led tours cap at {RULES.staffLedMaxGuests.value} guests — students, teachers and
-              chaperones counted together. Most teachers find this out after they have already asked.
+              Staff-led tours take up to {RULES.staffLedMaxGuests.value} people per guide, adults
+              included. Offices can also book a guided tour for a school group of up to{' '}
+              {RULES.officeGuidedSchoolMaxGuests.value} — but you have to ask for it by name.
             </p>
           </Card>
           <Card>
             <h3 className="text-lg font-bold">
-              One school tour per office, per week <RuleTag id="R2" />
+              Office tours are limited each week <RuleTag id="R2" />
             </h3>
             <p className="mt-2 text-slate-600">
-              You are competing with every other school in your district for a single weekly slot. The
-              week you request matters more than the day.
+              Offices can run only a few staff-led tours a week, so you may be asking for the same week
+              as another school in your district. The week you request matters more than the day.
             </p>
           </Card>
           <Card>
@@ -161,7 +186,7 @@ export default async function HomePage({
           <li className="border-l-[6px] border-ink-800 pl-5">
             <h3 className="text-lg font-bold">You get a plan, not a form</h3>
             <p className="mt-1 text-slate-600">
-              The feasibility engine checks your group size against the staff-led cap, your dates
+              The feasibility engine checks your group size against the tour limits, your dates
               against the lead-time windows and the days the Capitol is closed, and gives you a
               dated critical path — request by this date, lock your headcount by that one.
             </p>
@@ -180,9 +205,9 @@ export default async function HomePage({
           <InsetText>
             <p className="font-bold text-ink-950">CapitolPass does not send email for you.</p>
             <p className="mt-1 text-slate-600">
-              Automated bulk mail to .house.gov and .senate.gov gets filtered and wastes the time of
-              people whose inboxes are a public resource. Every request leaves through a channel a
-              human chose: their form, your mailbox, or their queue.
+              Automated mail to .house.gov and .senate.gov gets filtered, and it lands on staff who
+              are already answering constituents. Every request leaves through a channel a person
+              chose: the office&rsquo;s own form, your mailbox, or the office&rsquo;s queue.
             </p>
           </InsetText>
         </div>
@@ -199,9 +224,8 @@ export default async function HomePage({
               from a ZIP code. Confirm, decline, or propose another date in one click.
             </p>
             <p className="mt-3 text-slate-600">
-              The queue includes a weekly capacity tracker, because you can only host{' '}
-              {RULES.officeSchoolToursPerWeek.value} school tour a week and nothing else you use shows
-              you that.
+              The queue includes a weekly tracker, so you can see at a glance which weeks already
+              have a school on the books, and publish the weeks you can take one.
             </p>
             <div className="mt-5">
               <ButtonLink href="/office/claim" tone="secondary">
@@ -237,7 +261,7 @@ export default async function HomePage({
       <section className="border-t border-slate-200 pt-10">
         <h2 className="text-2xl font-bold">Every rule we encode is written down</h2>
         <p className="mt-2 max-w-2xl text-slate-600">
-          The group-size cap, the weekly office limit, the lead-time windows, the days the building is
+          The group-size limits, the weekly office limit, the lead-time windows, the days the building is
           closed. Each one carries the source it came from and the date we last checked it, and each
           one is labelled as published guidance, documented practice, or our own planning judgment.
         </p>

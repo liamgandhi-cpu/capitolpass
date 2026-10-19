@@ -70,38 +70,66 @@ export const RULES = {
   // --------------------------------------------------------------------------
 
   /**
-   * RULE R1 — the single most consequential number in this app.
+   * RULE R1 — the staff-led cap.
    *
-   * A tour led by a congressional office's own staff is capped at 15 guests.
-   * This is why a class of 30 cannot go as one staff-led group, and it is the
-   * fact most teachers discover only after they have already asked their
-   * Representative's office and been told no.
+   * A tour led by a congressional office's own staff or interns takes at most
+   * 15 guests per guide, adults included. That is a limit on one *kind* of
+   * tour, not on what a school can get through its office: see R16. An earlier
+   * version of this app treated it as the ceiling on office tours altogether,
+   * and told a class of 34 it could not go through its office. That was wrong,
+   * and D16 records how it was caught.
    */
   staffLedMaxGuests: rule(
     'R1',
     15,
-    'A tour led by your Representative’s or Senator’s staff can take at most 15 people, counting students, teachers and chaperones together.',
+    'A tour led by your Representative’s or Senator’s own staff or interns takes at most 15 people per guide, counting students, teachers and chaperones together.',
     {
-      cite: 'Congressional office tour guidance, consistently published across House and Senate office websites',
-      lastVerified: '2026-08-08',
+      cite: 'Published on House and Senate office tour pages, e.g. Sen. Angus King: “staff-led tours are limited to groups of fifteen or less”; Rep. Terri Sewell: “no more than 15 guests per staffer or intern”',
+      url: 'https://www.king.senate.gov/services/visiting-dc',
+      lastVerified: '2026-10-10',
       confidence: 'documented',
     },
   ),
 
   /**
-   * RULE R2 — the constraint that makes the office queue worth building.
+   * RULE R2 — the weekly staff-led limit.
    *
-   * Each congressional office may reserve only one school tour per week. Two
-   * schools in the same district competing for the same week is a real and
-   * invisible conflict; the office-side capacity tracker exists to surface it.
+   * Offices are limited in how many staff-led tours they can run each week —
+   * published as one a week by some offices. Two schools in the same district
+   * asking for the same week is a real and invisible conflict, and it is what
+   * the office-side capacity tracker and published availability exist to
+   * surface. Practice varies by office, so this is `documented`, not
+   * `published`, and the office's own published availability always outranks it.
    */
-  officeSchoolToursPerWeek: rule(
+  officeStaffLedToursPerWeek: rule(
     'R2',
     1,
-    'Each congressional office can reserve only one school tour per week, so the week you pick matters as much as the day.',
+    'Offices can run only a limited number of staff-led tours each week — some publish it as one — so the week you pick matters as much as the day.',
     {
-      cite: 'Congressional office scheduling practice, as described in office tour request guidance',
-      lastVerified: '2026-08-08',
+      cite: 'Published on some House office tour pages, e.g. Rep. Adriano Espaillat: staff-led tours “are restricted to one tour per week with a cap at 15 people”. Practice varies by office.',
+      url: 'https://espaillat.house.gov/services/tours-tickets',
+      lastVerified: '2026-10-10',
+      confidence: 'documented',
+    },
+  ),
+
+  /**
+   * RULE R16 — the path a full class actually takes through its office.
+   *
+   * Besides staff-led tours, a congressional office can reserve a guided tour
+   * with the Capitol Visitor Center for its constituents, and school groups
+   * booked that way can be up to 50 people. Other groups booked this way are
+   * held to 15. Numbered R16 because it was added last; it sits here because it
+   * belongs with R1 and R2.
+   */
+  officeGuidedSchoolMaxGuests: rule(
+    'R16',
+    50,
+    'Your office can also book a guided Capitol tour for a school group of up to 50 people. Ask for a school group tour by name: other groups booked this way are limited to 15.',
+    {
+      cite: 'Published on congressional office tour pages, e.g. Sen. Tim Kaine and Rep. Eugene Vindman (VA-7): “school groups cannot exceed 50 persons and all other groups are limited to 15 persons”',
+      url: 'https://www.kaine.senate.gov/services/tours',
+      lastVerified: '2026-10-10',
       confidence: 'documented',
     },
   ),
@@ -332,9 +360,9 @@ export const RULES = {
    *
    * The judgment: 2026 is the worst year in living memory to leave a Capitol
    * tour request late. Every constraint this app already encodes gets tighter
-   * when demand rises, and one of them —
-   * {@link RULES.officeSchoolToursPerWeek} — does not flex at all. An office
-   * that may host one school tour a week can host one school tour a week
+   * when demand rises, and the tours an office can arrange each week —
+   * {@link RULES.officeStaffLedToursPerWeek} — do not flex at all. An office
+   * that can run one staff-led tour a week can run one staff-led tour a week
    * whether ten schools ask or a hundred. Lead time is the only variable a
    * teacher actually controls, so the app says so early and plainly rather than
    * letting them discover it in June.

@@ -69,7 +69,7 @@ export default async function NewTripPage({
               label="Trip name"
               name="title"
               required
-              hint="Something you will recognise later, like “8th Grade Civics — Capitol Trip”."
+              hint="Something you will recognise later, like “Government 12 — Capitol Trip”."
             >
               <TextInput name="title" required />
             </Field>
@@ -121,9 +121,9 @@ export default async function NewTripPage({
         <Card>
           <h2 className="text-xl font-bold">Who is coming</h2>
           <p className="mt-1 text-slate-600">
-            Count everybody. The {RULES.staffLedMaxGuests.value}-guest limit on a staff-led tour
-            includes teachers and chaperones, not just students <RuleTag id="R1" /> — this is the
-            single most common surprise in this whole process.
+            Count everybody. Tour limits include teachers and chaperones, not just students{' '}
+            <RuleTag id="R1" /> — a staff-led tour takes {RULES.staffLedMaxGuests.value} people, and
+            the total decides which kind of tour you should ask for.
           </p>
 
           <div className="mt-5 grid gap-6 sm:grid-cols-3">

@@ -49,8 +49,8 @@ describe('findPersona', () => {
       '',
       'admin',
       '../../etc/passwd',
-      'demo.teacher@lcps.org', // the email itself must not be a valid key
-      'principal@lcps.org',
+      'demo.teacher@pwcs.edu', // the email itself must not be a valid key
+      'principal@pwcs.edu',
       'TEACHER',
     ];
     for (const attempt of attempts) {
@@ -62,13 +62,13 @@ describe('findPersona', () => {
 describe('personaForEmail', () => {
   it('resolves a seeded demo account when the flag is on', () => {
     process.env.CAPITOLPASS_DEMO = '1';
-    expect(personaForEmail('demo.teacher@lcps.org')?.key).toBe('teacher');
+    expect(personaForEmail('demo.teacher@pwcs.edu')?.key).toBe('teacher');
     expect(personaForEmail('  DEMO.STAFFER@MAIL.HOUSE.GOV  ')?.key).toBe('staffer');
   });
 
   it('never marks a non-demo account as a demo persona', () => {
     process.env.CAPITOLPASS_DEMO = '1';
-    expect(personaForEmail('real.teacher@lcps.org')).toBeNull();
+    expect(personaForEmail('real.teacher@pwcs.edu')).toBeNull();
     expect(personaForEmail(null)).toBeNull();
   });
 
@@ -76,7 +76,7 @@ describe('personaForEmail', () => {
     delete process.env.CAPITOLPASS_DEMO;
     // Otherwise a deployment that seeded a demo database and then closed the
     // door would still render the banner over real screens.
-    expect(personaForEmail('demo.teacher@lcps.org')).toBeNull();
+    expect(personaForEmail('demo.teacher@pwcs.edu')).toBeNull();
   });
 });
 

@@ -1,121 +1,175 @@
 # Submission checklist
 
-Everything left, in the order that makes sense. The engineering is done; what
-remains is mostly things only you can do.
+**Deadline: 12:00 pm EDT, Monday, October 26, 2026.** That's noon, not
+midnight. After it passes the submission "cannot be modified in any way."
+Source: the [2026 CAC rules](https://www.congressionalappchallenge.us/wp-content/uploads/2026/05/2026-CAC-Rules.pdf),
+section 5. VA-10 may set its own earlier date, so check Rep. Subramanyam's CAC
+page too.
 
-**First, before anything else:** confirm the actual deadline on the Congressional
-App Challenge portal for VA-10. It is usually late October or early November,
-but offices sometimes set an earlier internal date, and every plan below hangs
-off it.
+**Aim to submit on Sunday, October 25.** Everything below is ordered to hit
+that.
+
+The engineering is done. What's left is mostly things only you can do.
 
 ---
 
-## 1. Get it deployed
+## 0. Two things to settle first
 
-Nothing else on this list is worth much until a judge can click a link.
+- [ ] **Confirm which district you're entering.** You can compete where you live
+  or where you go to school, in one district only (rulebook §1). TJ is in
+  **VA-8**: the app's own geocoder resolves its coordinates there. So entering
+  **VA-10** means your **home** address has to be in VA-10. Check it before you
+  register, since registration asks for both.
+- [ ] **Tell Rep. Subramanyam's App Challenge contact that you're entering, and
+  that you intern in the office.** The rules don't bar interns, but this office
+  judges the contest and the app features the office. Disclose it up front and
+  let them decide whether anything should be handled differently. Ask the same
+  person who you can talk to about tour rules (see
+  [`VALIDATION.md`](VALIDATION.md)).
 
+---
+
+## Suggested schedule
+
+| Dates | What |
+|---|---|
+| Oct 11–12 | Settle §0. Register on the portal (§1). Push to GitHub (§2). Deploy (§3) |
+| Oct 11–21 | One section of [`JUDGE-PREP.md`](JUDGE-PREP.md) a day |
+| Oct 12–16 | **Talk to the office's tour coordinator** about the tour rules (§4). Then teachers, if you can |
+| Oct 19–22 | Record and upload the video (§5) |
+| Oct 23–24 | Fill in the form (§6) |
+| **Oct 25** | **Last pass and submit (§7)** |
+
+---
+
+## 1. Register on the portal first
+
+Registration takes things you may have to go and find. From the rulebook, §2:
+
+- [ ] A **personal** email address, not your school account
+- [ ] Your home address with its **9-digit ZIP**, district, and Member of Congress
+- [ ] Your school's address with its **9-digit ZIP**, district, and Member of Congress
+- [ ] A parent or guardian's name and email
+- [ ] (Optional) a coding teacher or mentor's name and email
+- [ ] Complete the eligibility quiz, and wait for the email that lets you proceed
+
+Look up a 9-digit ZIP at the USPS "Look Up a ZIP Code" tool.
+
+---
+
+## 2. Put the code on GitHub
+
+There's no git remote yet, so nothing is on GitHub.
+
+- [ ] Create a **public** repo and push `main`
+- [ ] Check that `.env.local` did **not** get committed. It's in `.gitignore`, but look anyway
+- [ ] Open the repo in a private window. Check that the README renders and the screenshots show
+- [ ] Check that CI runs green on the first push
+
+---
+
+## 3. Deploy
+
+Nothing else here is worth much until a judge can click a link. `flyctl` isn't
+installed on this machine, so install it first. Full steps are in
+[`DEPLOY.md`](../DEPLOY.md).
+
+- [ ] Install flyctl and sign in
 - [ ] `fly launch --no-deploy --copy-config`
 - [ ] `fly volumes create capitolpass_data --region iad --size 1`
 - [ ] `fly deploy`
 - [ ] Change `CAPITOLPASS_SITE_URL` in [`fly.toml`](../fly.toml) if you used a different app name
 
-Then check, on the deployed URL, not on localhost:
+Then check on the deployed URL, not on localhost:
 
 - [ ] The three demo doors on the landing page each open a populated view
 - [ ] `/front-doors` loads and the grid is there
 - [ ] A student page loads, and `?lang=es` shows Spanish
 - [ ] Sign-in **redirects to your real hostname**, not to `0.0.0.0`
 
-That last one is the failure that hides. `NEXT_PUBLIC_*` variables are inlined
-at build time, so only the runtime `CAPITOLPASS_SITE_URL` actually configures a
-container. Get it wrong and sign-in sets its cookie and lands the user on a dead
-address with nothing in the logs. See [`DEPLOY.md`](../DEPLOY.md).
+That last one is the failure that hides. Only the runtime `CAPITOLPASS_SITE_URL`
+configures a container. Get it wrong and sign-in lands the user on a dead
+address with nothing in the logs.
 
-Redeploying never wipes data: the entrypoint installs the seeded database only
-when the volume is empty.
+**Keep it running until January 15, 2027.** Judging happens after the deadline,
+and winners aren't announced until the embargo lifts on January 15. Once the
+calendar passes November 30, the landing page's "Why this year" banner switches
+on its own to a version that doesn't call the anniversary upcoming.
 
 ---
 
-## 2. Talk to people
+## 4. Talk to people
 
-Start this now and let it run in the background. It is the longest lead time on
-the list and the thing almost no other submission will have.
+Guide and questions: [`VALIDATION.md`](VALIDATION.md).
 
-- [ ] Five to seven teachers, twenty minutes each
-- [ ] One person in a congressional office who handles tour requests
+- [ ] **The tour coordinator in your office, first.** Confirm or correct R1 (15 per staff-led guide), R2 (staff-led tours per week) and R16 (school groups up to 50). If anything differs, update `lib/feasibility/rules.config.ts` and cite the office
+
+- [ ] Two or three teachers is enough at this point. Your own school's social studies department is the fastest route
 - [ ] Write each one up in `submission/interviews/` the same day
-- [ ] Ask permission to quote, and whether they want to be named or described by role
+- [ ] Ask permission to quote
 
-Guide and questions: [`VALIDATION.md`](VALIDATION.md). Do not demo the app until
-question 6; everything before that is contaminated the moment they see a
-solution.
-
-If nobody replies in time, say so plainly and fall back on what you measured
-yourself. Do not imply you talked to people you did not.
+If nobody replies in time, say nothing about interviews. Don't imply you talked
+to people you didn't.
 
 ---
 
-## 3. Shoot the video
+## 5. Shoot the video
 
-Reserve the last full week for this. It is roughly a quarter of the score and
-the only thing every judge is guaranteed to watch.
+Script: [`VIDEO.md`](VIDEO.md).
 
-- [ ] `npm run db:reset && npm run db:seed` first, so dates are fresh and land on real school weekdays
+- [ ] **1–3 minutes. Target 2:45.** Over 3:00 can be penalized
+- [ ] It must include your **name**, the **app name**, a **one-sentence purpose**, the **target audience**, the **tools and languages**, and the **app working**. The script marks each one ✅
+- [ ] `npm run db:reset && npm run db:seed` the same day, then read the first-deadline number off Dana's trip
 - [ ] Record at 1280×800, no bookmarks bar, no other tabs
-- [ ] Learn the beats in [`VIDEO.md`](VIDEO.md) and say them like a person, do not read it
-- [ ] Add one real sentence about a real teacher if you have one
-- [ ] Upload a caption file, do not rely on auto-captions
-- [ ] Check the run time against the portal's limit before you publish
-- [ ] Set it public or unlisted, whichever the portal requires, and test the link in a private window
-
-The one beat that must survive any cut: **the app tells you no.** A class of 34,
-and the plan opens by saying the path you were about to take cannot seat your
-group.
-
-Two things I could not do for you and that would help: **screenshots in the
-README**, and a still frame of the 537-office grid for the video thumbnail.
-Both are five minutes with a screenshot tool.
+- [ ] Upload a caption file
+- [ ] Upload to YouTube or Vimeo, set to **public** (unlisted is not enough), and test the link in a private window
 
 ---
 
-## 4. Fill in the portal
+## 6. Fill in the form
 
-Drafts to paste: [`FORM-ANSWERS.md`](FORM-ANSWERS.md). Every number in them is
-checked against the code.
+Drafts: [`FORM-ANSWERS.md`](FORM-ANSWERS.md), matched to the rulebook's six questions.
 
 - [ ] Replace the bracketed "what inspired you" with the real story
-- [ ] Add one line about the interviews, if you did them
-- [ ] Answer the AI-assistance question straight
-- [ ] Repo link, and check it opens in a private window
+- [ ] **Write the AI disclosure honestly.** Read the box in FORM-ANSWERS first. The rules require full disclosure, and the commit history already shows it
+- [ ] Add the interviews line, or delete it
+- [ ] Paste the repo, live app, and video links
 
-Two things to decide before you submit:
+Decide deliberately:
 
-- [ ] **A LICENSE file.** There is none, which means all rights reserved. That is a perfectly defensible default and CAC does not require an open licence. Your call, but make it deliberately.
-- [ ] **The `Co-Authored-By` trailer** on every commit. It is accurate and visible on GitHub. Keeping it is the honest option; either way, disclose AI assistance on the form.
+- [ ] **A LICENSE file.** There is none, which means all rights reserved. CAC doesn't require one, and you keep the IP either way (rulebook §11). Your call
+- [ ] **Keep the `Co-Authored-By` trailers.** Rewriting history to remove them would contradict the disclosure the rules require
 
 ---
 
-## 5. Last pass, the day before
+## 7. Last pass and submit (Oct 25)
 
 - [ ] `npm run typecheck && npm run lint && npm test` all clean
 - [ ] `npm run build` succeeds
 - [ ] CI is green on GitHub
 - [ ] The deployed URL still works, including the demo doors
-- [ ] The video link works in a private window
-- [ ] `README.md` and `DECISIONS.md` render properly on GitHub, not just locally
+- [ ] The video link works in a private window, and the video is public
+- [ ] Every link in the form opens in a private window
+- [ ] **Submit.** Then screenshot the confirmation
 
 ---
 
 ## What is already done
 
-So you do not redo any of it:
+So you don't redo any of it:
 
 - Deployment config, container, and a database baked into the image
 - Three one-click demo personas, guarded and tested
 - `/front-doors`, the whole 537-office measurement, published
-- The 250th anniversary as rule R15, labelled as judgment rather than policy
+- The 250th anniversary as rule R15, labelled as judgment rather than policy, and a landing banner that stays accurate after the window closes
 - Office-published availability, shown to teachers *before* they pick dates
 - Spanish across every student and family surface
 - The critical path drawn to scale
 - Accessibility audited and three real defects fixed
-- 108 tests, CI, a decision log, and 32 commits of history
+- 110 tests, CI, a decision log (D1–D17), and the commit history
+- README screenshots in `docs/screenshots/`
+- A video script that fits the 2026 rules, form drafts matched to the 2026 questions, and a judge-prep study guide
+- Tour limits corrected against published office pages: a full class is told to ask for a guided school tour (R16), not sent away (D16)
+- The demo office's requests, availability and notes labelled as sample data everywhere they appear (D17)
+- Landing page copy rewritten so it describes the process without criticizing the offices that run it
+- An AI-assistance note in the README that matches the commit history
